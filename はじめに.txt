@@ -1,0 +1,12 @@
+【いちばんはやい iPad でみる方法】
+
+1. デスクトップの「iPadで単語テスト」を ダブルクリック
+   （なければ このフォルダの いっしょの名前の .command を ダブルクリック）
+
+2. ターミナルに でる http://192.168.〜 か http://〜.local を
+   まるごとコピーして、iPad の Safari の アドレスバーに はりつける
+   ※ https に しない  ※ Mac と iPad は おなじ Wi‑Fi
+
+3. それでもだめなら（家の Wi‑Fi のせいで LAN がつながらない）
+   https://app.netlify.com/drop に このフォルダごと ドロップ
+   → でてきた https://〜.netlify.app を iPad でひらく

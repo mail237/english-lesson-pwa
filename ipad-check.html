@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LAN 接続チェック</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+        margin: 1.25rem;
+        line-height: 1.6;
+        color: #222;
+        background: #f5f0e8;
+      }
+      h1 {
+        font-size: 1.35rem;
+        margin: 0 0 0.75rem;
+      }
+      .ok {
+        background: #d4edda;
+        border: 1px solid #28a745;
+        padding: 1rem;
+        border-radius: 12px;
+        margin: 1rem 0;
+      }
+      a {
+        color: #0b5;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>接続できています</h1>
+    <p>
+      このページが表示されたら、iPad から Mac まで <strong>同じ LAN 内で通信できています</strong>。
+    </p>
+    <div class="ok">
+      次に
+      <a href="index.html">単語テスト（トップ）</a>
+      を開いてください。
+    </div>
+    <p style="font-size: 0.95rem; color: #555">
+      ここだけ表示されるのにトップが「読み込み中」のままなら、Mac のターミナルで
+      <code>python3 serve_lan.py</code> が動いているか、Mac と iPad が同じ Wi‑Fi
+      につながっているか確認してください。
+    </p>
+  </body>
+</html>

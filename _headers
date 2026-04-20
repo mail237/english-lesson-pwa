@@ -1,0 +1,3 @@
+# Cloudflare Pages: 古い Service Worker が長く残らないようにする
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
