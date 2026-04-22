@@ -19,6 +19,12 @@
       "path": "data/lessons/m3-lesson1.json"
     },
     {
+      "track": "中3",
+      "grade": "中3",
+      "label": "Scene 3 — 写真部ワークショップ（＋現在完了の復習）",
+      "path": "data/lessons/m3-scene3-workshop-presentperfect.json"
+    },
+    {
       "track": "英会話",
       "grade": "ラジオ",
       "label": "個人用ひな形（2026-04-17 回・JSONは自分で記入）",

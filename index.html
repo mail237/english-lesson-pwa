@@ -10,13 +10,18 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>中学生の英語 — 単語テスト</title>
     <link rel="manifest" href="manifest.json" />
-    <link rel="stylesheet" href="css/wordtest.css?v=91" />
+    <link rel="stylesheet" href="css/wordtest.css?v=100" />
     <link rel="apple-touch-icon" href="icons/icon-180.png" />
   </head>
   <body>
     <header class="wt-header">
       <p class="wt-header__label">中学生の英語</p>
-      <h1 class="wt-header__title" id="wt-title">読み込み中です…</h1>
+      <div class="wt-header__row">
+        <h1 class="wt-header__title" id="wt-title">読み込み中です…</h1>
+        <button class="wt-header__home" id="wt-home" type="button">
+          学年
+        </button>
+      </div>
     </header>
 
     <main class="wt-main">
@@ -29,6 +34,6 @@
       <p>教材データは <code>data/lesson.json</code> で編集できます。</p>
     </footer>
 
-    <script src="js/wordtest.js?v=91" defer></script>
+    <script src="js/wordtest.js?v=100" defer></script>
   </body>
 </html>

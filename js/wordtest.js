@@ -4,6 +4,7 @@
   const root = document.getElementById("wt-root");
   const titleEl = document.getElementById("wt-title");
   const loadingEl = document.getElementById("wt-loading");
+  const homeBtn = document.getElementById("wt-home");
 
   let lesson = null;
   let currentLessonPath = "data/lesson.json";
@@ -545,26 +546,48 @@
     return "";
   }
 
-  function renderTrackSelect(indexJson) {
+  function lessonLabelForPath(indexJson, path) {
+    try {
+      var lessons = indexJson && Array.isArray(indexJson.lessons) ? indexJson.lessons : [];
+      var p = String(path || "").trim();
+      if (!p) return "";
+      var hit = lessons.find(function (x) {
+        return x && String(x.path || "").trim() === p;
+      });
+      if (!hit) return "";
+      var g = String(hit.grade || "").trim();
+      var label = String(hit.label || "").trim();
+      var track = lessonTrackFromEntry(hit);
+      var head = track || g;
+      return (head ? head + " — " : "") + label;
+    } catch (e) {
+      return "";
+    }
+  }
+
+  /** ホーム：まず 中1/中2/中3/英会話 を選ぶ */
+  function renderHome(indexJson) {
     if (!root) return;
     emptyRoot();
     clearTimer();
     if (window.speechSynthesis) window.speechSynthesis.cancel();
-    titleEl.textContent = "学年をえらぶ";
+    titleEl.textContent = "ホーム";
 
     var card = el("div", "wt-card wt-track-picker");
     card.appendChild(
-      el(
-        "p",
-        "wt-lead",
-        "中1・中2・中3・英会話のいずれかを選び、つぎに教材を選びます（プレイ中は切り替えできません）。"
-      )
+      el("p", "wt-lead", "学年を選ぶ → 教材を選ぶ → テスト開始")
     );
 
     var raw = indexJson && Array.isArray(indexJson.lessons) ? indexJson.lessons : [];
     var hasAny = raw.some(function (x) {
       return x && x.path && x.label;
     });
+
+    var saved = readSelectedLessonPath();
+    var lastLabel = saved ? lessonLabelForPath(indexJson, saved) : "";
+    if (lastLabel) {
+      card.appendChild(el("p", "wt-quiz__note wt-quiz__note--soft", "前回: " + lastLabel));
+    }
 
     if (!hasAny) {
       card.appendChild(
@@ -584,6 +607,14 @@
       return;
     }
 
+    var keep = el("button", "wt-btn wt-btn--primary", "前回の教材でつづける");
+    keep.type = "button";
+    keep.addEventListener("click", async function () {
+      var p = readSelectedLessonPath() || "data/lesson.json";
+      await selectLessonAndLoad(p);
+    });
+    card.appendChild(keep);
+
     var grid = el("div", "wt-track-grid");
     ["中1", "中2", "中3", "英会話"].forEach(function (tid) {
       var b = el("button", "wt-btn wt-btn--track", tid);
@@ -595,15 +626,11 @@
     });
     card.appendChild(grid);
 
-    var keep = el("button", "wt-btn wt-btn--primary", "前回の教材でつづける");
-    keep.type = "button";
-    keep.addEventListener("click", async function () {
-      var p = readSelectedLessonPath() || "data/lesson.json";
-      await selectLessonAndLoad(p);
-    });
-    card.appendChild(keep);
-
     root.appendChild(card);
+  }
+
+  function renderTrackSelect(indexJson) {
+    renderHome(indexJson);
   }
 
   function renderLessonSelect(indexJson, trackId) {
@@ -1061,6 +1088,24 @@
         "一覧の {n} 番目の語として正しい英語を選んでください。",
       quizReverseReplayJa:
         ws.quizReverseReplayJa || "英語の発音を聞く",
+      mixedQuizAfterWordTests: ws.mixedQuizAfterWordTests !== false,
+      mixedQuizTitleJa: ws.mixedQuizTitleJa || "復習テスト（ごちゃまぜ）",
+      mixedQuizChoicesNoteJa:
+        ws.mixedQuizChoicesNoteJa || "↓ 英→日 / 日→英 が混ざります。1つ選んでください",
+      mixedQuizQuestionCount:
+        typeof ws.mixedQuizQuestionCount === "number" && ws.mixedQuizQuestionCount > 0
+          ? Math.min(200, Math.floor(ws.mixedQuizQuestionCount))
+          : 0,
+      mixedQuizPassNeed:
+        typeof ws.mixedQuizPassNeed === "number" && ws.mixedQuizPassNeed > 0
+          ? Math.min(200, Math.floor(ws.mixedQuizPassNeed))
+          : 0,
+      mixedQuizPassRuleJa:
+        ws.mixedQuizPassRuleJa || "合格ライン: {need} / {total} 正解",
+      mixedQuizFailJa:
+        ws.mixedQuizFailJa ||
+        "もう少し！合格ラインに届きませんでした。もう一度やってみよう。",
+      mixedQuizRetryJa: ws.mixedQuizRetryJa || "もう一度（ごちゃまぜ）",
     };
   }
 
@@ -1572,6 +1617,12 @@
     if (!audioQuiz) return normMeaningLabel(raw);
     raw = stripEnglishFromJapaneseHint(raw);
     raw = normMeaningLabel(raw);
+    // strip の結果が空になるケース（括弧内が英語だけ等）でも空白ボタンにしない
+    if (!raw) {
+      return ordinalForBlank >= 0
+        ? "（" + String(ordinalForBlank + 1) + "番目のカードの意味）"
+        : "（別の語の意味）";
+    }
     raw = raw.replace(
       /「[A-Za-z0-9][A-Za-z0-9\s'.?~-]*」の意味/g,
       "（別の語の意味）"
@@ -1644,6 +1695,332 @@
     return shuffle(conf.words.slice());
   }
 
+  function buildMixedBaseWords(conf) {
+    // 音声周回は重複があるのでユニーク化してから混ぜる
+    var base = conf && Array.isArray(conf.words) ? conf.words : [];
+    if (conf && conf.audioQuiz === true) base = uniqueWordsPreserveOrder(base);
+    return base.slice();
+  }
+
+  function buildMixedQuestionList(conf) {
+    if (!conf || conf.mixedQuizAfterWordTests === false) return [];
+    // ごちゃまぜは「音声モードに入る前」を徹底（音声ラウンドでは実施しない）
+    if (conf.audioQuiz === true) return [];
+    var base = buildMixedBaseWords(conf);
+    if (!base.length) return [];
+    // 既定: 各語 2 回（英→日 + 日→英）
+    var qs = [];
+    base.forEach(function (w) {
+      qs.push({ dir: "en2ja", target: w });
+      qs.push({ dir: "ja2en", target: w });
+    });
+    qs = shuffle(qs);
+    var want = conf.mixedQuizQuestionCount || 0;
+    if (want > 0 && qs.length > want) qs = qs.slice(0, want);
+    return qs;
+  }
+
+  function mixedPassNeed(conf, totalQ) {
+    var need = conf.mixedQuizPassNeed || 0;
+    if (need > 0) return Math.min(totalQ, need);
+    // 既定: 音声モードの手前は「徹底」= 全問正解。それ以外は 80% など。
+    if (!audioQuizUnlocked && conf && conf.audioQuiz !== true) return totalQ;
+    if (totalQ >= 10) return Math.max(1, Math.ceil(totalQ * 0.8));
+    return totalQ;
+  }
+
+  function renderMixedFail(conf, state) {
+    if (!root) return;
+    emptyRoot();
+    clearTimer();
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    titleEl.textContent = conf.titleJa;
+
+    var total = state && state.total ? state.total : 0;
+    var correct = state && state.correct ? state.correct : 0;
+    var need = mixedPassNeed(conf, total);
+    var card = el("div", "wt-card wt-done");
+    card.appendChild(el("p", "wt-done__title", conf.mixedQuizTitleJa));
+    card.appendChild(el("p", "wt-lead", conf.mixedQuizFailJa));
+    card.appendChild(
+      el(
+        "p",
+        "wt-quiz__note wt-quiz__note--soft",
+        "結果: " + correct + " / " + total + "（合格ライン " + need + "）"
+      )
+    );
+    var actions = el("div", "wt-actions");
+    var retry = el("button", "wt-btn wt-btn--primary", conf.mixedQuizRetryJa);
+    retry.type = "button";
+    retry.addEventListener("click", function () {
+      var qs = buildMixedQuestionList(conf);
+      renderMixedQuiz(conf, qs, 0, { correct: 0 });
+    });
+    actions.appendChild(retry);
+    card.appendChild(actions);
+    root.appendChild(card);
+  }
+
+  function renderMixedQuiz(conf, questions, qIndex, state) {
+    if (!root) return;
+    clearTimer();
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    emptyRoot();
+
+    questions = Array.isArray(questions) ? questions : [];
+    state = state || { correct: 0 };
+    if (qIndex >= questions.length) {
+      var total = questions.length;
+      var need = mixedPassNeed(conf, total);
+      if ((state.correct || 0) >= need) {
+        renderDone(conf);
+      } else {
+        renderMixedFail(conf, { correct: state.correct || 0, total: total });
+      }
+      return;
+    }
+
+    titleEl.textContent = conf.titleJa;
+    var q = questions[qIndex] || {};
+    var dir = q.dir;
+    var target = q.target;
+    if (!target || !target.word) {
+      renderMixedQuiz(conf, questions, qIndex + 1, state);
+      return;
+    }
+
+    const pool = buildWordPool(lesson);
+    const keyT = normKey(target.word);
+    const card = el("div", "wt-card");
+    const synthOn = Boolean(window.speechSynthesis);
+    const head = el("p", "wt-quiz__title", conf.mixedQuizTitleJa);
+    const prog = el(
+      "p",
+      "wt-quiz__progress",
+      "問題 " + (qIndex + 1) + " / " + questions.length
+    );
+    card.appendChild(head);
+    card.appendChild(prog);
+    card.appendChild(el("p", "wt-quiz__score-hud", formatScoreHud()));
+    card.appendChild(
+      el("p", "wt-audio-quiz__choices-hint", conf.mixedQuizChoicesNoteJa)
+    );
+
+    var need = mixedPassNeed(conf, questions.length);
+    var rule = String(conf.mixedQuizPassRuleJa || "")
+      .replace(/\{need\}/g, String(need))
+      .replace(/\{total\}/g, String(questions.length));
+    card.appendChild(el("p", "wt-quiz__note wt-quiz__note--soft", rule));
+
+    const grid = el("div", "wt-choices");
+    card.appendChild(grid);
+
+    function advance(ok) {
+      var nextState = { correct: state.correct || 0 };
+      if (ok) nextState.correct += 1;
+      window.setTimeout(function () {
+        renderMixedQuiz(conf, questions, qIndex + 1, nextState);
+      }, ok ? 420 : 650);
+    }
+
+    if (dir === "ja2en") {
+      const hintHas = Boolean((target.hintJa || "").trim());
+      const usedKeys = new Set([keyT]);
+      const usedLabels = new Set([String(target.word).trim()]);
+      const wrongPick = [];
+      function pushWrongEnIfOk(w) {
+        const k = normKey(w.word);
+        if (usedKeys.has(k)) return false;
+        if (wordsAreTokenRelated(keyT, k)) return false;
+        const lab = String(w.word || "").trim();
+        if (!lab) return false;
+        if (usedLabels.has(lab)) return false;
+        usedKeys.add(k);
+        usedLabels.add(lab);
+        wrongPick.push(w);
+        return true;
+      }
+      for (var pass = 0; pass < 2; pass++) {
+        for (const w of shuffle(pool)) {
+          if (wrongPick.length >= 2) break;
+          pushWrongEnIfOk(w);
+        }
+        if (wrongPick.length >= 2) break;
+      }
+      if (wrongPick.length < 2) {
+        for (const w of shuffle(pool)) {
+          if (wrongPick.length >= 2) break;
+          const k = normKey(w.word);
+          if (usedKeys.has(k)) continue;
+          const lab = String(w.word || "").trim();
+          if (!lab || usedLabels.has(lab)) continue;
+          usedKeys.add(k);
+          usedLabels.add(lab);
+          wrongPick.push(w);
+        }
+      }
+      var jaPrompt = hintHas
+        ? normMeaningLabel(String(target.hintJa || ""))
+        : String(conf.quizReversePromptNoHintJa || "")
+            .replace(/\{n\}/g, String(originalQuizPositionForTarget(conf, target)))
+            .replace(/\{word\}/g, String(target.word).trim());
+      const prBlock = el("div", "wt-text-quiz wt-text-quiz--reverse");
+      prBlock.appendChild(el("p", "wt-quiz__big-ja", jaPrompt));
+      if (synthOn) {
+        var replayRev = el(
+          "button",
+          "wt-btn wt-btn--ghost wt-text-quiz__replay",
+          conf.quizReverseReplayJa
+        );
+        replayRev.type = "button";
+        replayRev.addEventListener("click", function () {
+          applyWordListenPenalty();
+          refreshScoreHudIn(card, false);
+          speakWord(target.word);
+        });
+        prBlock.appendChild(replayRev);
+      }
+      card.insertBefore(prBlock, grid);
+
+      const optionWords = shuffle([target, ...wrongPick]);
+      const seenEnLabels = new Set();
+      optionWords.forEach(function (opt) {
+        var enText = String(opt.word || "").trim();
+        if (seenEnLabels.has(enText)) {
+          var u = 2;
+          while (seenEnLabels.has(enText + "（" + u + "）")) u++;
+          enText = enText + "（" + u + "）";
+        }
+        seenEnLabels.add(enText);
+        const b = el("button", "wt-choice wt-choice--en-pick", enText);
+        b.type = "button";
+        b.setAttribute("aria-label", enText);
+        b.addEventListener("click", function () {
+          if (b.disabled) return;
+          const ok = normKey(opt.word) === keyT;
+          if (ok) applyCorrectAnswerPoints();
+          else resetComboStreak();
+          b.classList.add(ok ? "wt-choice--correct" : "wt-choice--wrong");
+          grid.querySelectorAll(".wt-choice").forEach(function (x) {
+            x.disabled = true;
+          });
+          function goNext() {
+            window.setTimeout(function () {
+              advance(ok);
+            }, 180);
+          }
+          if (synthOn && window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            utterEnglish(String(opt.word).trim(), "en-US", goNext);
+          } else {
+            goNext();
+          }
+        });
+        grid.appendChild(b);
+      });
+    } else {
+      // en2ja
+      const audioStyleQuiz = false; // ごちゃまぜは文字あり
+      const hintHas = Boolean((target.hintJa || "").trim());
+      const correctOrd = hintHas ? -1 : 0;
+      function labelFor(entry, ord) {
+        return normMeaningLabel(quizMeaningDisplayLabel(entry, ord, audioStyleQuiz));
+      }
+      const correctDisplay = labelFor(target, correctOrd);
+      const usedKeys = new Set([keyT]);
+      const usedMeanings = new Set([correctDisplay]);
+      const wrongPick = [];
+      function pushWrongIfOk(w, strictSimilar) {
+        const k = normKey(w.word);
+        if (usedKeys.has(k)) return false;
+        if (wordsAreTokenRelated(keyT, k)) return false;
+        const dLabel = labelFor(w, -1);
+        if (usedMeanings.has(dLabel)) return false;
+        if (strictSimilar && meaningsAreTooClose(correctDisplay, dLabel)) return false;
+        usedKeys.add(k);
+        usedMeanings.add(dLabel);
+        wrongPick.push(w);
+        return true;
+      }
+      for (var strictPass = 0; strictPass < 2; strictPass++) {
+        const strict = strictPass === 0;
+        for (const w of shuffle(pool)) {
+          if (wrongPick.length >= 2) break;
+          pushWrongIfOk(w, strict);
+        }
+        if (wrongPick.length >= 2) break;
+      }
+      if (wrongPick.length < 2) {
+        for (const w of shuffle(pool)) {
+          if (wrongPick.length >= 2) break;
+          const k = normKey(w.word);
+          if (usedKeys.has(k)) continue;
+          const dLabel = labelFor(w, -1);
+          if (usedMeanings.has(dLabel)) continue;
+          usedKeys.add(k);
+          usedMeanings.add(dLabel);
+          wrongPick.push(w);
+        }
+      }
+      const optionWords = shuffle([target, ...wrongPick]);
+      const prBlock = el("div", "wt-text-quiz");
+      prBlock.appendChild(el("p", "wt-quiz__big-en", String(target.word).trim()));
+      if (synthOn) {
+        var replayText = el(
+          "button",
+          "wt-btn wt-btn--ghost wt-text-quiz__replay",
+          conf.quizReplayEnglishJa || "英語をもう一度聞く"
+        );
+        replayText.type = "button";
+        replayText.addEventListener("click", function () {
+          applyWordListenPenalty();
+          refreshScoreHudIn(card, false);
+          speakWord(target.word);
+        });
+        prBlock.appendChild(replayText);
+      }
+      card.insertBefore(prBlock, grid);
+      const seenChoiceLabels = new Set();
+      optionWords.forEach(function (opt) {
+        const ord = normKey(opt.word) === keyT ? correctOrd : -1;
+        var meaningText = labelFor(opt, ord);
+        if (seenChoiceLabels.has(meaningText)) {
+          var u = 2;
+          while (seenChoiceLabels.has(meaningText + "（" + u + "）")) u++;
+          meaningText = meaningText + "（" + u + "）";
+        }
+        seenChoiceLabels.add(meaningText);
+        const b = el("button", "wt-choice wt-choice--ja-meaning", meaningText);
+        b.type = "button";
+        b.setAttribute("aria-label", meaningText);
+        b.addEventListener("click", function () {
+          if (b.disabled) return;
+          const ok = normKey(opt.word) === keyT;
+          if (ok) applyCorrectAnswerPoints();
+          else resetComboStreak();
+          b.classList.add(ok ? "wt-choice--correct" : "wt-choice--wrong");
+          grid.querySelectorAll(".wt-choice").forEach(function (x) {
+            x.disabled = true;
+          });
+          advance(ok);
+        });
+        grid.appendChild(b);
+      });
+      if (synthOn) window.setTimeout(function () { speakWord(target.word); }, 350);
+    }
+
+    root.appendChild(card);
+  }
+
+  function startPostWordTests(conf) {
+    var qs = buildMixedQuestionList(conf);
+    if (qs.length) {
+      renderMixedQuiz(conf, qs, 0, { correct: 0 });
+      return;
+    }
+    renderDone(conf);
+  }
+
   /** 第1クイズ（conf.words）での 先頭からの 番号（音声の重複にも対応） */
   function originalQuizPositionForTarget(conf, target) {
     var want = normKey(target.word);
@@ -1661,7 +2038,7 @@
     emptyRoot();
 
     if (qIndex >= phaseWords.length) {
-      renderDone(conf);
+      startPostWordTests(conf);
       return;
     }
 
@@ -1770,7 +2147,6 @@
       b.setAttribute("aria-label", enText);
       b.addEventListener("click", function () {
         if (b.disabled) return;
-        if (synthOn) speakWord(opt.word);
         const ok = normKey(opt.word) === keyT;
         if (ok) {
           applyCorrectAnswerPoints();
@@ -1779,9 +2155,17 @@
           grid.querySelectorAll(".wt-choice").forEach(function (x) {
             x.disabled = true;
           });
-          window.setTimeout(function () {
-            renderReverseQuiz(conf, phaseWords, qIndex + 1);
-          }, 450);
+          function goNext() {
+            window.setTimeout(function () {
+              renderReverseQuiz(conf, phaseWords, qIndex + 1);
+            }, 180);
+          }
+          if (synthOn && window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            utterEnglish(String(opt.word).trim(), "en-US", goNext);
+          } else {
+            window.setTimeout(goNext, 450);
+          }
         } else {
           resetComboStreak();
           b.classList.add("wt-choice--wrong");
@@ -1791,9 +2175,17 @@
           card.appendChild(
             el("p", "wt-quiz__note", "不正解です。次の問題へ進みます。")
           );
-          window.setTimeout(function () {
-            renderReverseQuiz(conf, phaseWords, qIndex + 1);
-          }, 650);
+          function goNextWrong() {
+            window.setTimeout(function () {
+              renderReverseQuiz(conf, phaseWords, qIndex + 1);
+            }, 180);
+          }
+          if (synthOn && window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            utterEnglish(String(opt.word).trim(), "en-US", goNextWrong);
+          } else {
+            window.setTimeout(goNextWrong, 650);
+          }
         }
       });
       grid.appendChild(b);
@@ -1814,7 +2206,7 @@
       if (phase2.length) {
         renderReverseQuiz(conf, phase2, 0);
       } else {
-        renderDone(conf);
+        startPostWordTests(conf);
       }
       return;
     }
@@ -2001,6 +2393,13 @@
     optionWords.forEach((opt, optIdx) => {
       const ord = normKey(opt.word) === keyT ? correctOrd : -1;
       var meaningText = labelFor(opt, ord);
+      // どんなデータでも空白ボタンにしない（音声テストでまれに空になる報告あり）
+      if (!meaningText) {
+        meaningText =
+          audioStyleQuiz && ord < 0
+            ? "（別の語の意味）"
+            : "（" + String((ord >= 0 ? ord : qIndex) + 1) + "番目のカードの意味）";
+      }
       if (seenChoiceLabels.has(meaningText)) {
         var u = 2;
         while (seenChoiceLabels.has(meaningText + "（" + u + "）")) u++;
@@ -2017,7 +2416,6 @@
       b.setAttribute("aria-label", meaningText);
       b.addEventListener("click", () => {
         if (b.disabled) return;
-        if (!audioStyleQuiz && window.speechSynthesis) speakWord(opt.word);
         const ok = normKey(opt.word) === keyT;
         if (ok) {
           applyCorrectAnswerPoints();
@@ -2049,7 +2447,17 @@
             }
             return;
           }
-          setTimeout(() => renderQuiz(conf, qIndex + 1), 450);
+          function goNext() {
+            window.setTimeout(function () {
+              renderQuiz(conf, qIndex + 1);
+            }, 180);
+          }
+          if (window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            utterEnglish(String(opt.word).trim(), "en-US", goNext);
+          } else {
+            window.setTimeout(goNext, 450);
+          }
         } else {
           resetComboStreak();
           if (audioStyleQuiz) {
@@ -2082,7 +2490,17 @@
             "不正解です。次の問題へ進みます。"
           );
           card.appendChild(note);
-          window.setTimeout(() => renderQuiz(conf, qIndex + 1), 650);
+          function goNextWrong() {
+            window.setTimeout(function () {
+              renderQuiz(conf, qIndex + 1);
+            }, 180);
+          }
+          if (window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            utterEnglish(String(opt.word).trim(), "en-US", goNextWrong);
+          } else {
+            window.setTimeout(goNextWrong, 650);
+          }
         }
       });
       grid.appendChild(b);
@@ -3172,6 +3590,43 @@
     var idx = await loadLessonsIndex();
     var saved = readSelectedLessonPath();
     if (saved) currentLessonPath = saved;
+    if (homeBtn && !homeBtn.__wtHooked) {
+      homeBtn.__wtHooked = true;
+      homeBtn.addEventListener("click", async function () {
+        try {
+          var ix = await loadLessonsIndex();
+          if (playerLocked) {
+            var ok = window.confirm(
+              "プレイ中です。学年選択に戻ると、このラウンドの進捗やセッション表示がリセットされます。\n戻りますか？"
+            );
+            if (!ok) return;
+            consecutivePerfectClears = 0;
+            audioQuizUnlocked = false;
+            listeningStreak = 0;
+            listeningCleared = false;
+            gameRoundScore = 0;
+            gameQuizStreak = 0;
+            gameQuizStreakRoundMax = 0;
+            grammarRoundScore = 0;
+            grammarStreak = 0;
+            grammarStreakRoundMax = 0;
+            grammarRoundTimeMs = 0;
+            grammarItemStartMs = 0;
+            grammarLastItemTimeMs = 0;
+            gameSessionTotal = 0;
+            gameSessionWordTotal = 0;
+            gameSessionGrammarTotal = 0;
+            playerLocked = false;
+            sessionUsedWordKeys.clear();
+            clearTimer();
+          }
+          renderHome(ix);
+        } catch (e) {
+          console.error(e);
+          showError("学年選択に戻れませんでした。");
+        }
+      });
+    }
     renderTrackSelect(idx);
   }
 
