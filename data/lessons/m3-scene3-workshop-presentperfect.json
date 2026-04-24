@@ -41,7 +41,7 @@
   "keywords": [
     { "word": "take pictures", "hintJa": "写真を撮る" },
     { "word": "take pictures of food", "hintJa": "食べ物の写真を撮る" },
-    { "word": "bring your camera", "hintJa": "カメラを持ってくる" },
+    { "word": "Bring your camera.", "hintJa": "カメラを持ってきて（命令）" },
     { "word": "present perfect", "hintJa": "現在完了（経験／完了／継続）" }
   ],
   "wordGlosses": {
@@ -161,6 +161,11 @@
         "promptJa": "継続（since）",
         "meaningJa": "2023年からずっと先生をしています。",
         "tokens": ["I've", "been", "a", "teacher", "since", "2023", "."]
+      },
+      {
+        "promptJa": "命令＋条件（if）",
+        "meaningJa": "持っているなら、カメラを持ってきて。",
+        "tokens": ["Bring", "your", "camera", "if", "you", "have", "one", "."]
       }
     ],
     "testStemJa": "次の【内容】になる英文になるよう、下の語を正しい順に並べなさい。",
