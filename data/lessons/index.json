@@ -1,6 +1,12 @@
 {
   "lessons": [
     {
+      "track": "中1",
+      "grade": "中1",
+      "label": "Lesson 1 — 導入（My Dictionary 基礎単語）",
+      "path": "data/lessons/m1-starter-my-dictionary.json"
+    },
+    {
       "track": "中2",
       "grade": "中2",
       "label": "Lesson 1 — Scene 1+2（部活と学校新聞）",

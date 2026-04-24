@@ -1,9 +1,9 @@
 /* 単語テスト PWA — キャッシュは最小構成だけ */
-const CACHE = "wordtest-pwa-v105";
+const CACHE = "wordtest-pwa-v106";
 const PRECACHE = [
   "./index.html",
-  "./css/wordtest.css?v=105",
-  "./js/wordtest.js?v=105",
+  "./css/wordtest.css?v=106",
+  "./js/wordtest.js?v=106",
   "./images/welcome-top.png?v=87",
   "./manifest.json",
   "./icons/icon-192.png",

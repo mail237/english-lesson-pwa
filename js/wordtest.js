@@ -2528,10 +2528,21 @@
       card.appendChild(el("p", "wt-lead", conf.listeningClearBodyJa));
     }
     root.appendChild(card);
-    // 一方通行：クリアしたら自動で文法へ
+    // 一方通行：クリアしたら自動で文法へ（文法が無い教材はホームへ戻す）
     window.setTimeout(function () {
       listeningStreak = 0;
-      renderGrammarReorder(0);
+      var gc = getGrammarConfig(lesson);
+      if (gc) {
+        renderGrammarReorder(0);
+      } else {
+        loadLessonsIndex()
+          .then(function (ix) {
+            renderHome(ix);
+          })
+          .catch(function () {
+            showError("この教材には文法テストがありません。ホームに戻れませんでした。");
+          });
+      }
     }, 450);
   }
 
@@ -3383,7 +3394,18 @@
       window.setTimeout(function () {
         listeningStreak = 0;
         listeningCleared = true;
-        renderGrammarReorder(0);
+        var gc = getGrammarConfig(lesson);
+        if (gc) {
+          renderGrammarReorder(0);
+        } else {
+          loadLessonsIndex()
+            .then(function (ix) {
+              renderHome(ix);
+            })
+            .catch(function () {
+              showError("この教材には文法テストがありません。ホームに戻れませんでした。");
+            });
+        }
       }, 350);
       return;
     }
