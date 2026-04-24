@@ -13,6 +13,12 @@
       "path": "data/lessons/m2-scene3-plus.json"
     },
     {
+      "track": "中2",
+      "grade": "中2",
+      "label": "Part 1 — ブラウン先生のお気に入りの本（Scene 1+2）",
+      "path": "data/lessons/m2-part1-msbrown-books-scene1-2.json"
+    },
+    {
       "track": "中3",
       "grade": "中3",
       "label": "Lesson 1 — 写真部のアイデア（新しいページ）",
@@ -23,12 +29,6 @@
       "grade": "中3",
       "label": "Scene 3 — 写真部ワークショップ（＋現在完了の復習）",
       "path": "data/lessons/m3-scene3-workshop-presentperfect.json"
-    },
-    {
-      "track": "中3",
-      "grade": "中3",
-      "label": "Part 1 — ブラウン先生のお気に入りの本（Scene 1+2）",
-      "path": "data/lessons/m3-part1-msbrown-books-scene1-2.json"
     },
     {
       "track": "英会話",

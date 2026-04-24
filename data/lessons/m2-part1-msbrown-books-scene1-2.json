@@ -1,7 +1,7 @@
 {
-  "id": "m3-part1-msbrown-books-scene1-2",
-  "titleJa": "中3 Part 1 — ブラウン先生のお気に入りの本（Scene 1+2）",
-  "title": "M3 Part 1 — Ms. Brown's favorite books (Scene 1+2)",
+  "id": "m2-part1-msbrown-books-scene1-2",
+  "titleJa": "中2 Part 1 — ブラウン先生のお気に入りの本（Scene 1+2）",
+  "title": "M2 Part 1 — Ms. Brown's favorite books (Scene 1+2)",
   "dialogue": [],
   "readingPassages": [
     "Scene 1 — Check:",
@@ -82,7 +82,7 @@
     "seconds": 28,
     "roundWordCount": 4,
     "audioQuizLaps": 1,
-    "titleJa": "単語テスト（中3 Part 1 Scene 1+2）",
+    "titleJa": "単語テスト（中2 Part 1 Scene 1+2）",
     "memoIntroJa": "",
     "studyHintJa": "",
     "skipDuringCountHintJa": "",
