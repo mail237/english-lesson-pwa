@@ -3,19 +3,19 @@
     {
       "track": "中2",
       "grade": "中2",
-      "label": "Scene 1+2 — 部活と学校新聞",
+      "label": "Lesson 1 — Scene 1+2（部活と学校新聞）",
       "path": "data/lesson.json"
     },
     {
       "track": "中2",
       "grade": "中2",
-      "label": "Scene 3 + 補助 — 練習試合とKaruta（＋時制/空港/博物館）",
+      "label": "Lesson 2 — Scene 3 + 補助（練習試合とKaruta＋時制/空港/博物館）",
       "path": "data/lessons/m2-scene3-plus.json"
     },
     {
       "track": "中2",
       "grade": "中2",
-      "label": "Part 1 — ブラウン先生のお気に入りの本（Scene 1+2）",
+      "label": "Lesson 3 — Part 1（ブラウン先生のお気に入りの本／Scene 1+2）",
       "path": "data/lessons/m2-part1-msbrown-books-scene1-2.json"
     },
     {
@@ -27,13 +27,13 @@
     {
       "track": "中3",
       "grade": "中3",
-      "label": "Scene 3 — 写真部ワークショップ（＋現在完了の復習）",
+      "label": "Lesson 2 — Scene 3（写真部ワークショップ＋現在完了の復習）",
       "path": "data/lessons/m3-scene3-workshop-presentperfect.json"
     },
     {
       "track": "英会話",
       "grade": "ラジオ",
-      "label": "個人用ひな形（2026-04-17 回・JSONは自分で記入）",
+      "label": "Lesson 1 — 個人用ひな形（JSONは自分で記入）",
       "path": "data/lessons/heart-gokui-ep15-2026-04-17-stub.json"
     }
   ]
