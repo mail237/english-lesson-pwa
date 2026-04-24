@@ -9,13 +9,13 @@
     {
       "track": "中2",
       "grade": "中2",
-      "label": "Lesson 2 — Scene 3 + 補助（練習試合とKaruta＋時制/空港/博物館）",
+      "label": "Lesson 1 — Scene 3 + 補助（練習試合とKaruta＋時制/空港/博物館）",
       "path": "data/lessons/m2-scene3-plus.json"
     },
     {
       "track": "中2",
       "grade": "中2",
-      "label": "Lesson 3 — Part 1（ブラウン先生のお気に入りの本／Scene 1+2）",
+      "label": "Lesson 2 — Part 1（ブラウン先生のお気に入りの本／Scene 1+2）",
       "path": "data/lessons/m2-part1-msbrown-books-scene1-2.json"
     },
     {
