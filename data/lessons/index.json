@@ -7,6 +7,30 @@
       "path": "data/lessons/m1-starter-my-dictionary.json"
     },
     {
+      "track": "中1",
+      "grade": "中1",
+      "label": "Lesson 1 Part 1 — Scene 1（はじめての英語の授業・p.26）",
+      "path": "data/lessons/m1-lesson1-part1-scene1-first-english-class.json"
+    },
+    {
+      "track": "中1",
+      "grade": "中1",
+      "label": "Lesson 1 Part 1 — Scene 2（花の自己紹介・p.27）",
+      "path": "data/lessons/m1-lesson1-part1-scene2-hana-intro.json"
+    },
+    {
+      "track": "中1",
+      "grade": "中1",
+      "label": "Lesson 1 Part 2 — Scene 1（休み時間・スポーツ・p.28）",
+      "path": "data/lessons/m1-lesson1-part2-scene1-sports-recess.json"
+    },
+    {
+      "track": "中1",
+      "grade": "中1",
+      "label": "Lesson 1 Part 2 — Scene 2（ダンスと部活・p.29）",
+      "path": "data/lessons/m1-lesson1-part2-scene2-dance-club.json"
+    },
+    {
       "track": "中2",
       "grade": "中2",
       "label": "Lesson 1 — Scene 1+2（部活と学校新聞）",

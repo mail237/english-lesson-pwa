@@ -1,0 +1,126 @@
+{
+  "id": "m1-lesson1-part1-scene1-first-english-class",
+  "titleJa": "中1 Lesson 1 Part 1 — はじめての英語の授業（Scene 1・p.26）",
+  "title": "M1 L1 Part 1 Scene 1 — First English class (p.26)",
+  "dialogue": [],
+  "readingPassages": [
+    "Part 1 — Scene 1: Ms. Brown talks with Riku and Kate in the hallway.",
+    "",
+    "Ms. Brown: Hello. I am Ms. Brown. I am from the U.K.",
+    "Riku: I am Kato Riku. I like music. I play the guitar.",
+    "Kate: I am Smith Kate. I like animals. I like the aquarium.",
+    "",
+    "Check — key patterns:",
+    "I am Kato Riku.",
+    "I like music.",
+    "",
+    "Expressions (reactions):",
+    "Cool!  Nice!  Great!  Really?  Wow!  Uh-huh.  I see.  Me, too."
+  ],
+  "vocabulary": [
+    { "word": "hello", "hintJa": "こんにちは／やあ" },
+    { "word": "Ms.", "hintJa": "〜さん（女性・未婚でも可）" },
+    { "word": "from", "hintJa": "〜出身の／〜から来た" },
+    { "word": "guitar", "hintJa": "ギター" },
+    { "word": "piano", "hintJa": "ピアノ" },
+    { "word": "music", "hintJa": "音楽" },
+    { "word": "animals", "hintJa": "動物（複数）" },
+    { "word": "play", "hintJa": "演奏する／遊ぶ／する" },
+    { "word": "like", "hintJa": "好きだ" },
+    { "word": "meet", "hintJa": "会う" },
+    { "word": "nice", "hintJa": "すてきな／いい" },
+    { "word": "cool", "hintJa": "かっこいい" },
+    { "word": "great", "hintJa": "すばらしい" },
+    { "word": "really", "hintJa": "本当に？" },
+    { "word": "wow", "hintJa": "わあ" },
+    { "word": "the U.K.", "hintJa": "イギリス" },
+    { "word": "the U.S.A.", "hintJa": "アメリカ" },
+    { "word": "aquarium", "hintJa": "水族館" },
+    { "word": "zoo", "hintJa": "動物園" }
+  ],
+  "keywords": [
+    { "word": "I am ...", "hintJa": "私は〜です" },
+    { "word": "I like ...", "hintJa": "〜が好きです" },
+    { "word": "I play the ...", "hintJa": "〜を演奏する／する" },
+    { "word": "I am from ...", "hintJa": "〜出身です" },
+    { "word": "Nice to meet you.", "hintJa": "はじめまして（会ってうれしい）" }
+  ],
+  "wordGlosses": {
+    "hello": "こんにちは",
+    "brown": "ブラウン",
+    "from": "出身",
+    "guitar": "ギター",
+    "piano": "ピアノ",
+    "music": "音楽",
+    "animals": "動物",
+    "aquarium": "水族館",
+    "play": "する",
+    "like": "好き"
+  },
+  "wordSprint": {
+    "clearsForAudioQuiz": 10,
+    "seconds": 28,
+    "roundWordCount": 5,
+    "audioQuizLaps": 1,
+    "titleJa": "単語テスト（中1 L1 Scene 1）",
+    "skipToTestButtonJa": "テストへ進む（待たない）",
+    "memoButtonJa": "学習を始める",
+    "quizReplayEnglishJa": "英語をもう一度聞く",
+    "quizTitleJa": "テスト（英語 → 日本語）",
+    "quizTitleAudioJa": "音声テスト",
+    "audioQuizChoicesNoteJa": "↓ 意味が合う日本語を 1 つ選んでください",
+    "audioQuizReplayJa": "もう一度 英語を聞く",
+    "audioQuizWrongJa": "不正解です。すぐにもう一度この問題に挑戦します。",
+    "quizPromptTemplateJa": "「{word}」の日本語の意味はどれですか。",
+    "quizPromptNoHintJa": "「{word}」（一覧の {n} 番目）の日本語の意味はどれですか。",
+    "reverseQuizAfterMeaningQuiz": true,
+    "quizTitleReverseJa": "テスト（日本語 → 英語）",
+    "quizReverseChoicesNoteJa": "↓ 意味に合う英語を 1 つ選んでください",
+    "quizReverseReplayJa": "英語の発音を聞く",
+    "mixedQuizAfterWordTests": true,
+    "mixedQuizTitleJa": "復習テスト（ごちゃまぜ）",
+    "mixedQuizQuestionCount": 0,
+    "mixedQuizPassNeed": 0,
+    "doneNextRoundJa": "次の単語テスト",
+    "doneRestartFullJa": "最初からやり直す",
+    "listeningStreakForGrammar": 12,
+    "grammarAnytimeButtonJa": "文法（並び替え）"
+  },
+  "grammarReorder": {
+    "titleJa": "文法テスト（I am / I like）",
+    "testStyle": true,
+    "mergePunctuationChips": true,
+    "autoPlayListenOnOpen": true,
+    "meaningPauseAfterCorrect": true,
+    "meaningPauseAutoAdvance": true,
+    "items": [
+      {
+        "promptJa": "I am",
+        "meaningJa": "私は加藤陸です。",
+        "tokens": ["I", "am", "Kato", "Riku", "."]
+      },
+      {
+        "promptJa": "I like",
+        "meaningJa": "音楽が好きです。",
+        "tokens": ["I", "like", "music", "."]
+      },
+      {
+        "promptJa": "I play",
+        "meaningJa": "ギターを弾きます。",
+        "tokens": ["I", "play", "the", "guitar", "."]
+      },
+      {
+        "promptJa": "出身",
+        "meaningJa": "イギリス出身です。",
+        "tokens": ["I", "am", "from", "the", "U.K.", "."]
+      }
+    ],
+    "testStemJa": "次の【内容】になる英文になるよう、下の語を正しい順に並べなさい。",
+    "submitAnswerJa": "解答する",
+    "resetTestJa": "並べ替えをやり直す",
+    "wrongTestJa": "不正解です。語の順を確かめて、もう一度解答してください。",
+    "fillAnswerTestJa": "解答欄に語を並べてから、「解答する」を押してください。",
+    "allDoneTitleJa": "文法おわり",
+    "allDoneBodyJa": "おつかれさまでした。"
+  }
+}

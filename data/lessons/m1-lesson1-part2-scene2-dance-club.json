@@ -1,0 +1,138 @@
+{
+  "id": "m1-lesson1-part2-scene2-dance-club",
+  "titleJa": "中1 Lesson 1 Part 2 — Scene 2 ダンスと部活（p.29）",
+  "title": "M1 L1 Part 2 Scene 2 — Dance and club (p.29)",
+  "dialogue": [],
+  "readingPassages": [
+    "Scene 2 — Mr. Oka and Jing:",
+    "",
+    "Mr. Oka: Are you in a club at school?",
+    "Jing: No, I'm not. I take dance lessons after school.",
+    "Mr. Oka: Wow. I dance, too! Do you like hip-hop?",
+    "Jing: Yes, I do. Are you a hip-hop dancer?",
+    "Mr. Oka: Yes, I am. I practice on Sundays."
+  ],
+  "vocabulary": [
+    { "word": "club", "hintJa": "部／クラブ" },
+    { "word": "school", "hintJa": "学校" },
+    { "word": "dance", "hintJa": "ダンス（をする）" },
+    { "word": "lessons", "hintJa": "レッスン（複数）" },
+    { "word": "after school", "hintJa": "放課後" },
+    { "word": "after", "hintJa": "〜のあと" },
+    { "word": "hip-hop", "hintJa": "ヒップホップ" },
+    { "word": "dancer", "hintJa": "ダンサー" },
+    { "word": "take", "hintJa": "受けている／とる（take lessons）" },
+    { "word": "Sunday", "hintJa": "日曜日" },
+    { "word": "Sundays", "hintJa": "日曜日に（毎週など）" },
+    { "word": "too", "hintJa": "も／〜も" },
+    { "word": "in", "hintJa": "〜に入っている（in a club）" },
+    { "word": "at", "hintJa": "〜で（at school）" },
+    { "word": "I'm", "hintJa": "I am の短縮" },
+    { "word": "not", "hintJa": "〜ない（否定）" },
+    { "word": "practice", "hintJa": "練習する" }
+  ],
+  "keywords": [
+    { "word": "Are you in a club?", "hintJa": "部に入っていますか" },
+    { "word": "after school", "hintJa": "放課後" },
+    { "word": "take dance lessons", "hintJa": "ダンスのレッスンを受けている" },
+    { "word": "hip-hop dancer", "hintJa": "ヒップホップダンサー" }
+  ],
+  "wordGlosses": {
+    "club": "部",
+    "dance": "ダンス",
+    "lessons": "レッスン",
+    "after": "あと",
+    "school": "学校",
+    "hip-hop": "ヒップホップ",
+    "dancer": "ダンサー",
+    "take": "受ける",
+    "practice": "練習する",
+    "sundays": "日曜日"
+  },
+  "wordSprint": {
+    "clearsForAudioQuiz": 10,
+    "seconds": 28,
+    "roundWordCount": 5,
+    "audioQuizLaps": 1,
+    "titleJa": "単語テスト（中1 L1 Part2 Scene2）",
+    "skipToTestButtonJa": "テストへ進む（待たない）",
+    "memoButtonJa": "学習を始める",
+    "quizReplayEnglishJa": "英語をもう一度聞く",
+    "quizTitleJa": "テスト（英語 → 日本語）",
+    "quizTitleAudioJa": "音声テスト",
+    "audioQuizChoicesNoteJa": "↓ 意味が合う日本語を 1 つ選んでください",
+    "audioQuizReplayJa": "もう一度 英語を聞く",
+    "audioQuizWrongJa": "不正解です。すぐにもう一度この問題に挑戦します。",
+    "quizPromptTemplateJa": "「{word}」の日本語の意味はどれですか。",
+    "quizPromptNoHintJa": "「{word}」（一覧の {n} 番目）の日本語の意味はどれですか。",
+    "reverseQuizAfterMeaningQuiz": true,
+    "quizTitleReverseJa": "テスト（日本語 → 英語）",
+    "quizReverseChoicesNoteJa": "↓ 意味に合う英語を 1 つ選んでください",
+    "quizReverseReplayJa": "英語の発音を聞く",
+    "mixedQuizAfterWordTests": true,
+    "mixedQuizTitleJa": "復習テスト（ごちゃまぜ）",
+    "mixedQuizQuestionCount": 0,
+    "mixedQuizPassNeed": 0,
+    "doneNextRoundJa": "次の単語テスト",
+    "doneRestartFullJa": "最初からやり直す",
+    "listeningStreakForGrammar": 12,
+    "grammarAnytimeButtonJa": "文法（並び替え）"
+  },
+  "grammarReorder": {
+    "titleJa": "文法テスト（部活・ダンス）",
+    "testStyle": true,
+    "mergePunctuationChips": true,
+    "autoPlayListenOnOpen": true,
+    "meaningPauseAfterCorrect": true,
+    "meaningPauseAutoAdvance": true,
+    "items": [
+      {
+        "promptJa": "部活",
+        "meaningJa": "学校で部に入っていますか。",
+        "tokens": ["Are", "you", "in", "a", "club", "at", "school", "?"]
+      },
+      {
+        "promptJa": "否定",
+        "meaningJa": "いいえ、入っていません。",
+        "tokens": ["No", ",", "I'm", "not", "."]
+      },
+      {
+        "promptJa": "レッスン",
+        "meaningJa": "放課後にダンスのレッスンを受けています。",
+        "tokens": ["I", "take", "dance", "lessons", "after", "school", "."]
+      },
+      {
+        "promptJa": "Do you like",
+        "meaningJa": "ヒップホップは好きですか。",
+        "tokens": ["Do", "you", "like", "hip-hop", "?"]
+      },
+      {
+        "promptJa": "Yes, I do.",
+        "meaningJa": "はい、好きです。",
+        "tokens": ["Yes", ",", "I", "do", "."]
+      },
+      {
+        "promptJa": "Are you a dancer?",
+        "meaningJa": "ヒップホップダンサーですか。",
+        "tokens": ["Are", "you", "a", "hip-hop", "dancer", "?"]
+      },
+      {
+        "promptJa": "Yes, I am.",
+        "meaningJa": "はい、そうです。",
+        "tokens": ["Yes", ",", "I", "am", "."]
+      },
+      {
+        "promptJa": "日曜に練習",
+        "meaningJa": "日曜日に練習します。",
+        "tokens": ["I", "practice", "on", "Sundays", "."]
+      }
+    ],
+    "testStemJa": "次の【内容】になる英文になるよう、下の語を正しい順に並べなさい。",
+    "submitAnswerJa": "解答する",
+    "resetTestJa": "並べ替えをやり直す",
+    "wrongTestJa": "不正解です。語の順を確かめて、もう一度解答してください。",
+    "fillAnswerTestJa": "解答欄に語を並べてから、「解答する」を押してください。",
+    "allDoneTitleJa": "文法おわり",
+    "allDoneBodyJa": "おつかれさまでした。"
+  }
+}
