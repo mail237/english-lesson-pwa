@@ -31,6 +31,24 @@
       "path": "data/lessons/m2-lesson2-part2-peter-rabbit-reading.json"
     },
     {
+      "track": "中2",
+      "grade": "中2",
+      "label": "Lesson 2 — Part 3（貸してくれる？Side Story・映画ジャンル）",
+      "path": "data/lessons/m2-lesson2-part3-side-story-borrow.json"
+    },
+    {
+      "track": "中2",
+      "grade": "中2",
+      "label": "Lesson 2 — Part 4（Small Talk Plus・お気に入りの本）",
+      "path": "data/lessons/m2-lesson2-part4-small-talk-plus.json"
+    },
+    {
+      "track": "中2",
+      "grade": "中2",
+      "label": "Lesson 2 — Part 5（Goal・おすすめの本 Read + Write）",
+      "path": "data/lessons/m2-lesson2-part5-goal-recommend-card.json"
+    },
+    {
       "track": "中3",
       "grade": "中3",
       "label": "Lesson 1 — 写真部のアイデア（新しいページ）",
