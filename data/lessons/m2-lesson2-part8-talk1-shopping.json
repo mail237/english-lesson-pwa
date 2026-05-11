@@ -1,0 +1,144 @@
+{
+  "id": "m2-lesson2-part8-talk1-shopping",
+  "titleJa": "中2 Take Action! Talk 1 — 買い物（Shopping・p.25）",
+  "title": "M2 — Take Action! Talk 1 Shopping (p.25)",
+  "dialogue": [],
+  "readingPassages": [
+    "Setting: At a concert merchandise booth, Natsumi is buying a T-shirt.",
+    "",
+    "Clerk: Hello. May I help you?",
+    "Natsumi: Yes, please. I'm looking for a T-shirt.",
+    "Clerk: How about this?",
+    "Natsumi: It's cute. Do you have it in other colors?",
+    "Clerk: Yes. We have it in pink, purple, green, and blue.",
+    "Natsumi: I like the green one. How much is it?",
+    "Clerk: It's 25 dollars.",
+    "Natsumi: Great. I'll take it.",
+    "",
+    "Role-play variation (examples):",
+    "Sweater — blue, red ($30)",
+    "Cap — black, pink ($15)"
+  ],
+  "vocabulary": [
+    { "word": "T-shirt", "hintJa": "Tシャツ" },
+    { "word": "may", "hintJa": "〜してもよい（許可・丁寧な申し出）" },
+    { "word": "hello", "hintJa": "こんにちは" },
+    { "word": "suggest", "hintJa": "提案する／すすめる" },
+    { "word": "help", "hintJa": "手伝う／お手伝いしましょうか" },
+    { "word": "looking for", "hintJa": "〜を探している" },
+    { "word": "cute", "hintJa": "かわいい" },
+    { "word": "color", "hintJa": "色" },
+    { "word": "pink", "hintJa": "ピンク（色）" },
+    { "word": "purple", "hintJa": "紫" },
+    { "word": "green", "hintJa": "緑" },
+    { "word": "blue", "hintJa": "青" },
+    { "word": "dollar", "hintJa": "ドル（通貨）" },
+    { "word": "sweater", "hintJa": "セーター" },
+    { "word": "cap", "hintJa": "帽子（ぼうし）" },
+    { "word": "booth", "hintJa": "売り場／ブース" },
+    { "word": "merchandise", "hintJa": "グッズ／販売品" }
+  ],
+  "keywords": [
+    { "word": "May I help you?", "hintJa": "いらっしゃいませ／お手伝いしましょうか" },
+    { "word": "How about ...?", "hintJa": "〜はどうですか（提案）" },
+    { "word": "I'm looking for ...", "hintJa": "〜を探しています" },
+    { "word": "Do you have it in other colors?", "hintJa": "ほかの色もありますか" },
+    { "word": "I'll take it.", "hintJa": "それにします／いただきます" },
+    { "word": "How much is it?", "hintJa": "いくらですか" },
+    { "word": "I suggest ...", "hintJa": "〜を提案します" }
+  ],
+  "wordGlosses": {
+    "may": "〜してよい",
+    "hello": "こんにちは",
+    "help": "手伝う",
+    "looking": "探している",
+    "cute": "かわいい",
+    "colors": "色",
+    "great": "すばらしい／よし",
+    "dollars": "ドル",
+    "take": "買う／もらう",
+    "sweater": "セーター",
+    "purple": "紫",
+    "green": "緑",
+    "pink": "ピンク",
+    "blue": "青",
+    "much": "いくら",
+    "please": "お願いします"
+  },
+  "wordSprint": {
+    "clearsForAudioQuiz": 10,
+    "seconds": 28,
+    "roundWordCount": 6,
+    "audioQuizLaps": 1,
+    "titleJa": "単語テスト（中2 Talk 1 買い物）",
+    "skipToTestButtonJa": "テストへ進む（待たない）",
+    "memoButtonJa": "学習を始める",
+    "quizReplayEnglishJa": "英語をもう一度聞く",
+    "quizTitleJa": "テスト（英語 → 日本語）",
+    "quizTitleAudioJa": "音声テスト",
+    "audioQuizChoicesNoteJa": "↓ 意味が合う日本語を 1 つ選んでください",
+    "audioQuizReplayJa": "もう一度 英語を聞く",
+    "audioQuizWrongJa": "不正解です。すぐにもう一度この問題に挑戦します。",
+    "quizPromptTemplateJa": "「{word}」の日本語の意味はどれですか。",
+    "quizPromptNoHintJa": "「{word}」（一覧の {n} 番目）の日本語の意味はどれですか。",
+    "reverseQuizAfterMeaningQuiz": true,
+    "quizTitleReverseJa": "テスト（日本語 → 英語）",
+    "quizReverseChoicesNoteJa": "↓ 意味に合う英語を 1 つ選んでください",
+    "quizReverseReplayJa": "英語の発音を聞く",
+    "mixedQuizAfterWordTests": true,
+    "mixedQuizTitleJa": "復習テスト（ごちゃまぜ）",
+    "mixedQuizQuestionCount": 0,
+    "mixedQuizPassNeed": 0,
+    "doneNextRoundJa": "次の単語テスト",
+    "doneRestartFullJa": "最初からやり直す",
+    "listeningStreakForGrammar": 15,
+    "grammarAnytimeButtonJa": "文法（並び替え）"
+  },
+  "grammarReorder": {
+    "titleJa": "文法テスト（店での会話）",
+    "testStyle": true,
+    "mergePunctuationChips": true,
+    "autoPlayListenOnOpen": true,
+    "meaningPauseAfterCorrect": true,
+    "meaningPauseAutoAdvance": true,
+    "items": [
+      {
+        "promptJa": "店員のあいさつ",
+        "meaningJa": "こんにちは。お手伝いしましょうか。",
+        "tokens": ["Hello", ".", "May", "I", "help", "you", "?"]
+      },
+      {
+        "promptJa": "探しているもの",
+        "meaningJa": "Tシャツを探しています。",
+        "tokens": ["I'm", "looking", "for", "a", "T-shirt", "."]
+      },
+      {
+        "promptJa": "提案",
+        "meaningJa": "これはどうですか。",
+        "tokens": ["How", "about", "this", "?"]
+      },
+      {
+        "promptJa": "色を聞く",
+        "meaningJa": "ほかの色もありますか。",
+        "tokens": ["Do", "you", "have", "it", "in", "other", "colors", "?"]
+      },
+      {
+        "promptJa": "値段を聞く",
+        "meaningJa": "いくらですか。",
+        "tokens": ["How", "much", "is", "it", "?"]
+      },
+      {
+        "promptJa": "購入の決め",
+        "meaningJa": "それにします。",
+        "tokens": ["I'll", "take", "it", "."]
+      }
+    ],
+    "testStemJa": "次の【内容】になる英文になるよう、下の語を正しい順に並べなさい。",
+    "submitAnswerJa": "解答する",
+    "resetTestJa": "並べ替えをやり直す",
+    "wrongTestJa": "不正解です。語の順を確かめて、もう一度解答してください。",
+    "fillAnswerTestJa": "解答欄に語を並べてから、「解答する」を押してください。",
+    "allDoneTitleJa": "文法おわり",
+    "allDoneBodyJa": "おつかれさまでした。"
+  }
+}

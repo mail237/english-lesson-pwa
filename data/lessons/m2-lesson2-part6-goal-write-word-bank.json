@@ -1,0 +1,133 @@
+{
+  "id": "m2-lesson2-part6-goal-write-word-bank",
+  "titleJa": "中2 Lesson 2 Part 6 — Goal 書く・Word Bank（p.23）",
+  "title": "M2 L2 Part 6 — Goal write + word bank (p.23)",
+  "dialogue": [],
+  "readingPassages": [
+    "Read — Riku's card (again):",
+    "Genre: fantasy. A young witch goes to a faraway town for training.",
+    "Reasons: easy vocabulary, heartwarming story.",
+    "",
+    "Write — goal:",
+    "Write a card introducing a Japanese book or story that helps people study Japanese.",
+    "",
+    "Word bank — useful sentences:",
+    "The book is popular among teenagers.",
+    "The author writes many good novels.",
+    "The story encourages you.",
+    "The story has a happy ending.",
+    "The main character is positive."
+  ],
+  "vocabulary": [
+    { "word": "popular", "hintJa": "人気のある" },
+    { "word": "positive", "hintJa": "積極的な／前向きな" },
+    { "word": "author", "hintJa": "作者" },
+    { "word": "novels", "hintJa": "小説（複数）" },
+    { "word": "ending", "hintJa": "結末／終わり方" },
+    { "word": "happy ending", "hintJa": "ハッピーエンド" },
+    { "word": "among", "hintJa": "〜の中で" },
+    { "word": "teenagers", "hintJa": "十代の若者たち" },
+    { "word": "write", "hintJa": "書く" },
+    { "word": "feedback", "hintJa": "感想・フィードバック" },
+    { "word": "advice", "hintJa": "助言・アドバイス" },
+    { "word": "exchange", "hintJa": "交換する" },
+    { "word": "pair", "hintJa": "ペア／組" },
+    { "word": "reason", "hintJa": "理由" },
+    { "word": "reader", "hintJa": "読み手" }
+  ],
+  "keywords": [
+    { "word": "The book is popular among teenagers.", "hintJa": "その本は10代の間で人気がある" },
+    { "word": "The author writes many good novels.", "hintJa": "その作者はよい小説をたくさん書く" },
+    { "word": "The story encourages you.", "hintJa": "その物語はあなたを勇気づける" },
+    { "word": "The story has a happy ending.", "hintJa": "その物語はハッピーエンドだ" },
+    { "word": "The main character is positive.", "hintJa": "主人公が積極的だ" }
+  ],
+  "wordGlosses": {
+    "popular": "人気の",
+    "positive": "積極的な",
+    "author": "作者",
+    "novels": "小説",
+    "ending": "結末",
+    "happy": "幸せな",
+    "teenagers": "十代",
+    "among": "〜の中で",
+    "writes": "書く",
+    "many": "たくさん",
+    "good": "よい",
+    "story": "物語",
+    "encourages": "勇気づける",
+    "character": "登場人物",
+    "main": "主な"
+  },
+  "wordSprint": {
+    "clearsForAudioQuiz": 10,
+    "seconds": 28,
+    "roundWordCount": 6,
+    "audioQuizLaps": 1,
+    "titleJa": "単語テスト（中2 L2 Part 6 Goal Word Bank）",
+    "skipToTestButtonJa": "テストへ進む（待たない）",
+    "memoButtonJa": "学習を始める",
+    "quizReplayEnglishJa": "英語をもう一度聞く",
+    "quizTitleJa": "テスト（英語 → 日本語）",
+    "quizTitleAudioJa": "音声テスト",
+    "audioQuizChoicesNoteJa": "↓ 意味が合う日本語を 1 つ選んでください",
+    "audioQuizReplayJa": "もう一度 英語を聞く",
+    "audioQuizWrongJa": "不正解です。すぐにもう一度この問題に挑戦します。",
+    "quizPromptTemplateJa": "「{word}」の日本語の意味はどれですか。",
+    "quizPromptNoHintJa": "「{word}」（一覧の {n} 番目）の日本語の意味はどれですか。",
+    "reverseQuizAfterMeaningQuiz": true,
+    "quizTitleReverseJa": "テスト（日本語 → 英語）",
+    "quizReverseChoicesNoteJa": "↓ 意味に合う英語を 1 つ選んでください",
+    "quizReverseReplayJa": "英語の発音を聞く",
+    "mixedQuizAfterWordTests": true,
+    "mixedQuizTitleJa": "復習テスト（ごちゃまぜ）",
+    "mixedQuizQuestionCount": 0,
+    "mixedQuizPassNeed": 0,
+    "doneNextRoundJa": "次の単語テスト",
+    "doneRestartFullJa": "最初からやり直す",
+    "listeningStreakForGrammar": 15,
+    "grammarAnytimeButtonJa": "文法（並び替え）"
+  },
+  "grammarReorder": {
+    "titleJa": "文法テスト（Word Bankの文）",
+    "testStyle": true,
+    "mergePunctuationChips": true,
+    "autoPlayListenOnOpen": true,
+    "meaningPauseAfterCorrect": true,
+    "meaningPauseAutoAdvance": true,
+    "items": [
+      {
+        "promptJa": "人気",
+        "meaningJa": "その本は10代の若者の間で人気がある。",
+        "tokens": ["The", "book", "is", "popular", "among", "teenagers", "."]
+      },
+      {
+        "promptJa": "作者",
+        "meaningJa": "その著者はよい小説をたくさん書く。",
+        "tokens": ["The", "author", "writes", "many", "good", "novels", "."]
+      },
+      {
+        "promptJa": "勇気づける",
+        "meaningJa": "その物語はあなたを勇気づける。",
+        "tokens": ["The", "story", "encourages", "you", "."]
+      },
+      {
+        "promptJa": "ハッピーエンド",
+        "meaningJa": "その物語はハッピーエンドだ。",
+        "tokens": ["The", "story", "has", "a", "happy", "ending", "."]
+      },
+      {
+        "promptJa": "主人公",
+        "meaningJa": "主人公が積極的だ。",
+        "tokens": ["The", "main", "character", "is", "positive", "."]
+      }
+    ],
+    "testStemJa": "次の【内容】になる英文になるよう、下の語を正しい順に並べなさい。",
+    "submitAnswerJa": "解答する",
+    "resetTestJa": "並べ替えをやり直す",
+    "wrongTestJa": "不正解です。語の順を確かめて、もう一度解答してください。",
+    "fillAnswerTestJa": "解答欄に語を並べてから、「解答する」を押してください。",
+    "allDoneTitleJa": "文法おわり",
+    "allDoneBodyJa": "おつかれさまでした。"
+  }
+}

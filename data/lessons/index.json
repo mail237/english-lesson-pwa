@@ -49,6 +49,24 @@
       "path": "data/lessons/m2-lesson2-part5-goal-recommend-card.json"
     },
     {
+      "track": "中2",
+      "grade": "中2",
+      "label": "Lesson 2 — Part 6（Goal 書く・Word Bank・p.23）",
+      "path": "data/lessons/m2-lesson2-part6-goal-write-word-bank.json"
+    },
+    {
+      "track": "中2",
+      "grade": "中2",
+      "label": "Lesson 2 — Part 7（Language Focus 2・接続詞・p.24）",
+      "path": "data/lessons/m2-lesson2-part7-language-focus-conjunctions.json"
+    },
+    {
+      "track": "中2",
+      "grade": "中2",
+      "label": "Take Action! Talk 1 — 買い物（Shopping・p.25）",
+      "path": "data/lessons/m2-lesson2-part8-talk1-shopping.json"
+    },
+    {
       "track": "中3",
       "grade": "中3",
       "label": "Lesson 1 — 写真部のアイデア（新しいページ）",
