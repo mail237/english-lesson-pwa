@@ -25,6 +25,12 @@
       "path": "data/lessons/m2-part1-msbrown-books-scene1-2.json"
     },
     {
+      "track": "中2",
+      "grade": "中2",
+      "label": "Lesson 2 — Part 2（ピーターラビットを読んで／think that・Scene 1+2）",
+      "path": "data/lessons/m2-lesson2-part2-peter-rabbit-reading.json"
+    },
+    {
       "track": "中3",
       "grade": "中3",
       "label": "Lesson 1 — 写真部のアイデア（新しいページ）",
