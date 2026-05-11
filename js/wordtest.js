@@ -626,6 +626,35 @@
     });
     card.appendChild(grid);
 
+    var coll = el("div", "wt-actions wt-actions--collection");
+    var bStampH = el("button", "wt-btn wt-btn--ghost", "スタンプ図鑑");
+    bStampH.type = "button";
+    bStampH.addEventListener("click", async function () {
+      var ok = await ensureLessonForStampWeak();
+      if (!ok) {
+        showError(
+          "まず教材を選んでください。「前回の教材でつづける」または学年から選んでください。"
+        );
+        return;
+      }
+      renderStampBook();
+    });
+    coll.appendChild(bStampH);
+    var bWeakH = el("button", "wt-btn wt-btn--ghost", "苦手リスト");
+    bWeakH.type = "button";
+    bWeakH.addEventListener("click", async function () {
+      var ok = await ensureLessonForStampWeak();
+      if (!ok) {
+        showError(
+          "まず教材を選んでください。「前回の教材でつづける」または学年から選んでください。"
+        );
+        return;
+      }
+      renderWeakList();
+    });
+    coll.appendChild(bWeakH);
+    card.appendChild(coll);
+
     root.appendChild(card);
   }
 
@@ -760,6 +789,53 @@
       .trim()
       .toLowerCase()
       .replace(/[.!?…,;:：。、]+$/g, "");
+  }
+
+  function wordStatsStorageKey() {
+    var lid = lesson && lesson.id ? lesson.id : "default";
+    var pid = currentPlayerId || "";
+    if (!pid) {
+      try {
+        pid = String(localStorage.getItem(currentPlayerStorageKey()) || "").trim();
+      } catch (e) {
+        pid = "";
+      }
+    }
+    if (!pid) pid = "default";
+    return "wordtest-wordstats-" + lid + "-" + pid;
+  }
+
+  function loadWordStats() {
+    try {
+      var raw = localStorage.getItem(wordStatsStorageKey());
+      var o = raw ? JSON.parse(raw) : null;
+      return o && typeof o === "object" && !Array.isArray(o) ? o : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveWordStats(map) {
+    try {
+      localStorage.setItem(wordStatsStorageKey(), JSON.stringify(map || {}));
+    } catch (e) {
+      /* ignore */
+    }
+  }
+
+  /** スタンプ図鑑・苦手リスト用（問題の正解語をキーに正誤を積む） */
+  function recordWordStat(displayWord, isCorrect) {
+    var disp = String(displayWord || "").trim();
+    var k = normKey(disp);
+    if (!k) return;
+    var map = loadWordStats();
+    var cur = map[k];
+    if (!cur || typeof cur !== "object") cur = { c: 0, w: 0, d: disp };
+    cur.d = (cur.d && String(cur.d).trim()) || disp;
+    if (isCorrect) cur.c = (parseInt(cur.c, 10) || 0) + 1;
+    else cur.w = (parseInt(cur.w, 10) || 0) + 1;
+    map[k] = cur;
+    saveWordStats(map);
   }
 
   /** That's / it's など「1語としては意味がとりにくい」省略形（会話からは取り込まない） */
@@ -1107,6 +1183,211 @@
         "もう少し！合格ラインに届きませんでした。もう一度やってみよう。",
       mixedQuizRetryJa: ws.mixedQuizRetryJa || "もう一度（ごちゃまぜ）",
     };
+  }
+
+  function navigateBackFromWordCollection() {
+    var next = sprintConfig(lesson);
+    if (next) renderWelcome(next, { shortIntro: false });
+    else loadLessonsIndex().then(renderHome);
+  }
+
+  async function ensureLessonForStampWeak() {
+    if (lesson) return true;
+    var p = readSelectedLessonPath();
+    if (!p) return false;
+    try {
+      currentLessonPath = String(p);
+      lesson = await loadLessonJson();
+      ensureDefaultPlayer();
+      getCurrentPlayer();
+      return Boolean(lesson);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function renderStampBook() {
+    if (!root) return;
+    emptyRoot();
+    clearTimer();
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    titleEl.textContent = "スタンプ図鑑";
+    var card = el("div", "wt-card wt-stampbook");
+    if (!lesson) {
+      card.appendChild(
+        el(
+          "p",
+          "wt-lead",
+          "教材を読み込めませんでした。ホームから選び直してください。"
+        )
+      );
+      var b0 = el("button", "wt-btn wt-btn--primary", "ホームへ");
+      b0.type = "button";
+      b0.addEventListener("click", function () {
+        loadLessonsIndex().then(renderHome);
+      });
+      card.appendChild(b0);
+      root.appendChild(card);
+      return;
+    }
+    card.appendChild(
+      el(
+        "p",
+        "wt-lead",
+        "一度でもクイズで正解した単語にスタンプ（★）がつきます。"
+      )
+    );
+    var pool = buildWordPool(lesson);
+    var stats = loadWordStats();
+    var rows = pool.slice().sort(function (a, b) {
+      var ka = normKey(a.word);
+      var kb = normKey(b.word);
+      var sa = stats[ka];
+      var sb = stats[kb];
+      var ca = sa && (parseInt(sa.c, 10) || 0) > 0 ? 1 : 0;
+      var cb = sb && (parseInt(sb.c, 10) || 0) > 0 ? 1 : 0;
+      if (cb !== ca) return cb - ca;
+      return String(a.word).localeCompare(String(b.word), "en");
+    });
+    var stamped = 0;
+    rows.forEach(function (entry) {
+      var k = normKey(entry.word);
+      var s = stats[k];
+      var c = s ? parseInt(s.c, 10) || 0 : 0;
+      if (c > 0) stamped++;
+      var mark = el("span", "wt-stamp__mark", c > 0 ? "★" : "○");
+      var line = el("div", "wt-stamp__row");
+      line.appendChild(mark);
+      var mid = el("div", "wt-stamp__mid");
+      mid.appendChild(el("p", "wt-stamp__en", String(entry.word).trim()));
+      var hj = (entry.hintJa || "").trim();
+      if (hj) mid.appendChild(el("p", "wt-stamp__ja", hj));
+      line.appendChild(mid);
+      var wct = s ? parseInt(s.w, 10) || 0 : 0;
+      if (c > 0 || wct > 0) {
+        var cntLabel =
+          c > 0
+            ? "正" + c + (wct ? " · まちがい" + wct : "")
+            : "まちがい" + wct;
+        line.appendChild(el("p", "wt-stamp__counts", cntLabel));
+      }
+      card.appendChild(line);
+    });
+    if (!rows.length) {
+      card.appendChild(
+        el("p", "wt-quiz__note", "この教材に単語がありません。")
+      );
+    } else {
+      card.appendChild(
+        el(
+          "p",
+          "wt-quiz__note wt-quiz__note--soft",
+          "★ " + stamped + " / " + rows.length + " コレクション"
+        )
+      );
+    }
+    var actions = el("div", "wt-actions");
+    var weakBtn = el("button", "wt-btn wt-btn--ghost", "苦手リスト");
+    weakBtn.type = "button";
+    weakBtn.addEventListener("click", function () {
+      renderWeakList();
+    });
+    actions.appendChild(weakBtn);
+    var back = el("button", "wt-btn wt-btn--ghost", "もどる");
+    back.type = "button";
+    back.addEventListener("click", navigateBackFromWordCollection);
+    actions.appendChild(back);
+    card.appendChild(actions);
+    root.appendChild(card);
+  }
+
+  function renderWeakList() {
+    if (!root) return;
+    emptyRoot();
+    clearTimer();
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    titleEl.textContent = "苦手リスト";
+    var card = el("div", "wt-card wt-weaklist");
+    if (!lesson) {
+      card.appendChild(
+        el(
+          "p",
+          "wt-lead",
+          "教材を読み込めませんでした。ホームから選び直してください。"
+        )
+      );
+      var b0 = el("button", "wt-btn wt-btn--primary", "ホームへ");
+      b0.type = "button";
+      b0.addEventListener("click", function () {
+        loadLessonsIndex().then(renderHome);
+      });
+      card.appendChild(b0);
+      root.appendChild(card);
+      return;
+    }
+    card.appendChild(
+      el(
+        "p",
+        "wt-lead",
+        "クイズでまちがえた回数が多い順です（最大 30 語）。"
+      )
+    );
+    var pool = buildWordPool(lesson);
+    var byKey = {};
+    pool.forEach(function (e) {
+      byKey[normKey(e.word)] = e;
+    });
+    var stats = loadWordStats();
+    var items = Object.keys(stats)
+      .map(function (k) {
+        var s = stats[k];
+        var w = parseInt(s.w, 10) || 0;
+        if (w <= 0) return null;
+        var ent = byKey[k] || { word: (s.d && String(s.d).trim()) || k, hintJa: "" };
+        return { k: k, w: w, c: parseInt(s.c, 10) || 0, ent: ent };
+      })
+      .filter(Boolean)
+      .sort(function (a, b) {
+        if (b.w !== a.w) return b.w - a.w;
+        return String(a.ent.word).localeCompare(String(b.ent.word), "en");
+      })
+      .slice(0, 30);
+    if (!items.length) {
+      card.appendChild(
+        el(
+          "p",
+          "wt-quiz__note",
+          "まだまちがえた記録がありません。テストに挑戦してみよう！"
+        )
+      );
+    } else {
+      items.forEach(function (it) {
+        var row = el("div", "wt-weak__row");
+        row.appendChild(el("span", "wt-weak__badge", String(it.w)));
+        var mid = el("div", "wt-stamp__mid");
+        mid.appendChild(el("p", "wt-stamp__en", String(it.ent.word).trim()));
+        var hj = (it.ent.hintJa || "").trim();
+        if (hj) mid.appendChild(el("p", "wt-stamp__ja", hj));
+        row.appendChild(mid);
+        if (it.c > 0) {
+          row.appendChild(el("p", "wt-stamp__counts", "正解も " + it.c));
+        }
+        card.appendChild(row);
+      });
+    }
+    var actions = el("div", "wt-actions");
+    var stampBtn = el("button", "wt-btn wt-btn--ghost", "スタンプ図鑑");
+    stampBtn.type = "button";
+    stampBtn.addEventListener("click", function () {
+      renderStampBook();
+    });
+    actions.appendChild(stampBtn);
+    var back = el("button", "wt-btn wt-btn--ghost", "もどる");
+    back.type = "button";
+    back.addEventListener("click", navigateBackFromWordCollection);
+    actions.appendChild(back);
+    card.appendChild(actions);
+    root.appendChild(card);
   }
 
   function hasText(t) {
@@ -1466,6 +1747,21 @@
         el("p", "wt-player__lock-note", "※プレイ中は切り替えできません")
       );
     }
+
+    var collW = el("div", "wt-actions wt-actions--collection");
+    var bStampW = el("button", "wt-btn wt-btn--ghost", "スタンプ図鑑");
+    bStampW.type = "button";
+    bStampW.addEventListener("click", function () {
+      renderStampBook();
+    });
+    collW.appendChild(bStampW);
+    var bWeakW = el("button", "wt-btn wt-btn--ghost", "苦手リスト");
+    bWeakW.type = "button";
+    bWeakW.addEventListener("click", function () {
+      renderWeakList();
+    });
+    collW.appendChild(bWeakW);
+    card.appendChild(collW);
 
     card.appendChild(btn);
 
@@ -1900,6 +2196,7 @@
           const ok = normKey(opt.word) === keyT;
           if (ok) applyCorrectAnswerPoints();
           else resetComboStreak();
+          recordWordStat(String(target.word).trim(), ok);
           b.classList.add(ok ? "wt-choice--correct" : "wt-choice--wrong");
           grid.querySelectorAll(".wt-choice").forEach(function (x) {
             x.disabled = true;
@@ -1998,6 +2295,7 @@
           const ok = normKey(opt.word) === keyT;
           if (ok) applyCorrectAnswerPoints();
           else resetComboStreak();
+          recordWordStat(String(target.word).trim(), ok);
           b.classList.add(ok ? "wt-choice--correct" : "wt-choice--wrong");
           grid.querySelectorAll(".wt-choice").forEach(function (x) {
             x.disabled = true;
@@ -2150,6 +2448,7 @@
         const ok = normKey(opt.word) === keyT;
         if (ok) {
           applyCorrectAnswerPoints();
+          recordWordStat(String(target.word).trim(), true);
           b.classList.add("wt-choice--correct");
           b.disabled = true;
           grid.querySelectorAll(".wt-choice").forEach(function (x) {
@@ -2168,6 +2467,7 @@
           }
         } else {
           resetComboStreak();
+          recordWordStat(String(target.word).trim(), false);
           b.classList.add("wt-choice--wrong");
           grid.querySelectorAll(".wt-choice").forEach(function (x) {
             x.disabled = true;
@@ -2419,6 +2719,7 @@
         const ok = normKey(opt.word) === keyT;
         if (ok) {
           applyCorrectAnswerPoints();
+          recordWordStat(String(target.word).trim(), true);
           b.classList.add("wt-choice--correct");
           b.disabled = true;
           grid.querySelectorAll(".wt-choice").forEach((x) => {
@@ -2460,6 +2761,7 @@
           }
         } else {
           resetComboStreak();
+          recordWordStat(String(target.word).trim(), false);
           if (audioStyleQuiz) {
             b.classList.add("wt-choice--wrong");
             grid.querySelectorAll(".wt-choice").forEach((x) => {
