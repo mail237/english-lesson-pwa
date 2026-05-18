@@ -99,6 +99,18 @@
     {
       "track": "中3",
       "grade": "中3",
+      "label": "Lesson 2 Part 1 — Scene 1（文化祭で演奏する曲・p.16）",
+      "path": "data/lessons/m3-lesson2-part1-scene1-festival-songs.json"
+    },
+    {
+      "track": "中3",
+      "grade": "中3",
+      "label": "Lesson 2 — Scene 2（曲を選ぶ・Count on Me・p.17）",
+      "path": "data/lessons/m3-lesson2-scene2-choose-song.json"
+    },
+    {
+      "track": "中3",
+      "grade": "中3",
       "label": "Lesson 2 — Scene 3（写真部ワークショップ＋現在完了の復習）",
       "path": "data/lessons/m3-scene3-workshop-presentperfect.json"
     },

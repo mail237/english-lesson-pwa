@@ -1,0 +1,141 @@
+{
+  "id": "m3-lesson2-scene2-choose-song",
+  "titleJa": "中3 Lesson 2 — Scene 2 曲を選ぶ（Count on Me・p.17）",
+  "title": "M3 L2 Scene 2 — Choosing a song (p.17)",
+  "dialogue": [],
+  "readingPassages": [
+    "Scene 2 — Riku, Peter, and Jing talk about songs for the culture festival:",
+    "",
+    "Riku: We need to choose between two songs for the festival. What do you think, Peter?",
+    "Peter: I think Shake It Off is better because it's catchy. The audience can sing along.",
+    "Riku: Sounds like fun, but the festival's theme is kizuna. We should consider the theme when we choose the song.",
+    "Peter: Yes, you're right.",
+    "Jing: I have been listening to Count on Me lately. It's a song about friendship. I think the lyrics will move the audience.",
+    "Riku: I agree. Count on Me is the best choice."
+  ],
+  "vocabulary": [
+    { "word": "catchy", "hintJa": "耳に残る／覚えやすい（メロディなど）" },
+    { "word": "audience", "hintJa": "観客／聴衆" },
+    { "word": "sound like", "hintJa": "〜のように聞こえる／〜らしい" },
+    { "word": "consider", "hintJa": "考慮する／よく考える" },
+    { "word": "lately", "hintJa": "最近" },
+    { "word": "friendship", "hintJa": "友情" },
+    { "word": "lyrics", "hintJa": "歌詞" },
+    { "word": "lyric", "hintJa": "歌詞（1行など）" },
+    { "word": "theme", "hintJa": "テーマ／題" },
+    { "word": "choose", "hintJa": "選ぶ" },
+    { "word": "choice", "hintJa": "選択" },
+    { "word": "between", "hintJa": "〜の間で（2つ）" },
+    { "word": "need", "hintJa": "必要だ" },
+    { "word": "better", "hintJa": "よりよい" },
+    { "word": "because", "hintJa": "なぜなら" },
+    { "word": "sing along", "hintJa": "一緒に歌う" },
+    { "word": "move", "hintJa": "感動させる／動かす" },
+    { "word": "agree", "hintJa": "同意する" },
+    { "word": "listen", "hintJa": "聞く" },
+    { "word": "listening", "hintJa": "聞いている" }
+  ],
+  "keywords": [
+    { "word": "Shake It Off", "hintJa": "Shake It Off（Taylor Swift の曲）" },
+    { "word": "Count on Me", "hintJa": "Count on Me（Bruno Mars の曲）" },
+    { "word": "kizuna", "hintJa": "きずな（文化祭のテーマ）" },
+    { "word": "I have been listening to ...", "hintJa": "最近〜を聞き続けている" },
+    { "word": "We should consider ...", "hintJa": "〜を考慮すべきだ" },
+    { "word": "the best choice", "hintJa": "最良の選択" }
+  ],
+  "wordGlosses": {
+    "catchy": "耳に残る",
+    "audience": "観客",
+    "consider": "考慮する",
+    "theme": "テーマ",
+    "friendship": "友情",
+    "lyrics": "歌詞",
+    "lately": "最近",
+    "listening": "聞いている",
+    "choose": "選ぶ",
+    "between": "間で",
+    "festival": "祭り",
+    "better": "よりよい",
+    "because": "なぜなら",
+    "along": "一緒に",
+    "move": "感動させる",
+    "agree": "同意する",
+    "choice": "選択"
+  },
+  "wordSprint": {
+    "clearsForAudioQuiz": 10,
+    "seconds": 28,
+    "roundWordCount": 6,
+    "audioQuizLaps": 1,
+    "titleJa": "単語テスト（中3 L2 Scene 2 曲を選ぶ）",
+    "skipToTestButtonJa": "テストへ進む（待たない）",
+    "memoButtonJa": "学習を始める",
+    "quizReplayEnglishJa": "英語をもう一度聞く",
+    "quizTitleJa": "テスト（英語 → 日本語）",
+    "quizTitleAudioJa": "音声テスト",
+    "audioQuizChoicesNoteJa": "↓ 意味が合う日本語を 1 つ選んでください",
+    "audioQuizReplayJa": "もう一度 英語を聞く",
+    "audioQuizWrongJa": "不正解です。すぐにもう一度この問題に挑戦します。",
+    "quizPromptTemplateJa": "「{word}」の日本語の意味はどれですか。",
+    "quizPromptNoHintJa": "「{word}」（一覧の {n} 番目）の日本語の意味はどれですか。",
+    "reverseQuizAfterMeaningQuiz": true,
+    "quizTitleReverseJa": "テスト（日本語 → 英語）",
+    "quizReverseChoicesNoteJa": "↓ 意味に合う英語を 1 つ選んでください",
+    "quizReverseReplayJa": "英語の発音を聞く",
+    "mixedQuizAfterWordTests": true,
+    "mixedQuizTitleJa": "復習テスト（ごちゃまぜ）",
+    "mixedQuizQuestionCount": 0,
+    "mixedQuizPassNeed": 0,
+    "doneNextRoundJa": "次の単語テスト",
+    "doneRestartFullJa": "最初からやり直す",
+    "listeningStreakForGrammar": 15,
+    "grammarAnytimeButtonJa": "文法（並び替え）"
+  },
+  "grammarReorder": {
+    "titleJa": "文法テスト（曲を選ぶ・Scene 2）",
+    "testStyle": true,
+    "mergePunctuationChips": true,
+    "autoPlayListenOnOpen": true,
+    "meaningPauseAfterCorrect": true,
+    "meaningPauseAutoAdvance": true,
+    "items": [
+      {
+        "promptJa": "選ぶ",
+        "meaningJa": "文化祭のために2曲の間で選ぶ必要がある。",
+        "tokens": ["We", "need", "to", "choose", "between", "two", "songs", "for", "the", "festival", "."]
+      },
+      {
+        "promptJa": "catchy",
+        "meaningJa": "Shake It Off のほうがいいと思う。耳に残るから。",
+        "tokens": ["I", "think", "Shake", "It", "Off", "is", "better", "because", "it's", "catchy", "."]
+      },
+      {
+        "promptJa": "テーマ",
+        "meaningJa": "曲を選ぶとき、テーマを考慮すべきだ。",
+        "tokens": ["We", "should", "consider", "the", "theme", "when", "we", "choose", "the", "song", "."]
+      },
+      {
+        "promptJa": "最近聞いている",
+        "meaningJa": "最近 Count on Me を聞き続けている。",
+        "tokens": ["I", "have", "been", "listening", "to", "Count", "on", "Me", "lately", "."]
+      },
+      {
+        "promptJa": "歌詞",
+        "meaningJa": "歌詞が観客の心を動かすと思う。",
+        "tokens": ["I", "think", "the", "lyrics", "will", "move", "the", "audience", "."]
+      },
+      {
+        "promptJa": "同意",
+        "meaningJa": "同意する。Count on Me が最良の選択だ。",
+        "tokens": ["I", "agree", ".", "Count", "on", "Me", "is", "the", "best", "choice", "."]
+      }
+    ],
+    "testStemJa": "次の【内容】になる英文になるよう、下の語を正しい順に並べなさい。",
+    "submitAnswerJa": "解答する",
+    "resetTestJa": "並べ替えをやり直す",
+    "wrongTestJa": "不正解です。語の順を確かめて、もう一度解答してください。",
+    "fillAnswerTestJa": "解答欄に語を並べてから、「解答する」を押してください。",
+    "allDoneTitleJa": "文法おわり",
+    "allDoneBodyJa": "おつかれさまでした。"
+  }
+}
