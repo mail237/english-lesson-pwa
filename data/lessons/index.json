@@ -91,6 +91,12 @@
       "path": "data/lessons/m2-lesson2-part8-talk1-shopping.json"
     },
     {
+      "track": "中2",
+      "grade": "中2",
+      "label": "Lesson 3 — 職場体験（to + 動詞・Scene 1+2・p.28–29）",
+      "path": "data/lessons/m2-lesson3-day-at-work-scene1-2.json"
+    },
+    {
       "track": "中3",
       "grade": "中3",
       "label": "Lesson 1 — 写真部のアイデア（新しいページ）",
