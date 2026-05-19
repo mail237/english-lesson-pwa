@@ -31,6 +31,12 @@
       "path": "data/lessons/m1-lesson1-part2-scene2-dance-club.json"
     },
     {
+      "track": "中1",
+      "grade": "中1",
+      "label": "Lesson 2 — あこがれの人物（can・Scene 1+2・p.36–37）",
+      "path": "data/lessons/m1-lesson2-role-model-scene1-2.json"
+    },
+    {
       "track": "中2",
       "grade": "中2",
       "label": "Lesson 1 — Scene 1+2（部活と学校新聞）",
