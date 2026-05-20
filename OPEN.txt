@@ -37,3 +37,9 @@
 
 7) ずっと同じURLがほしい
    https://app.netlify.com/drop に このフォルダをドロップ → https://〜.netlify.app
+
+8) 共有ランキング（塾・全iPad）
+   本番: https://english-lesson-pwa.vercel.app/
+   Apps Script URL は COPY-RANKING-URL.txt（アプリ起動時に自動設定）
+   表示: 単語テスト全部正解おわり / 文法テストおわり →「ランキング（共有）」
+   プレイヤー名は Player 1 以外にすること

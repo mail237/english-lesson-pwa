@@ -166,6 +166,111 @@
       localStorage.setItem(remoteRankingSecretKey(), String(secret || "").trim());
     } catch (e) {}
   }
+
+  /** 塾用：data/ranking-config.json があれば未設定端末へ自動でURLを入れる */
+  async function ensureRemoteRankingFromSiteConfig() {
+    var cur = getRemoteRankingConfig();
+    if (cur.url) return cur;
+    try {
+      var res = await fetch(
+        new URL("data/ranking-config.json", document.baseURI).href,
+        { cache: "no-store" }
+      );
+      if (!res.ok) return cur;
+      var j = await res.json();
+      var url = String((j && j.url) || "").trim();
+      if (!url) return cur;
+      setRemoteRankingConfig(url, String((j && j.secret) || "").trim());
+    } catch (e) {
+      /* ignore */
+    }
+    return getRemoteRankingConfig();
+  }
+
+  function renderRankList(wrap, rows, meName) {
+    var list = el("div", "wt-rank__list");
+    var maxShow = 8;
+    var shown = rows.slice(0, maxShow);
+    shown.forEach(function (r, idx) {
+      var isMe = meName && String(r.name).trim() === String(meName).trim();
+      var row = el("div", "wt-rank__row" + (isMe ? " wt-rank__row--me" : ""));
+      row.appendChild(el("span", "wt-rank__no", String(idx + 1)));
+      row.appendChild(el("span", "wt-rank__name", r.name));
+      row.appendChild(el("span", "wt-rank__score", String(r.total) + " pt"));
+      list.appendChild(row);
+    });
+    if (meName) {
+      var myIndex = rows.findIndex(function (r) {
+        return String(r.name).trim() === String(meName).trim();
+      });
+      if (myIndex >= maxShow && myIndex >= 0) {
+        var me = rows[myIndex];
+        list.appendChild(el("div", "wt-rank__sep", "…"));
+        var rowMe = el("div", "wt-rank__row wt-rank__row--me");
+        rowMe.appendChild(el("span", "wt-rank__no", String(myIndex + 1)));
+        rowMe.appendChild(el("span", "wt-rank__name", me.name));
+        rowMe.appendChild(el("span", "wt-rank__score", String(me.total) + " pt"));
+        list.appendChild(rowMe);
+      }
+    }
+    wrap.appendChild(list);
+  }
+
+  function appendRankingSection(card) {
+    var players = ensureDefaultPlayer();
+    var curP = getCurrentPlayer(players);
+    var meName = curP && curP.name ? String(curP.name).trim() : "";
+    if (meName && !isGenericPlayerName(meName)) {
+      remoteUpsertMyHighScores();
+    }
+    var wrap = el("div", "wt-rank");
+    wrap.appendChild(
+      el(
+        "p",
+        "wt-rank__title",
+        remoteRankingEnabled() ? "ランキング（共有）" : "ランキング（この端末）"
+      )
+    );
+    card.appendChild(wrap);
+    if (remoteRankingEnabled() && meName && !isGenericPlayerName(meName)) {
+      var loading = el("p", "wt-lead", "ランキング読み込み中…");
+      wrap.appendChild(loading);
+      remoteFetchLeaderboard().then(function (rows) {
+        loading.remove();
+        if (!rows.length) {
+          wrap.appendChild(
+            el("p", "wt-lead", "共有ランキングを取得できませんでした。")
+          );
+          var local = buildLeaderboardRows().map(function (r) {
+            return {
+              name: r.name,
+              total: r.total,
+              word: r.word,
+              grammar: r.grammar
+            };
+          });
+          if (local.length) renderRankList(wrap, local, meName);
+          return;
+        }
+        renderRankList(wrap, rows, meName);
+      });
+    } else {
+      var local = buildLeaderboardRows().map(function (r) {
+        return { name: r.name, total: r.total, word: r.word, grammar: r.grammar };
+      });
+      if (local.length) renderRankList(wrap, local, meName);
+      else if (!meName || isGenericPlayerName(meName)) {
+        wrap.appendChild(
+          el(
+            "p",
+            "wt-quiz__note wt-quiz__note--soft",
+            "プレイヤー名を設定するとランキングに載ります。"
+          )
+        );
+      }
+    }
+  }
+
   function remoteRankingEnabled() {
     var c = getRemoteRankingConfig();
     return Boolean(c.url);
@@ -3555,69 +3660,7 @@
     scoreBox.appendChild(el("p", "wt-score-card__best", bestStr));
     card.appendChild(scoreBox);
 
-    function renderRankList(wrap, rows, meName) {
-      var list = el("div", "wt-rank__list");
-      var maxShow = 8;
-      var shown = rows.slice(0, maxShow);
-      shown.forEach(function (r, idx) {
-        var isMe = meName && String(r.name).trim() === String(meName).trim();
-        var row = el("div", "wt-rank__row" + (isMe ? " wt-rank__row--me" : ""));
-        row.appendChild(el("span", "wt-rank__no", String(idx + 1)));
-        row.appendChild(el("span", "wt-rank__name", r.name));
-        row.appendChild(el("span", "wt-rank__score", String(r.total) + " pt"));
-        list.appendChild(row);
-      });
-      if (meName) {
-        var myIndex = rows.findIndex(function (r) {
-          return String(r.name).trim() === String(meName).trim();
-        });
-        if (myIndex >= maxShow && myIndex >= 0) {
-          var me = rows[myIndex];
-          list.appendChild(el("div", "wt-rank__sep", "…"));
-          var rowMe = el("div", "wt-rank__row wt-rank__row--me");
-          rowMe.appendChild(el("span", "wt-rank__no", String(myIndex + 1)));
-          rowMe.appendChild(el("span", "wt-rank__name", me.name));
-          rowMe.appendChild(el("span", "wt-rank__score", String(me.total) + " pt"));
-          list.appendChild(rowMe);
-        }
-      }
-      wrap.appendChild(list);
-    }
-
-    // ランキング（共有設定があれば共有を優先）
-    var players = ensureDefaultPlayer();
-    var curP = getCurrentPlayer(players);
-    var meName = curP && curP.name ? String(curP.name).trim() : "";
-    if (meName && !isGenericPlayerName(meName)) {
-      remoteUpsertMyHighScores();
-    }
-
-    var wrap = el("div", "wt-rank");
-    wrap.appendChild(el("p", "wt-rank__title", remoteRankingEnabled() ? "ランキング（共有）" : "ランキング（この端末）"));
-    card.appendChild(wrap);
-
-    if (remoteRankingEnabled() && meName && !isGenericPlayerName(meName)) {
-      var loading = el("p", "wt-lead", "ランキング読み込み中…");
-      wrap.appendChild(loading);
-      remoteFetchLeaderboard().then(function (rows) {
-        loading.remove();
-        if (!rows.length) {
-          wrap.appendChild(el("p", "wt-lead", "共有ランキングを取得できませんでした。"));
-          // fallback
-          var local = buildLeaderboardRows().map(function (r) {
-            return { name: r.name, total: r.total, word: r.word, grammar: r.grammar };
-          });
-          if (local.length) renderRankList(wrap, local, meName);
-          return;
-        }
-        renderRankList(wrap, rows, meName);
-      });
-    } else {
-      var local = buildLeaderboardRows().map(function (r) {
-        return { name: r.name, total: r.total, word: r.word, grammar: r.grammar };
-      });
-      if (local.length) renderRankList(wrap, local, meName);
-    }
+    appendRankingSection(card);
     if (hasText(gr.allDoneBodyJa)) {
       card.appendChild(el("p", "wt-lead", String(gr.allDoneBodyJa)));
     }
@@ -3731,6 +3774,7 @@
         );
       }
     }
+    appendRankingSection(card);
     const btnNext = el(
       "button",
       "wt-btn wt-btn--primary",
@@ -3910,6 +3954,7 @@
       /* iOS: getRegistrations が かえらないことがあるので まちを しない */
     }
     cancelSlowTimer();
+    await ensureRemoteRankingFromSiteConfig();
     // まず 中1/中2/中3/英会話 → 教材を選ぶ
     var idx = await loadLessonsIndex();
     var saved = readSelectedLessonPath();

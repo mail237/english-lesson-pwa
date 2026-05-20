@@ -1,0 +1,8 @@
+共有ランキング（永田塾・英語テスト）
+
+https://script.google.com/macros/s/AKfycbynncPz5pfBrnGeydKJY0SsY3dScVGscbPSAE8QzFLA0h_tbLsOZFKY43dCQbhwA_hF/exec
+
+アプリ（Vercel）を開けば、このURLは自動で入ります（data/ranking-config.json）。
+iPad ごとに「共有ランキングを設定」する必要はありません。
+
+確認: 文法テストおわり（または単語テスト全部正解おわり）に「ランキング（共有）」
