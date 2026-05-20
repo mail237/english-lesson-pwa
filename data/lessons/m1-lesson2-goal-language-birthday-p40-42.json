@@ -6,35 +6,26 @@
   "readingPassages": [
     "p.40 — Goal Activity: ヒーローを紹介しよう！",
     "",
-    "Make a \"My Hero\" poster and present it.",
-    "",
-    "Example — Li Ming:",
-    "Job: firefighter / In: China",
-    "1. He is my uncle. He can run fast.",
-    "2. He can speak many languages.",
-    "3. He is kind and brave. I love his smile.",
+    "Example — Li Ming (firefighter, China):",
+    "He is my uncle. He can run fast.",
+    "He can speak many languages.",
+    "He is kind and brave. I love his smile.",
     "",
     "Let's Talk:",
     "A: Can he speak Japanese?",
     "B: Yes, he can. He can speak Chinese, English, and Japanese.",
     "",
     "p.41 — Language Focus 1:",
-    "Word order — English: Subject → Verb → Object (I have a cat).",
-    "Affirmative: I am Tanaka Hana. / I like English.",
-    "Negative: I am not a baseball fan. / I do not play soccer.",
-    "Questions: Are you a baseball fan? — Yes, I am. / No, I am not.",
+    "I am Tanaka Hana. / I like English.",
+    "I am not a baseball fan.",
+    "I do not play soccer.",
+    "Are you a baseball fan? — Yes, I am. / No, I am not.",
     "Do you play soccer? — Yes, I do. / No, I do not.",
-    "Nouns — countable (a cat → cats) and uncountable (water, music).",
-    "Plural: book→books, cherry→cherries, foot→feet, child→children.",
+    "Word order: I have a cat. (S → V → O)",
     "",
-    "p.42 — Words & Sounds 2: 誕生日はいつ？",
-    "",
+    "p.42 — Words & Sounds 2:",
     "When is your birthday?",
-    "My birthday is July 14.",
-    "",
-    "Months: January, February, March, April, May, June, July, August, September, October, November, December",
-    "",
-    "Dates: first, second, third … fourteenth … twentieth, twenty-first … thirty-first"
+    "My birthday is July 14."
   ],
   "vocabulary": [
     { "word": "hero", "hintJa": "英雄／あこがれの人" },
@@ -44,38 +35,33 @@
     { "word": "language", "hintJa": "言語" },
     { "word": "languages", "hintJa": "言語（複数）" },
     { "word": "speak", "hintJa": "話す" },
-    { "word": "Chinese", "hintJa": "中国語／中国の" },
-    { "word": "Japanese", "hintJa": "日本語／日本の" },
+    { "word": "Chinese", "hintJa": "中国語" },
+    { "word": "Japanese", "hintJa": "日本語" },
     { "word": "English", "hintJa": "英語" },
     { "word": "his", "hintJa": "彼の" },
-    { "word": "he's", "hintJa": "he is の短縮形" },
     { "word": "smile", "hintJa": "笑顔" },
     { "word": "kind", "hintJa": "親切な" },
     { "word": "brave", "hintJa": "勇敢な" },
     { "word": "run fast", "hintJa": "速く走る" },
+    { "word": "baseball fan", "hintJa": "野球ファン" },
     { "word": "when", "hintJa": "いつ" },
     { "word": "birthday", "hintJa": "誕生日" },
+    { "word": "July", "hintJa": "7月" },
     { "word": "January", "hintJa": "1月" },
     { "word": "February", "hintJa": "2月" },
     { "word": "March", "hintJa": "3月" },
     { "word": "April", "hintJa": "4月" },
     { "word": "May", "hintJa": "5月" },
     { "word": "June", "hintJa": "6月" },
-    { "word": "July", "hintJa": "7月" },
     { "word": "August", "hintJa": "8月" },
     { "word": "September", "hintJa": "9月" },
     { "word": "October", "hintJa": "10月" },
     { "word": "November", "hintJa": "11月" },
     { "word": "December", "hintJa": "12月" },
-    { "word": "first", "hintJa": "1日目の" },
     { "word": "fourteenth", "hintJa": "14日目の" },
-    { "word": "twentieth", "hintJa": "20日目の" },
-    { "word": "twenty-first", "hintJa": "21日目の" },
-    { "word": "thirty-first", "hintJa": "31日目の" },
+    { "word": "have", "hintJa": "飼う／持っている（I have a cat）" },
     { "word": "cat", "hintJa": "ネコ" },
-    { "word": "cats", "hintJa": "ネコ（複数）" },
-    { "word": "water", "hintJa": "水" },
-    { "word": "music", "hintJa": "音楽" }
+    { "word": "cats", "hintJa": "ネコ（複数）" }
   ],
   "keywords": [
     { "word": "When is your birthday?", "hintJa": "誕生日はいつですか" },
@@ -83,41 +69,20 @@
     { "word": "Can he speak Japanese?", "hintJa": "彼は日本語を話せますか" },
     { "word": "He can speak many languages.", "hintJa": "彼はたくさんの言語を話せる" },
     { "word": "He is my uncle.", "hintJa": "彼は私のおじです" },
-    { "word": "I do not practice soccer every day.", "hintJa": "私は毎日サッカーの練習をしません" },
-    { "word": "a cat → cats", "hintJa": "数えられる名詞の複数形" }
+    { "word": "I am not a baseball fan.", "hintJa": "私は野球ファンではありません" },
+    { "word": "I do not play soccer.", "hintJa": "私はサッカーをしません" },
+    { "word": "I have a cat.", "hintJa": "私はネコを飼っています" }
   ],
   "wordGlosses": {
     "hero": "英雄",
-    "poster": "ポスター",
-    "firefighter": "消防士",
     "uncle": "おじ",
-    "language": "言語",
     "speak": "話す",
-    "Chinese": "中国語",
-    "Japanese": "日本語",
-    "his": "彼の",
-    "smile": "笑顔",
-    "kind": "親切",
-    "brave": "勇敢",
-    "when": "いつ",
     "birthday": "誕生日",
-    "January": "1月",
-    "February": "2月",
-    "March": "3月",
-    "April": "4月",
-    "May": "5月",
-    "June": "6月",
     "July": "7月",
-    "August": "8月",
-    "September": "9月",
-    "October": "10月",
-    "November": "11月",
-    "December": "12月",
-    "first": "1日",
-    "fourteenth": "14日",
-    "cat": "ネコ",
-    "water": "水",
-    "music": "音楽"
+    "fan": "ファン",
+    "baseball": "野球",
+    "have": "飼う",
+    "cat": "ネコ"
   },
   "wordSprint": {
     "clearsForAudioQuiz": 10,
@@ -157,9 +122,14 @@
     "meaningPauseAutoAdvance": true,
     "items": [
       {
-        "promptJa": "My Hero",
-        "meaningJa": "彼は私のおじです。速く走れます。",
-        "tokens": ["He", "is", "my", "uncle", ".", "He", "can", "run", "fast", "."]
+        "promptJa": "My Hero 1",
+        "meaningJa": "彼は私のおじです。",
+        "tokens": ["He", "is", "my", "uncle", "."]
+      },
+      {
+        "promptJa": "My Hero 2",
+        "meaningJa": "彼は速く走れます。",
+        "tokens": ["He", "can", "run", "fast", "."]
       },
       {
         "promptJa": "languages",
@@ -168,23 +138,43 @@
       },
       {
         "promptJa": "kind and brave",
-        "meaningJa": "彼は親切で勇敢です。彼の笑顔が好きです。",
-        "tokens": ["He", "is", "kind", "and", "brave", ".", "I", "love", "his", "smile", "."]
+        "meaningJa": "彼は親切で勇敢です。",
+        "tokens": ["He", "is", "kind", "and", "brave", "."]
+      },
+      {
+        "promptJa": "his smile",
+        "meaningJa": "彼の笑顔が好きです。",
+        "tokens": ["I", "love", "his", "smile", "."]
       },
       {
         "promptJa": "Can he speak",
-        "meaningJa": "彼は日本語を話せますか。はい、話せます。",
-        "tokens": ["Can", "he", "speak", "Japanese", "?", "Yes", ",", "he", "can", "."]
+        "meaningJa": "彼は日本語を話せますか。",
+        "tokens": ["Can", "he", "speak", "Japanese", "?"]
+      },
+      {
+        "promptJa": "Yes, he can",
+        "meaningJa": "はい、話せます。",
+        "tokens": ["Yes", ",", "he", "can", "."]
+      },
+      {
+        "promptJa": "p.41 肯定",
+        "meaningJa": "私は田中花です。",
+        "tokens": ["I", "am", "Tanaka", "Hana", "."]
+      },
+      {
+        "promptJa": "p.41 like",
+        "meaningJa": "英語が好きです。",
+        "tokens": ["I", "like", "English", "."]
+      },
+      {
+        "promptJa": "否定（be）",
+        "meaningJa": "私は野球ファンではありません。",
+        "tokens": ["I", "am", "not", "a", "baseball", "fan", "."]
       },
       {
         "promptJa": "否定（do）",
-        "meaningJa": "私は、サッカーをしません。（p.41・一般動詞）",
+        "meaningJa": "私はサッカーをしません。",
         "tokens": ["I", "do", "not", "play", "soccer", "."]
-      },
-      {
-        "promptJa": "否定（do・毎日）",
-        "meaningJa": "私は毎日サッカーの練習をしません。（L1 Part2）",
-        "tokens": ["I", "do", "not", "practice", "soccer", "every", "day", "."]
       },
       {
         "promptJa": "SVO",

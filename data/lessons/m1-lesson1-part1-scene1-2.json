@@ -374,6 +374,19 @@
         ]
       },
       {
+        "promptJa": "ときどき",
+        "meaningJa": "ときどき英語の本を読みます。",
+        "tokens": [
+          "I",
+          "sometimes",
+          "read",
+          "books",
+          "in",
+          "English",
+          "."
+        ]
+      },
+      {
         "promptJa": "はじめまして",
         "meaningJa": "はじめまして。",
         "tokens": [

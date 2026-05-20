@@ -242,7 +242,7 @@
     "items": [
       {
         "promptJa": "Are you（be）",
-        "meaningJa": "あなたはバスケのファンですか。",
+        "meaningJa": "あなたはバスケットボールのファンですか。",
         "tokens": [
           "Are",
           "you",
@@ -278,7 +278,7 @@
       },
       {
         "promptJa": "No, I do not.",
-        "meaningJa": "いいえ、しません。",
+        "meaningJa": "いいえ、しません。（毎日サッカーの練習はしません）",
         "tokens": [
           "No",
           ",",
@@ -290,7 +290,7 @@
       },
       {
         "promptJa": "否定（be）",
-        "meaningJa": "私はバスケファンではありません。",
+        "meaningJa": "私はバスケットボールのファンではありません。",
         "tokens": [
           "I",
           "am",
@@ -407,6 +407,19 @@
           "on",
           "Sundays",
           "."
+        ]
+      },
+      {
+        "promptJa": "I dance, too",
+        "meaningJa": "わあ。私もダンスをします。",
+        "tokens": [
+          "Wow",
+          ".",
+          "I",
+          "dance",
+          ",",
+          "too",
+          "!"
         ]
       }
     ],

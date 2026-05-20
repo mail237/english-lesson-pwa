@@ -151,7 +151,7 @@
       },
       {
         "promptJa": "否定文",
-        "meaningJa": "私はギターを弾くことはできません。",
+        "meaningJa": "私はギターを弾くことができません。",
         "tokens": ["I", "cannot", "play", "the", "guitar", "."]
       },
       {
@@ -183,6 +183,11 @@
         "promptJa": "read the kanji",
         "meaningJa": "この駒の漢字が読めますか。",
         "tokens": ["Can", "you", "read", "the", "kanji", "on", "this", "piece", "?"]
+      },
+      {
+        "promptJa": "can't read",
+        "meaningJa": "いいえ、読めません。",
+        "tokens": ["No", ".", "I", "can't", "read", "it", "."]
       },
       {
         "promptJa": "It is fu",

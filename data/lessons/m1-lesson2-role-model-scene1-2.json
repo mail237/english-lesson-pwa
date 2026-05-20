@@ -126,12 +126,12 @@
     "items": [
       {
         "promptJa": "She can",
-        "meaningJa": "桜が好き。彼女はとても上手にスケートボードができる。",
+        "meaningJa": "桜が好きです。彼女はとても上手にスケートボードができます。",
         "tokens": ["I", "like", "Sakura", ".", "She", "can", "skateboard", "very", "well", "."]
       },
       {
         "promptJa": "He can",
-        "meaningJa": "聡太が好き。彼はとても上手に将棋ができる。",
+        "meaningJa": "聡太が好きです。彼はとても上手に将棋ができます。",
         "tokens": ["I", "like", "Sota", ".", "He", "can", "play", "shogi", "very", "well", "."]
       },
       {
@@ -146,12 +146,12 @@
       },
       {
         "promptJa": "play the guitar",
-        "meaningJa": "彼女はギターを上手に弾ける。",
+        "meaningJa": "彼女はギターを上手に弾けます。",
         "tokens": ["She", "can", "play", "the", "guitar", "well", "."]
       },
       {
         "promptJa": "favorite song",
-        "meaningJa": "お気に入りの歌は春の日だ。愛についての歌だ。",
+        "meaningJa": "お気に入りの歌は春の日です。愛についての歌です。",
         "tokens": ["My", "favorite", "song", "is", "Harunohi", ".", "It", "is", "a", "song", "about", "love", "."]
       },
       {
