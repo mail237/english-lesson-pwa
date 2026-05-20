@@ -7,7 +7,7 @@
   const homeBtn = document.getElementById("wt-home");
 
   let lesson = null;
-  let currentLessonPath = "data/lesson.json";
+  let currentLessonPath = "data/lessons/m2-lesson1-part1-scene1-2.json";
   let timerId = null;
   /** このページを開いているあいだ、すでに出した語（つぎのラウンドでかぶりにくくする） */
   let sessionUsedWordKeys = new Set();
@@ -756,7 +756,7 @@
       var btn = el("button", "wt-btn wt-btn--primary", "つづける");
       btn.type = "button";
       btn.addEventListener("click", async function () {
-        await selectLessonAndLoad("data/lesson.json");
+        await selectLessonAndLoad("data/lessons/m2-lesson1-part1-scene1-2.json");
       });
       card.appendChild(btn);
       root.appendChild(card);
@@ -766,7 +766,7 @@
     var keep = el("button", "wt-btn wt-btn--primary", "前回の教材でつづける");
     keep.type = "button";
     keep.addEventListener("click", async function () {
-      var p = readSelectedLessonPath() || "data/lesson.json";
+      var p = readSelectedLessonPath() || "data/lessons/m2-lesson1-part1-scene1-2.json";
       await selectLessonAndLoad(p);
     });
     card.appendChild(keep);
@@ -886,7 +886,7 @@
     var keep = el("button", "wt-btn wt-btn--primary", "前回の教材でつづける");
     keep.type = "button";
     keep.addEventListener("click", async function () {
-      var p = readSelectedLessonPath() || "data/lesson.json";
+      var p = readSelectedLessonPath() || "data/lessons/m2-lesson1-part1-scene1-2.json";
       await selectLessonAndLoad(p);
     });
     card.appendChild(keep);
@@ -895,7 +895,7 @@
   }
 
   async function selectLessonAndLoad(path) {
-    if (!path) path = "data/lesson.json";
+    if (!path) path = "data/lessons/m2-lesson1-part1-scene1-2.json";
     currentLessonPath = String(path);
     writeSelectedLessonPath(currentLessonPath);
     loadingEl && (loadingEl.textContent = "読み込み中です…");

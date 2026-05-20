@@ -9,91 +9,91 @@
     {
       "track": "中1",
       "grade": "中1",
-      "label": "Lesson 1 Part 1 — Scene 1（はじめての英語の授業・p.26）",
-      "path": "data/lessons/m1-lesson1-part1-scene1-first-english-class.json"
+      "label": "Lesson 1 Part 1 — はじめての英語の授業（Scene 1+2・p.26–27）",
+      "path": "data/lessons/m1-lesson1-part1-scene1-2.json"
     },
     {
       "track": "中1",
       "grade": "中1",
-      "label": "Lesson 1 Part 1 — Scene 2（花の自己紹介・p.27）",
-      "path": "data/lessons/m1-lesson1-part1-scene2-hana-intro.json"
+      "label": "Lesson 1 Part 2 — スポーツと部活（Scene 1+2・p.28–29）",
+      "path": "data/lessons/m1-lesson1-part2-scene1-2.json"
     },
     {
       "track": "中1",
       "grade": "中1",
-      "label": "Lesson 1 Part 2 — Scene 1（休み時間・スポーツ・p.28）",
-      "path": "data/lessons/m1-lesson1-part2-scene1-sports-recess.json"
-    },
-    {
-      "track": "中1",
-      "grade": "中1",
-      "label": "Lesson 1 Part 2 — Scene 2（ダンスと部活・p.29）",
-      "path": "data/lessons/m1-lesson1-part2-scene2-dance-club.json"
-    },
-    {
-      "track": "中1",
-      "grade": "中1",
-      "label": "Lesson 2 — あこがれの人物（can・Scene 1+2・p.36–37）",
+      "label": "Lesson 2 Part 1 — あこがれの人物（can・Scene 1+2・p.36–37）",
       "path": "data/lessons/m1-lesson2-role-model-scene1-2.json"
     },
     {
-      "track": "中2",
-      "grade": "中2",
-      "label": "Lesson 1 — Scene 1+2（部活と学校新聞）",
-      "path": "data/lesson.json"
+      "track": "中1",
+      "grade": "中1",
+      "label": "Lesson 2 Part 2 — 得意なこと・将棋（can・Scene 1+2・p.38–39）",
+      "path": "data/lessons/m1-lesson2-part2-good-at-scene1-2.json"
+    },
+    {
+      "track": "中1",
+      "grade": "中1",
+      "label": "Lesson 2 — Goal・Language Focus・誕生日（p.40–42）",
+      "path": "data/lessons/m1-lesson2-goal-language-birthday-p40-42.json"
     },
     {
       "track": "中2",
       "grade": "中2",
-      "label": "Lesson 1 — Scene 3 + 補助（練習試合とKaruta＋時制/空港/博物館）",
-      "path": "data/lessons/m2-scene3-plus.json"
+      "label": "Lesson 1 Part 1 — 部活と学校新聞（Scene 1+2）",
+      "path": "data/lessons/m2-lesson1-part1-scene1-2.json"
     },
     {
       "track": "中2",
       "grade": "中2",
-      "label": "Lesson 2 — Part 1（ブラウン先生のお気に入りの本／Scene 1+2）",
+      "label": "Lesson 1 Part 2 — 練習試合・時制・空港・博物館（Scene 3+補助）",
+      "path": "data/lessons/m2-lesson1-part2-scene3-plus.json"
+    },
+    {
+      "track": "中2",
+      "grade": "中2",
+      "label": "Lesson 2 Part 1 — ブラウン先生のお気に入りの本（Scene 1+2）",
       "path": "data/lessons/m2-part1-msbrown-books-scene1-2.json"
     },
     {
       "track": "中2",
       "grade": "中2",
-      "label": "Lesson 2 — Part 2（ピーターラビットを読んで／think that・Scene 1+2）",
+      "label": "Lesson 2 Part 2 — ピーターラビットを読んで（think that・Scene 1+2）",
       "path": "data/lessons/m2-lesson2-part2-peter-rabbit-reading.json"
     },
     {
       "track": "中2",
       "grade": "中2",
-      "label": "Lesson 2 — Part 3（貸してくれる？Side Story・映画ジャンル）",
+      "label": "Lesson 2 Part 3 — 貸してくれる？（Side Story・映画ジャンル）",
       "path": "data/lessons/m2-lesson2-part3-side-story-borrow.json"
     },
     {
       "track": "中2",
       "grade": "中2",
-      "label": "Lesson 2 — Part 4（Small Talk Plus・お気に入りの本）",
+      "label": "Lesson 2 Part 4 — Small Talk Plus（お気に入りの本）",
       "path": "data/lessons/m2-lesson2-part4-small-talk-plus.json"
     },
     {
       "track": "中2",
       "grade": "中2",
-      "label": "Lesson 2 — Part 5（Goal・おすすめの本 Read + Write）",
+      "label": "Lesson 2 Part 5 — Goal（おすすめの本 Read + Write）",
       "path": "data/lessons/m2-lesson2-part5-goal-recommend-card.json"
     },
     {
       "track": "中2",
       "grade": "中2",
-      "label": "Lesson 2 — Part 6（Goal 書く・Word Bank・p.23）",
+      "label": "Lesson 2 Part 6 — Goal 書く・Word Bank（p.23）",
       "path": "data/lessons/m2-lesson2-part6-goal-write-word-bank.json"
     },
     {
       "track": "中2",
       "grade": "中2",
-      "label": "Lesson 2 — Part 7（Language Focus 2・接続詞・p.24）",
+      "label": "Lesson 2 Part 7 — Language Focus 2（接続詞・p.24）",
       "path": "data/lessons/m2-lesson2-part7-language-focus-conjunctions.json"
     },
     {
       "track": "中2",
       "grade": "中2",
-      "label": "Take Action! Talk 1 — 買い物（Shopping・p.25）",
+      "label": "Lesson 2 Part 8 — Take Action! Talk 1（買い物・p.25）",
       "path": "data/lessons/m2-lesson2-part8-talk1-shopping.json"
     },
     {
@@ -105,26 +105,20 @@
     {
       "track": "中3",
       "grade": "中3",
-      "label": "Lesson 1 — 写真部のアイデア（新しいページ）",
+      "label": "Lesson 1 — 写真部のアイデア",
       "path": "data/lessons/m3-lesson1.json"
     },
     {
       "track": "中3",
       "grade": "中3",
-      "label": "Lesson 2 Part 1 — Scene 1（文化祭で演奏する曲・p.16）",
-      "path": "data/lessons/m3-lesson2-part1-scene1-festival-songs.json"
+      "label": "Lesson 2 Part 1 — 文化祭の曲（Scene 1+2・p.16–17）",
+      "path": "data/lessons/m3-lesson2-part1-scene1-2.json"
     },
     {
       "track": "中3",
       "grade": "中3",
-      "label": "Lesson 2 — Scene 2（曲を選ぶ・Count on Me・p.17）",
-      "path": "data/lessons/m3-lesson2-scene2-choose-song.json"
-    },
-    {
-      "track": "中3",
-      "grade": "中3",
-      "label": "Lesson 2 — Scene 3（写真部ワークショップ＋現在完了の復習）",
-      "path": "data/lessons/m3-scene3-workshop-presentperfect.json"
+      "label": "Lesson 2 Part 2 — 写真部ワークショップ（Scene 3・現在完了の復習）",
+      "path": "data/lessons/m3-lesson2-part2-scene3-workshop.json"
     },
     {
       "track": "英会話",
@@ -134,4 +128,3 @@
     }
   ]
 }
-

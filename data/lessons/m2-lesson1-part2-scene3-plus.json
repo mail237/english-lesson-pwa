@@ -1,14 +1,13 @@
 {
-  "id": "m2-scene3-plus",
-  "titleJa": "Scene 3 + 補助 — 練習試合 × Karuta × 時制 × 空港 × 博物館",
-  "title": "Scene 3 + Extra — Practice, Karuta, Tenses, Airport, Museum",
+  "id": "m2-lesson1-part2-scene3-plus",
+  "titleJa": "中2 Lesson 1 Part 2 — 練習試合・時制・空港・博物館（Scene 3+補助）",
+  "title": "M2 L1 Part 2 — Practice, tenses, airport, museum",
   "dialogue": [],
   "readingPassages": [
     "This Saturday, we're going to have a practice game. Come to the gym at nine o'clock.",
     "We're going to play against the team from Midori Junior High School. We lost to them in the final game of the summer tournament last year.",
     "They scored in the last five seconds and broke the tie. We will surely win this time.",
     "Goal Activity: We will have a \"Karuta\" competition. Spread cards on the floor, read a poem, and match it.",
-
     "Language Focus: I saw Kiyoka two months ago.",
     "Language Focus: Jiro was in the manga library yesterday.",
     "Language Focus: Hana and Mark were playing shogi then.",
@@ -31,59 +30,200 @@
     "Read 1: Robots at Work is canceled today."
   ],
   "vocabulary": [
-    { "word": "practice game", "hintJa": "練習試合" },
-    { "word": "against", "hintJa": "～に対して（試合で）" },
-    { "word": "lose", "hintJa": "負ける" },
-    { "word": "score", "hintJa": "得点する" },
-    { "word": "second(s)", "hintJa": "秒" },
-    { "word": "break", "hintJa": "壊す／（記録などを）破る" },
-    { "word": "tie", "hintJa": "同点" },
-    { "word": "surely", "hintJa": "きっと" },
-    { "word": "karuta", "hintJa": "かるた" },
-    { "word": "competition", "hintJa": "大会" },
-    { "word": "poem", "hintJa": "詩" },
-    { "word": "spread", "hintJa": "広げる" },
-    { "word": "match", "hintJa": "合わせる／一致させる" },
-    { "word": "floor", "hintJa": "床" },
-    { "word": "January", "hintJa": "1月" },
-    { "word": "hour", "hintJa": "時間" },
-
-    { "word": "two months ago", "hintJa": "2か月前" },
-    { "word": "yesterday", "hintJa": "昨日" },
-    { "word": "then", "hintJa": "そのとき" },
-    { "word": "on Sundays", "hintJa": "日曜日に（毎週）" },
-    { "word": "take care of ...", "hintJa": "～の世話をする" },
-    { "word": "iguana", "hintJa": "イグアナ" },
-    { "word": "wheelchair basketball", "hintJa": "車いすバスケ" },
-    { "word": "next month", "hintJa": "来月" },
-    { "word": "tomorrow", "hintJa": "明日" },
-    { "word": "in the future", "hintJa": "将来" },
-    { "word": "soon", "hintJa": "もうすぐ" },
-
-    { "word": "flight", "hintJa": "便（フライト）" },
-    { "word": "passenger", "hintJa": "乗客" },
-    { "word": "page / paging", "hintJa": "（館内）呼び出し" },
-    { "word": "immediately", "hintJa": "すぐに" },
-    { "word": "daughter", "hintJa": "娘" },
-    { "word": "boarding", "hintJa": "搭乗" },
-    { "word": "boarding time", "hintJa": "搭乗時刻" },
-    { "word": "gate", "hintJa": "搭乗口" },
-
-    { "word": "museum", "hintJa": "博物館" },
-    { "word": "information desk", "hintJa": "案内所" },
-    { "word": "tour", "hintJa": "ツアー" },
-    { "word": "special", "hintJa": "特別な" },
-    { "word": "starts", "hintJa": "始まる" },
-    { "word": "a.m.", "hintJa": "午前" },
-    { "word": "p.m.", "hintJa": "午後" },
-    { "word": "fully booked", "hintJa": "満席だ" },
-    { "word": "canceled", "hintJa": "中止になった" }
+    {
+      "word": "practice game",
+      "hintJa": "練習試合"
+    },
+    {
+      "word": "against",
+      "hintJa": "～に対して（試合で）"
+    },
+    {
+      "word": "lose",
+      "hintJa": "負ける"
+    },
+    {
+      "word": "score",
+      "hintJa": "得点する"
+    },
+    {
+      "word": "second(s)",
+      "hintJa": "秒"
+    },
+    {
+      "word": "break",
+      "hintJa": "壊す／（記録などを）破る"
+    },
+    {
+      "word": "tie",
+      "hintJa": "同点"
+    },
+    {
+      "word": "surely",
+      "hintJa": "きっと"
+    },
+    {
+      "word": "karuta",
+      "hintJa": "かるた"
+    },
+    {
+      "word": "competition",
+      "hintJa": "大会"
+    },
+    {
+      "word": "poem",
+      "hintJa": "詩"
+    },
+    {
+      "word": "spread",
+      "hintJa": "広げる"
+    },
+    {
+      "word": "match",
+      "hintJa": "合わせる／一致させる"
+    },
+    {
+      "word": "floor",
+      "hintJa": "床"
+    },
+    {
+      "word": "January",
+      "hintJa": "1月"
+    },
+    {
+      "word": "hour",
+      "hintJa": "時間"
+    },
+    {
+      "word": "two months ago",
+      "hintJa": "2か月前"
+    },
+    {
+      "word": "yesterday",
+      "hintJa": "昨日"
+    },
+    {
+      "word": "then",
+      "hintJa": "そのとき"
+    },
+    {
+      "word": "on Sundays",
+      "hintJa": "日曜日に（毎週）"
+    },
+    {
+      "word": "take care of ...",
+      "hintJa": "～の世話をする"
+    },
+    {
+      "word": "iguana",
+      "hintJa": "イグアナ"
+    },
+    {
+      "word": "wheelchair basketball",
+      "hintJa": "車いすバスケ"
+    },
+    {
+      "word": "next month",
+      "hintJa": "来月"
+    },
+    {
+      "word": "tomorrow",
+      "hintJa": "明日"
+    },
+    {
+      "word": "in the future",
+      "hintJa": "将来"
+    },
+    {
+      "word": "soon",
+      "hintJa": "もうすぐ"
+    },
+    {
+      "word": "flight",
+      "hintJa": "便（フライト）"
+    },
+    {
+      "word": "passenger",
+      "hintJa": "乗客"
+    },
+    {
+      "word": "page / paging",
+      "hintJa": "（館内）呼び出し"
+    },
+    {
+      "word": "immediately",
+      "hintJa": "すぐに"
+    },
+    {
+      "word": "daughter",
+      "hintJa": "娘"
+    },
+    {
+      "word": "boarding",
+      "hintJa": "搭乗"
+    },
+    {
+      "word": "boarding time",
+      "hintJa": "搭乗時刻"
+    },
+    {
+      "word": "gate",
+      "hintJa": "搭乗口"
+    },
+    {
+      "word": "museum",
+      "hintJa": "博物館"
+    },
+    {
+      "word": "information desk",
+      "hintJa": "案内所"
+    },
+    {
+      "word": "tour",
+      "hintJa": "ツアー"
+    },
+    {
+      "word": "special",
+      "hintJa": "特別な"
+    },
+    {
+      "word": "starts",
+      "hintJa": "始まる"
+    },
+    {
+      "word": "a.m.",
+      "hintJa": "午前"
+    },
+    {
+      "word": "p.m.",
+      "hintJa": "午後"
+    },
+    {
+      "word": "fully booked",
+      "hintJa": "満席だ"
+    },
+    {
+      "word": "canceled",
+      "hintJa": "中止になった"
+    }
   ],
   "keywords": [
-    { "word": "be going to ...", "hintJa": "～するつもりだ" },
-    { "word": "We will surely ...", "hintJa": "きっと～します" },
-    { "word": "will ...", "hintJa": "～するだろう／～する予定" },
-    { "word": "before", "hintJa": "～の前に" }
+    {
+      "word": "be going to ...",
+      "hintJa": "～するつもりだ"
+    },
+    {
+      "word": "We will surely ...",
+      "hintJa": "きっと～します"
+    },
+    {
+      "word": "will ...",
+      "hintJa": "～するだろう／～する予定"
+    },
+    {
+      "word": "before",
+      "hintJa": "～の前に"
+    }
   ],
   "wordGlosses": {
     "this": "この",
@@ -127,7 +267,6 @@
     "read": "読む",
     "poem": "詩",
     "match": "合わせる",
-
     "saw": "見た",
     "two": "2",
     "months": "月（複数）",
@@ -157,7 +296,6 @@
     "dance": "ダンス",
     "coming": "来る",
     "soon": "もうすぐ",
-
     "please": "～してください",
     "go": "行く",
     "gate": "搭乗口",
@@ -165,7 +303,6 @@
     "minutes": "分（時間）",
     "before": "～の前に",
     "boarding": "搭乗",
-
     "today's": "今日の",
     "special": "特別な",
     "tour": "ツアー",
@@ -183,7 +320,7 @@
     "seconds": 28,
     "roundWordCount": 3,
     "audioQuizLaps": 1,
-    "titleJa": "単語テスト（Scene 3 + 補助）",
+    "titleJa": "単語テスト（中2 L1 Part2 Scene 3+補助）",
     "memoIntroJa": "",
     "studyHintJa": "",
     "skipDuringCountHintJa": "",
@@ -216,7 +353,7 @@
     "scoreWelcomeBestJa": "自己ベスト"
   },
   "grammarReorder": {
-    "titleJa": "文法テスト（Scene 3 + 補助）",
+    "titleJa": "文法テスト（中2 L1 Part2 Scene 3+補助）",
     "scoreHudTemplateJa": "スコア {score} · コンボ {combo} · {time}s",
     "scoreRoundTitleJa": "今回のスコア（文法）",
     "scoreBestJa": "自己ベスト（文法）",
@@ -253,37 +390,128 @@
     "items": [
       {
         "meaningJa": "土曜日に練習試合があります。",
-        "tokens": ["This", "Saturday", ",", "we're", "going", "to", "have", "a", "practice", "game", "."]
+        "tokens": [
+          "This",
+          "Saturday",
+          ",",
+          "we're",
+          "going",
+          "to",
+          "have",
+          "a",
+          "practice",
+          "game",
+          "."
+        ]
       },
       {
         "meaningJa": "私たちは緑中のチームと対戦します。",
-        "tokens": ["We're", "going", "to", "play", "against", "the", "team", "from", "Midori", "Junior", "High", "School", "."]
+        "tokens": [
+          "We're",
+          "going",
+          "to",
+          "play",
+          "against",
+          "the",
+          "team",
+          "from",
+          "Midori",
+          "Junior",
+          "High",
+          "School",
+          "."
+        ]
       },
       {
         "meaningJa": "2か月前に清香に会いました。",
-        "tokens": ["I", "saw", "Kiyoka", "two", "months", "ago", "."]
+        "tokens": [
+          "I",
+          "saw",
+          "Kiyoka",
+          "two",
+          "months",
+          "ago",
+          "."
+        ]
       },
       {
         "meaningJa": "次の月に、マークは立教に会いに行くつもりです。",
-        "tokens": ["Mark", "is", "going", "to", "see", "Rikyo", "next", "month", "."]
+        "tokens": [
+          "Mark",
+          "is",
+          "going",
+          "to",
+          "see",
+          "Rikyo",
+          "next",
+          "month",
+          "."
+        ]
       },
       {
         "meaningJa": "搭乗時刻の30分前に搭乗口へ行ってください。",
-        "tokens": ["Please", "go", "to", "the", "gate", "30", "minutes", "before", "the", "boarding", "time", "."]
+        "tokens": [
+          "Please",
+          "go",
+          "to",
+          "the",
+          "gate",
+          "30",
+          "minutes",
+          "before",
+          "the",
+          "boarding",
+          "time",
+          "."
+        ]
       },
       {
         "meaningJa": "案内所にツアー開始5分前に集合してください。",
-        "tokens": ["Please", "meet", "at", "the", "information", "desk", "five", "minutes", "before", "the", "tour", "starts", "."]
+        "tokens": [
+          "Please",
+          "meet",
+          "at",
+          "the",
+          "information",
+          "desk",
+          "five",
+          "minutes",
+          "before",
+          "the",
+          "tour",
+          "starts",
+          "."
+        ]
       },
       {
         "meaningJa": "その映画は満席です。",
-        "tokens": ["The", "movie", ",", "A", "Journey", "into", "Space", ",", "is", "fully", "booked", "."]
+        "tokens": [
+          "The",
+          "movie",
+          ",",
+          "A",
+          "Journey",
+          "into",
+          "Space",
+          ",",
+          "is",
+          "fully",
+          "booked",
+          "."
+        ]
       },
       {
         "meaningJa": "Robots at Work は今日中止です。",
-        "tokens": ["Robots", "at", "Work", "is", "canceled", "today", "."]
+        "tokens": [
+          "Robots",
+          "at",
+          "Work",
+          "is",
+          "canceled",
+          "today",
+          "."
+        ]
       }
     ]
   }
 }
-

@@ -1,0 +1,206 @@
+{
+  "id": "m1-lesson2-part2-good-at-scene1-2",
+  "titleJa": "中1 Lesson 2 Part 2 — 得意なこと・将棋（can・Scene 1+2・p.38–39）",
+  "title": "M1 L2 Part 2 — Good at & shogi (can, Scene 1+2)",
+  "dialogue": [],
+  "readingPassages": [
+    "Part 2 — どんなことが得意なの？",
+    "",
+    "Scene 1 (p.38):",
+    "After class, Riku, Kate, Mark, and Hana talk about things they like and things they are good at.",
+    "",
+    "Listen — write ○ if they can, △ if they cannot:",
+    "Riku — play \"Harunohi\" on the guitar",
+    "Kate — skateboard",
+    "Mark — play wheelchair basketball",
+    "",
+    "Speak — in pairs, talk about things you are good at or things you like.",
+    "Do you play ...? / Are you good at ...? / Do you like ...? / Are you in ... club?",
+    "",
+    "Check — can (ability):",
+    "Can you play the guitar? — Yes, I can. / No, I cannot.",
+    "I cannot play the guitar.",
+    "",
+    "Scene 2 (p.39): Hana and Mark talk about shogi.",
+    "",
+    "Hana: Can you play shogi?",
+    "Mark: No, I can't. Can you teach it to me?",
+    "Hana: Sure. You use many pieces in shogi. Can you read the kanji on this piece?",
+    "Mark: No. I can't read it.",
+    "Hana: It is \"fu.\" This piece can move one space forward.",
+    "",
+    "New Words: cannot, can't, teach, sure, piece(s), move, space, forward"
+  ],
+  "vocabulary": [
+    { "word": "good at", "hintJa": "〜が得意な" },
+    { "word": "can", "hintJa": "〜できる" },
+    { "word": "cannot", "hintJa": "〜できない" },
+    { "word": "can't", "hintJa": "cannot の短縮形" },
+    { "word": "play", "hintJa": "（楽器・スポーツを）する／弾く" },
+    { "word": "the guitar", "hintJa": "ギター" },
+    { "word": "Harunohi", "hintJa": "春の日（あいみょんの曲）" },
+    { "word": "skateboard", "hintJa": "スケートボード（をする）" },
+    { "word": "wheelchair basketball", "hintJa": "車いすバスケットボール" },
+    { "word": "shogi", "hintJa": "将棋" },
+    { "word": "teach", "hintJa": "教える" },
+    { "word": "sure", "hintJa": "もちろん／いいよ" },
+    { "word": "piece", "hintJa": "駒（こま）" },
+    { "word": "pieces", "hintJa": "駒（複数）" },
+    { "word": "move", "hintJa": "動く／移動する" },
+    { "word": "space", "hintJa": "マス／空間" },
+    { "word": "forward", "hintJa": "前に／前方へ" },
+    { "word": "read", "hintJa": "読む" },
+    { "word": "kanji", "hintJa": "漢字" },
+    { "word": "fu", "hintJa": "歩（将棋の駒）" },
+    { "word": "use", "hintJa": "使う" },
+    { "word": "like", "hintJa": "好きである／好む" },
+    { "word": "club", "hintJa": "部活（動）" },
+    { "word": "many", "hintJa": "たくさんの" },
+    { "word": "one", "hintJa": "1つの" },
+    { "word": "how many", "hintJa": "いくつの／どれくらい" },
+    { "word": "after class", "hintJa": "授業のあと" },
+    { "word": "pair", "hintJa": "ペア／二人組" }
+  ],
+  "keywords": [
+    { "word": "Can you ...?", "hintJa": "〜できますか" },
+    { "word": "Yes, I can.", "hintJa": "はい、できます" },
+    { "word": "No, I cannot.", "hintJa": "いいえ、できません" },
+    { "word": "Are you good at ...?", "hintJa": "〜が得意ですか" },
+    { "word": "Can you play shogi?", "hintJa": "将棋ができますか" },
+    { "word": "Can you teach it to me?", "hintJa": "教えてくれますか" },
+    { "word": "one space forward", "hintJa": "前に1マス" }
+  ],
+  "wordGlosses": {
+    "can": "できる",
+    "cannot": "できない",
+    "can't": "できない",
+    "good": "上手",
+    "at": "〜に",
+    "play": "する",
+    "guitar": "ギター",
+    "skateboard": "スケボー",
+    "wheelchair": "車いす",
+    "basketball": "バスケ",
+    "shogi": "将棋",
+    "teach": "教える",
+    "sure": "もちろん",
+    "piece": "駒",
+    "move": "動く",
+    "space": "マス",
+    "forward": "前へ",
+    "read": "読む",
+    "kanji": "漢字",
+    "fu": "歩",
+    "use": "使う",
+    "like": "好き",
+    "club": "部活",
+    "many": "たくさん",
+    "one": "1つ"
+  },
+  "wordSprint": {
+    "clearsForAudioQuiz": 10,
+    "seconds": 28,
+    "roundWordCount": 5,
+    "audioQuizLaps": 1,
+    "titleJa": "単語テスト（中1 L2 Part2 Scene 1+2）",
+    "skipToTestButtonJa": "テストへ進む（待たない）",
+    "memoButtonJa": "学習を始める",
+    "quizReplayEnglishJa": "英語をもう一度聞く",
+    "quizTitleJa": "テスト（英語 → 日本語）",
+    "quizTitleAudioJa": "音声テスト",
+    "audioQuizChoicesNoteJa": "↓ 意味が合う日本語を 1 つ選んでください",
+    "audioQuizReplayJa": "もう一度 英語を聞く",
+    "audioQuizWrongJa": "不正解です。すぐにもう一度この問題に挑戦します。",
+    "quizPromptTemplateJa": "「{word}」の日本語の意味はどれですか。",
+    "quizPromptNoHintJa": "「{word}」（一覧の {n} 番目）の日本語の意味はどれですか。",
+    "reverseQuizAfterMeaningQuiz": true,
+    "quizTitleReverseJa": "テスト（日本語 → 英語）",
+    "quizReverseChoicesNoteJa": "↓ 意味に合う英語を 1 つ選んでください",
+    "quizReverseReplayJa": "英語の発音を聞く",
+    "mixedQuizAfterWordTests": true,
+    "mixedQuizTitleJa": "復習テスト（ごちゃまぜ）",
+    "mixedQuizQuestionCount": 0,
+    "mixedQuizPassNeed": 0,
+    "doneNextRoundJa": "次の単語テスト",
+    "doneRestartFullJa": "最初からやり直す",
+    "listeningStreakForGrammar": 12,
+    "grammarAnytimeButtonJa": "文法（並び替え）"
+  },
+  "grammarReorder": {
+    "titleJa": "文法テスト（can・Part 2 Scene 1+2）",
+    "testStyle": true,
+    "mergePunctuationChips": true,
+    "autoPlayListenOnOpen": true,
+    "meaningPauseAfterCorrect": true,
+    "meaningPauseAutoAdvance": true,
+    "items": [
+      {
+        "promptJa": "Can you（疑問）",
+        "meaningJa": "ギターを弾けますか。",
+        "tokens": ["Can", "you", "play", "the", "guitar", "?"]
+      },
+      {
+        "promptJa": "Yes, I can.",
+        "meaningJa": "はい、弾けます。",
+        "tokens": ["Yes", ",", "I", "can", "."]
+      },
+      {
+        "promptJa": "No, I cannot.",
+        "meaningJa": "いいえ、弾けません。",
+        "tokens": ["No", ",", "I", "cannot", "."]
+      },
+      {
+        "promptJa": "否定文",
+        "meaningJa": "私はギターを弾くことはできません。",
+        "tokens": ["I", "cannot", "play", "the", "guitar", "."]
+      },
+      {
+        "promptJa": "Are you good at",
+        "meaningJa": "スケートボードが得意ですか。",
+        "tokens": ["Are", "you", "good", "at", "skateboard", "?"]
+      },
+      {
+        "promptJa": "Can you play shogi",
+        "meaningJa": "将棋ができますか。",
+        "tokens": ["Can", "you", "play", "shogi", "?"]
+      },
+      {
+        "promptJa": "No, I can't.",
+        "meaningJa": "いいえ、できません。",
+        "tokens": ["No", ",", "I", "can't", "."]
+      },
+      {
+        "promptJa": "teach it to me",
+        "meaningJa": "教えてくれますか。",
+        "tokens": ["Can", "you", "teach", "it", "to", "me", "?"]
+      },
+      {
+        "promptJa": "Sure",
+        "meaningJa": "もちろん。将棋ではたくさんの駒を使うよ。",
+        "tokens": ["Sure", ".", "You", "use", "many", "pieces", "in", "shogi", "."]
+      },
+      {
+        "promptJa": "read the kanji",
+        "meaningJa": "この駒の漢字が読めますか。",
+        "tokens": ["Can", "you", "read", "the", "kanji", "on", "this", "piece", "?"]
+      },
+      {
+        "promptJa": "It is fu",
+        "meaningJa": "それは「歩（fu）」だよ。",
+        "tokens": ["It", "is", "fu", "."]
+      },
+      {
+        "promptJa": "move forward",
+        "meaningJa": "この駒は前に1マス動ける。",
+        "tokens": ["This", "piece", "can", "move", "one", "space", "forward", "."]
+      }
+    ],
+    "testStemJa": "次の【内容】になる英文になるよう、下の語を正しい順に並べなさい。",
+    "submitAnswerJa": "解答する",
+    "resetTestJa": "並べ替えをやり直す",
+    "wrongTestJa": "不正解です。語の順を確かめて、もう一度解答してください。",
+    "fillAnswerTestJa": "解答欄に語を並べてから、「解答する」を押してください。",
+    "allDoneTitleJa": "文法おわり",
+    "allDoneBodyJa": "おつかれさまでした。"
+  }
+}

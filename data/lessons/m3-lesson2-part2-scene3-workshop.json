@@ -1,7 +1,7 @@
 {
-  "id": "m3-scene3-workshop-present-perfect",
-  "titleJa": "中3 Scene 3 — 写真部ワークショップ（＋現在完了の復習）",
-  "title": "M3 Scene 3 — Photography workshop (+ present perfect review)",
+  "id": "m3-lesson2-part2-scene3-workshop",
+  "titleJa": "中3 Lesson 2 Part 2 — 写真部ワークショップ（Scene 3・現在完了の復習）",
+  "title": "M3 L2 Part 2 — Photography workshop (Scene 3)",
   "dialogue": [],
   "readingPassages": [
     "SPECIAL WORKSHOP — Photography Club",
@@ -24,25 +24,76 @@
     "I was a university student eight years ago."
   ],
   "vocabulary": [
-    { "word": "workshop", "hintJa": "ワークショップ（体験・講習会）" },
-    { "word": "hobby", "hintJa": "趣味" },
-    { "word": "improve", "hintJa": "良くする／改善する" },
-    { "word": "edit", "hintJa": "編集する" },
-    { "word": "lend", "hintJa": "貸す" },
-    { "word": "anybody", "hintJa": "だれでも" },
-    { "word": "beginner", "hintJa": "初心者" },
-    { "word": "welcome", "hintJa": "歓迎する" },
-    { "word": "delicious", "hintJa": "おいしい" },
-    { "word": "popular", "hintJa": "人気のある" },
-    { "word": "post", "hintJa": "投稿する" },
-    { "word": "share", "hintJa": "共有する" },
-    { "word": "idea", "hintJa": "アイデア" }
+    {
+      "word": "workshop",
+      "hintJa": "ワークショップ（体験・講習会）"
+    },
+    {
+      "word": "hobby",
+      "hintJa": "趣味"
+    },
+    {
+      "word": "improve",
+      "hintJa": "良くする／改善する"
+    },
+    {
+      "word": "edit",
+      "hintJa": "編集する"
+    },
+    {
+      "word": "lend",
+      "hintJa": "貸す"
+    },
+    {
+      "word": "anybody",
+      "hintJa": "だれでも"
+    },
+    {
+      "word": "beginner",
+      "hintJa": "初心者"
+    },
+    {
+      "word": "welcome",
+      "hintJa": "歓迎する"
+    },
+    {
+      "word": "delicious",
+      "hintJa": "おいしい"
+    },
+    {
+      "word": "popular",
+      "hintJa": "人気のある"
+    },
+    {
+      "word": "post",
+      "hintJa": "投稿する"
+    },
+    {
+      "word": "share",
+      "hintJa": "共有する"
+    },
+    {
+      "word": "idea",
+      "hintJa": "アイデア"
+    }
   ],
   "keywords": [
-    { "word": "take pictures", "hintJa": "写真を撮る" },
-    { "word": "take pictures of food", "hintJa": "食べ物の写真を撮る" },
-    { "word": "Bring your camera.", "hintJa": "カメラを持ってきて（命令）" },
-    { "word": "present perfect", "hintJa": "現在完了（経験／完了／継続）" }
+    {
+      "word": "take pictures",
+      "hintJa": "写真を撮る"
+    },
+    {
+      "word": "take pictures of food",
+      "hintJa": "食べ物の写真を撮る"
+    },
+    {
+      "word": "Bring your camera.",
+      "hintJa": "カメラを持ってきて（命令）"
+    },
+    {
+      "word": "present perfect",
+      "hintJa": "現在完了（経験／完了／継続）"
+    }
   ],
   "wordGlosses": {
     "taking": "（take の）～すること／撮ること",
@@ -93,7 +144,7 @@
     "seconds": 28,
     "roundWordCount": 4,
     "audioQuizLaps": 1,
-    "titleJa": "単語テスト（中3 Scene 3）",
+    "titleJa": "単語テスト（中3 L2 Part2 Scene 3）",
     "memoIntroJa": "",
     "studyHintJa": "",
     "skipDuringCountHintJa": "",
@@ -135,7 +186,7 @@
     "scoreWelcomeBestJa": "自己ベスト"
   },
   "grammarReorder": {
-    "titleJa": "文法テスト（現在完了の復習）",
+    "titleJa": "文法テスト（中3 L2 Part2 現在完了の復習）",
     "testStyle": true,
     "mergePunctuationChips": true,
     "autoPlayListenOnOpen": true,
@@ -145,27 +196,68 @@
       {
         "promptJa": "経験（2回）",
         "meaningJa": "歌舞伎を2回見たことがあります。",
-        "tokens": ["I've", "seen", "kabuki", "twice", "."]
+        "tokens": [
+          "I've",
+          "seen",
+          "kabuki",
+          "twice",
+          "."
+        ]
       },
       {
         "promptJa": "経験（行ったことがある）",
         "meaningJa": "ケイトは日本のいろいろな場所に行ったことがあります。",
-        "tokens": ["Kate", "has", "been", "to", "many", "places", "in", "Japan", "."]
+        "tokens": [
+          "Kate",
+          "has",
+          "been",
+          "to",
+          "many",
+          "places",
+          "in",
+          "Japan",
+          "."
+        ]
       },
       {
         "promptJa": "完了（ちょうど）",
         "meaningJa": "ちょうどサッカーの練習を終えたところです。",
-        "tokens": ["I've", "just", "finished", "my", "soccer", "practice", "."]
+        "tokens": [
+          "I've",
+          "just",
+          "finished",
+          "my",
+          "soccer",
+          "practice",
+          "."
+        ]
       },
       {
         "promptJa": "継続（since）",
         "meaningJa": "2023年からずっと先生をしています。",
-        "tokens": ["I've", "been", "a", "teacher", "since", "2023", "."]
+        "tokens": [
+          "I've",
+          "been",
+          "a",
+          "teacher",
+          "since",
+          "2023",
+          "."
+        ]
       },
       {
         "promptJa": "命令＋条件（if）",
         "meaningJa": "持っているなら、カメラを持ってきて。",
-        "tokens": ["Bring", "your", "camera", "if", "you", "have", "one", "."]
+        "tokens": [
+          "Bring",
+          "your",
+          "camera",
+          "if",
+          "you",
+          "have",
+          "one",
+          "."
+        ]
       }
     ],
     "testStemJa": "次の【内容】になる英文になるよう、下の語を正しい順に並べなさい。",
@@ -177,4 +269,3 @@
     "allDoneBodyJa": "おつかれさまでした。単語テストに戻って復習してもOKです。"
   }
 }
-

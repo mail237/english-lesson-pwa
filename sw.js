@@ -42,7 +42,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  if (url.pathname.endsWith("/data/lesson.json")) {
+  if (url.pathname.endsWith("/data/lesson.json") || url.pathname.includes("/data/lessons/")) {
     event.respondWith(
       fetch(request, { cache: "no-store" }).catch(() =>
         caches.match(request, { ignoreSearch: true })
