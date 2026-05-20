@@ -61,28 +61,37 @@
     { "word": "fourteenth", "hintJa": "14日目の" },
     { "word": "have", "hintJa": "飼う／持っている（I have a cat）" },
     { "word": "cat", "hintJa": "ネコ" },
-    { "word": "cats", "hintJa": "ネコ（複数）" }
-  ],
-  "keywords": [
-    { "word": "When is your birthday?", "hintJa": "誕生日はいつですか" },
-    { "word": "My birthday is July 14.", "hintJa": "私の誕生日は7月14日です" },
-    { "word": "Can he speak Japanese?", "hintJa": "彼は日本語を話せますか" },
-    { "word": "He can speak many languages.", "hintJa": "彼はたくさんの言語を話せる" },
+    { "word": "cats", "hintJa": "ネコ（複数）" },
     { "word": "He is my uncle.", "hintJa": "彼は私のおじです" },
     { "word": "I am not a baseball fan.", "hintJa": "私は野球ファンではありません" },
     { "word": "I do not play soccer.", "hintJa": "私はサッカーをしません" },
     { "word": "I have a cat.", "hintJa": "私はネコを飼っています" }
   ],
+  "keywords": [
+    { "word": "When is your birthday?", "hintJa": "誕生日はいつですか" },
+    { "word": "My birthday is July 14.", "hintJa": "私の誕生日は7月14日です" },
+    { "word": "Can he speak Japanese?", "hintJa": "彼は日本語を話せますか" },
+    { "word": "He can speak many languages.", "hintJa": "彼はたくさんの言語を話せる" }
+  ],
   "wordGlosses": {
     "hero": "英雄",
     "uncle": "おじ",
     "speak": "話す",
+    "run": "走る",
+    "fast": "速い",
+    "languages": "言語",
+    "many": "たくさん",
     "birthday": "誕生日",
     "July": "7月",
     "fan": "ファン",
     "baseball": "野球",
+    "soccer": "サッカー",
+    "play": "する",
     "have": "飼う",
-    "cat": "ネコ"
+    "cat": "ネコ",
+    "kind": "親切",
+    "brave": "勇敢",
+    "smile": "笑顔"
   },
   "wordSprint": {
     "clearsForAudioQuiz": 10,

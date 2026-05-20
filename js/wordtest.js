@@ -1008,10 +1008,13 @@
   }
 
   var STOPWORDS = new Set(
-    "a an the is are was were be been being to of in on for with by at or as it we you he she they i me him her us them my your his our their this that these those and but not so do does did have has had can could will would shall should may might must need dare ought".split(
+    "a an the is am are was were be been being to of in on for with by at or as it we you he she they i me him her us them my your his our their this that these those and but not so do does did have has had can could will would shall should may might must need dare ought".split(
       /\s+/
     )
   );
+
+  /** 長い key フレーズの hintJa を単語にコピーしない（do / fast などに文全体の意味が付くのを防ぐ） */
+  var PHRASE_HINT_MAX_PARTS = 3;
 
   function gatherSourceTexts(data) {
     const texts = [];
@@ -1092,7 +1095,15 @@
     return shuffle(out);
   }
 
-  /** vocabulary / keywords のフレーズに含まれる単語へ、同じ hintJa をのせる（take と take a picture など） */
+  function phraseHintParts(phraseWord) {
+    return normKey(phraseWord)
+      .split(/[^a-z0-9']+/i)
+      .filter(function (p) {
+        return p.length >= 2 && !STOPWORDS.has(p);
+      });
+  }
+
+  /** vocabulary / keywords の短いフレーズだけ、単語へ hint を補う（take / take a picture、run fast など） */
   function fillHintsFromPhrases(data, map) {
     var entries = []
       .concat(data.vocabulary || [])
@@ -1112,13 +1123,10 @@
       var hint = (entry.hintJa || "").trim();
       if (hint) return;
       var low = normKey(entry.word);
-      if (low.length < 2) return;
+      if (low.length < 2 || STOPWORDS.has(low)) return;
       for (var i = 0; i < entries.length; i++) {
-        var parts = normKey(entries[i].word)
-          .split(/[^a-z0-9']+/i)
-          .filter(function (p) {
-            return p.length >= 2;
-          });
+        var parts = phraseHintParts(entries[i].word);
+        if (parts.length === 0 || parts.length > PHRASE_HINT_MAX_PARTS) continue;
         if (parts.indexOf(low) === -1) continue;
         entry.hintJa = String(entries[i].hintJa).trim();
         return;
