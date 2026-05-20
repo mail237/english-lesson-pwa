@@ -28,10 +28,10 @@ function doGet(e) {
   if (action === "leaderboard") {
     const lessonId = (e.parameter.lessonId || "").trim();
     const secret = (e.parameter.secret || "").trim();
-    if (!allow_(secret)) return jsonOut_({ ok: false, error: "forbidden" }, 403);
+    if (!allow_(secret)) return jsonOut_({ ok: false, error: "forbidden" });
     return jsonOut_({ ok: true, rows: leaderboard_(lessonId) });
   }
-  return jsonOut_({ ok: false, error: "bad_request" }, 400);
+  return jsonOut_({ ok: false, error: "bad_request" });
 }
 
 function doPost(e) {
@@ -39,11 +39,11 @@ function doPost(e) {
   try {
     body = JSON.parse(e.postData && e.postData.contents ? e.postData.contents : "{}");
   } catch (err) {
-    return jsonOut_({ ok: false, error: "bad_json" }, 400);
+    return jsonOut_({ ok: false, error: "bad_json" });
   }
   const action = String(body.action || "").trim();
   const secret = String(body.secret || "").trim();
-  if (!allow_(secret)) return jsonOut_({ ok: false, error: "forbidden" }, 403);
+  if (!allow_(secret)) return jsonOut_({ ok: false, error: "forbidden" });
 
   if (action === "upsert") {
     const lessonId = String(body.lessonId || "").trim();
@@ -51,11 +51,11 @@ function doPost(e) {
     const word = Number(body.word || 0) || 0;
     const grammar = Number(body.grammar || 0) || 0;
     const total = Number(body.total || (word + grammar)) || 0;
-    if (!lessonId || !name) return jsonOut_({ ok: false, error: "missing" }, 400);
+    if (!lessonId || !name) return jsonOut_({ ok: false, error: "missing" });
     upsert_(lessonId, name, word, grammar, total);
     return jsonOut_({ ok: true });
   }
-  return jsonOut_({ ok: false, error: "bad_request" }, 400);
+  return jsonOut_({ ok: false, error: "bad_request" });
 }
 
 // ---------- internals ----------
@@ -113,17 +113,10 @@ function leaderboard_(lessonId) {
   return rows;
 }
 
-function jsonOut_(obj, status) {
-  const out = ContentService
-    .createTextOutput(JSON.stringify(obj))
-    .setMimeType(ContentService.MimeType.JSON);
-  const hdrs = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type"
-  };
-  Object.keys(hdrs).forEach((k) => out.setHeader(k, hdrs[k]));
-  if (status) out.setHeader("Status", String(status));
-  return out;
+function jsonOut_(obj) {
+  // TextOutput に setHeader はない（旧コードは TypeError になる）
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(
+    ContentService.MimeType.JSON
+  );
 }
 
