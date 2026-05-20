@@ -6,3 +6,5 @@ https://script.google.com/macros/s/AKfycbynncPz5pfBrnGeydKJY0SsY3dScVGscbPSAE8Qz
 iPad ごとに「共有ランキングを設定」する必要はありません。
 
 確認: 文法テストおわり（または単語テスト全部正解おわり）に「ランキング（共有）」
+
+Apps Script を直したら必ず「新しいデプロイ」。手順は tools/RANKING-SETUP-ja.md

@@ -167,24 +167,80 @@
     } catch (e) {}
   }
 
-  /** 塾用：data/ranking-config.json があれば未設定端末へ自動でURLを入れる */
+  /** 塾用：data/ranking-config.json を正として URL を常に同期する */
   async function ensureRemoteRankingFromSiteConfig() {
-    var cur = getRemoteRankingConfig();
-    if (cur.url) return cur;
     try {
       var res = await fetch(
         new URL("data/ranking-config.json", document.baseURI).href,
         { cache: "no-store" }
       );
-      if (!res.ok) return cur;
+      if (!res.ok) return getRemoteRankingConfig();
       var j = await res.json();
       var url = String((j && j.url) || "").trim();
-      if (!url) return cur;
-      setRemoteRankingConfig(url, String((j && j.secret) || "").trim());
+      if (!url) return getRemoteRankingConfig();
+      var secret = String((j && j.secret) || "").trim();
+      var cur = getRemoteRankingConfig();
+      if (cur.url !== url || cur.secret !== secret) {
+        setRemoteRankingConfig(url, secret);
+      }
     } catch (e) {
       /* ignore */
     }
     return getRemoteRankingConfig();
+  }
+
+  function mapRemoteLeaderboardRows(rows) {
+    return rows
+      .map(function (r) {
+        if (!r) return null;
+        var name = String(r.name || "").trim();
+        if (!name) return null;
+        return {
+          name: name,
+          total: Number(r.total) || 0,
+          word: Number(r.word) || 0,
+          grammar: Number(r.grammar) || 0
+        };
+      })
+      .filter(Boolean);
+  }
+
+  function remoteFetchLeaderboardJsonp(reqUrl) {
+    return new Promise(function (resolve) {
+      var cb =
+        "wtRankCb_" + String(Date.now()) + "_" + Math.floor(Math.random() * 1e6);
+      var sep = reqUrl.indexOf("?") >= 0 ? "&" : "?";
+      var src = reqUrl + sep + "callback=" + encodeURIComponent(cb);
+      var script = document.createElement("script");
+      var done = false;
+      function finish(rows) {
+        if (done) return;
+        done = true;
+        window.clearTimeout(timer);
+        try {
+          delete window[cb];
+        } catch (e) {
+          window[cb] = undefined;
+        }
+        if (script.parentNode) script.parentNode.removeChild(script);
+        resolve(rows);
+      }
+      window[cb] = function (json) {
+        if (!json || !json.ok || !Array.isArray(json.rows)) {
+          finish([]);
+          return;
+        }
+        finish(mapRemoteLeaderboardRows(json.rows));
+      };
+      script.onerror = function () {
+        finish([]);
+      };
+      var timer = window.setTimeout(function () {
+        finish([]);
+      }, 12000);
+      script.src = src;
+      document.head.appendChild(script);
+    });
   }
 
   function renderRankList(wrap, rows, meName) {
@@ -291,21 +347,25 @@
     var wordHi = readHighScore();
     var grammarHi = readGrammarHighScore();
     var totalHi = (wordHi || 0) + (grammarHi || 0);
-    var body = {
-      action: "upsert",
-      name: base.name,
-      lessonId: base.lessonId,
-      word: wordHi,
-      grammar: grammarHi,
-      total: totalHi,
-      secret: c.secret || ""
-    };
+    var sep = c.url.indexOf("?") >= 0 ? "&" : "?";
+    var qs =
+      "action=upsert" +
+      "&lessonId=" +
+      encodeURIComponent(base.lessonId) +
+      "&name=" +
+      encodeURIComponent(base.name) +
+      "&word=" +
+      encodeURIComponent(String(wordHi)) +
+      "&grammar=" +
+      encodeURIComponent(String(grammarHi)) +
+      "&total=" +
+      encodeURIComponent(String(totalHi)) +
+      "&secret=" +
+      encodeURIComponent(c.secret || "");
     try {
-      fetch(c.url, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(body)
-      }).catch(function () {});
+      var img = new Image();
+      img.alt = "";
+      img.src = c.url + sep + qs;
     } catch (e) {
       /* ignore */
     }
@@ -327,25 +387,16 @@
       encodeURIComponent(c.secret || "");
     try {
       var res = await fetch(req, { cache: "no-store" });
-      if (!res.ok) return [];
-      var json = await res.json();
-      var rows = Array.isArray(json && json.rows) ? json.rows : [];
-      return rows
-        .map(function (r) {
-          if (!r) return null;
-          var name = String(r.name || "").trim();
-          if (!name) return null;
-          return {
-            name: name,
-            total: Number(r.total) || 0,
-            word: Number(r.word) || 0,
-            grammar: Number(r.grammar) || 0
-          };
-        })
-        .filter(Boolean);
+      if (res.ok) {
+        var json = await res.json();
+        if (json && json.ok && Array.isArray(json.rows)) {
+          return mapRemoteLeaderboardRows(json.rows);
+        }
+      }
     } catch (e) {
-      return [];
+      /* fetch 失敗時は JSONP */
     }
+    return remoteFetchLeaderboardJsonp(req);
   }
 
   function buildLeaderboardRows() {
@@ -1702,7 +1753,9 @@
 
     // 共有ランキング設定（Google Sheets / Apps Script）
     var cfg = getRemoteRankingConfig();
-    var cfgLabel = cfg.url ? "共有ランキング：設定済み" : "共有ランキング：未設定";
+    var cfgLabel = cfg.url
+      ? "共有ランキング：OK（テスト後に全員分を表示）"
+      : "共有ランキング：未設定（いったんホームに戻って開き直す）";
     card.appendChild(el("p", "wt-lead", cfgLabel));
     var btnCfg = el(
       "button",
