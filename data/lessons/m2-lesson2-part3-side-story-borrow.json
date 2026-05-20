@@ -28,14 +28,14 @@
     { "word": "course", "hintJa": "もちろん（Of course）" },
     { "word": "love", "hintJa": "大好きになる／とても気に入る" },
     { "word": "watch", "hintJa": "見る（映画・テレビ）" },
-    { "word": "adventure", "hintJa": "冒険" }
+    { "word": "adventure", "hintJa": "冒険" },
+    { "word": "Peter Rabbit", "hintJa": "ピーターラビット（映画）" },
+    { "word": "Stand by Me", "hintJa": "スタンド・バイ・ミー（映画のタイトル）" }
   ],
   "keywords": [
     { "word": "Can I borrow ...?", "hintJa": "〜を借りていい？" },
     { "word": "I'm sure you'll ...", "hintJa": "きっと〜だよ（相手への予想）" },
-    { "word": "I'm sure that ...", "hintJa": "きっと〜だと確信している（be sure that）" },
-    { "word": "Stand by Me", "hintJa": "スタンド・バイ・ミー（映画のタイトル）" },
-    { "word": "Peter Rabbit", "hintJa": "ピーターラビット（映画）" }
+    { "word": "I'm sure that ...", "hintJa": "きっと〜だと確信している（be sure that）" }
   ],
   "wordGlosses": {
     "watched": "見た",

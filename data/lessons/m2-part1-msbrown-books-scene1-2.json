@@ -45,14 +45,14 @@
     { "word": "naughty", "hintJa": "わんぱくな／いたずらな" },
     { "word": "trouble", "hintJa": "困りごと／トラブル" },
     { "word": "lend", "hintJa": "貸す" },
-    { "word": "another", "hintJa": "別の／もう1つの" }
+    { "word": "another", "hintJa": "別の／もう1つの" },
+    { "word": "Peter Rabbit", "hintJa": "ピーターラビット（作品名）" }
   ],
   "keywords": [
     { "word": "When I was a child,", "hintJa": "子どものとき（過去のことを言う）" },
     { "word": "If you have time, ...", "hintJa": "もし時間があるなら、…" },
     { "word": "I chose ... for you.", "hintJa": "あなたのために〜を選んだ" },
     { "word": "I will lend ... to you.", "hintJa": "あなたに〜を貸します" },
-    { "word": "Peter Rabbit", "hintJa": "ピーターラビット（作品名）" },
     { "word": "I'm happy when ...", "hintJa": "〜なとき、うれしい（気持ちの言い方）" },
     { "word": "do well on an exam", "hintJa": "試験でよい成績を取る" }
   ],
@@ -166,7 +166,7 @@
       {
         "promptJa": "選ぶ（過去）",
         "meaningJa": "あなたのためにピーターラビットを選びました。",
-        "tokens": ["I", "chose", "Peter", "Rabbit", "for", "you", "."]
+        "tokens": ["I", "chose", "Peter Rabbit", "for", "you", "."]
       },
       {
         "promptJa": "will（未来）",

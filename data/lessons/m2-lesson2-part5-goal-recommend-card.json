@@ -109,7 +109,7 @@
       {
         "promptJa": "recommend",
         "meaningJa": "ファンタジー本の魔女の宅急便をおすすめする。",
-        "tokens": ["I", "recommend", "the", "fantasy", "book", ",", "Kiki's", "Delivery", "Service", "."]
+        "tokens": ["I", "recommend", "the", "fantasy", "book", ",", "Kiki's Delivery Service", "."]
       },
       {
         "promptJa": "about",

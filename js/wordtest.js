@@ -1086,6 +1086,7 @@
     });
 
     fillHintsFromPhrases(data, map);
+    purgeListedPhraseFragments(map, data);
     purgeHintlessContractionGarbage(map);
 
     var out = Array.from(map.values()).filter(function (e) {
@@ -1101,6 +1102,31 @@
       .filter(function (p) {
         return p.length >= 2 && !STOPWORDS.has(p);
       });
+  }
+
+  /** 一覧に「Beatrix Potter」など複合名があるとき、beatrix / potter だけを単語テストに出さない */
+  function purgeListedPhraseFragments(map, data) {
+    var phrases = []
+      .concat(data.vocabulary || [])
+      .concat(data.keywords || [])
+      .filter(function (e) {
+        return e && e.word != null && String(e.word).indexOf(" ") >= 0;
+      });
+    phrases.forEach(function (e) {
+      var phraseKey = normKey(e.word);
+      if (!phraseKey) return;
+      var parts = phraseKey.split(/\s+/).filter(function (p) {
+        return p.length >= 2;
+      });
+      if (parts.length < 2) return;
+      parts.forEach(function (part) {
+        if (!map.has(part)) return;
+        var ent = map.get(part);
+        if (ent.fromList && normKey(ent.word) === part) return;
+        if (normKey(ent.word) === phraseKey) return;
+        map.delete(part);
+      });
+    });
   }
 
   /** vocabulary / keywords の短いフレーズだけ、単語へ hint を補う（take / take a picture、run fast など） */
@@ -1125,6 +1151,8 @@
       var low = normKey(entry.word);
       if (low.length < 2 || STOPWORDS.has(low)) return;
       for (var i = 0; i < entries.length; i++) {
+        var phraseKey = normKey(entries[i].word);
+        if (phraseKey.indexOf(" ") >= 0 && map.has(phraseKey)) continue;
         var parts = phraseHintParts(entries[i].word);
         if (parts.length === 0 || parts.length > PHRASE_HINT_MAX_PARTS) continue;
         if (parts.indexOf(low) === -1) continue;

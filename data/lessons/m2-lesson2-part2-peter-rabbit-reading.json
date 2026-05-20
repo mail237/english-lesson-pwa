@@ -38,20 +38,20 @@
     { "word": "beautiful", "hintJa": "美しい" },
     { "word": "museum", "hintJa": "博物館" },
     { "word": "visit", "hintJa": "訪れる／見学する" },
-    { "word": "enjoyed", "hintJa": "楽しんだ（enjoy の過去形）" }
+    { "word": "enjoyed", "hintJa": "楽しんだ（enjoy の過去形）" },
+    { "word": "Peter Rabbit", "hintJa": "ピーターラビット（作品名）" },
+    { "word": "Beatrix Potter", "hintJa": "ビアトリクス・ポター（作者名）" },
+    { "word": "Ms. Potter", "hintJa": "ポターさん" },
+    { "word": "Dragon Ball", "hintJa": "ドラゴンボール（作品名）" },
+    { "word": "Harry Potter", "hintJa": "ハリー・ポッター（作品名）" },
+    { "word": "Lake District", "hintJa": "湖水地方（イギリス）" },
+    { "word": "in fact", "hintJa": "実は／ほんとうは" },
+    { "word": "amazing", "hintJa": "すばらしい／すごい" }
   ],
   "keywords": [
     { "word": "I think (that) ...", "hintJa": "〜だと思う（that は省略することも多い）" },
     { "word": "I hope that ...", "hintJa": "〜だといいなと願う" },
-    { "word": "in fact", "hintJa": "実は／ほんとうは" },
-    { "word": "Peter Rabbit", "hintJa": "ピーターラビット（作品名）" },
-    { "word": "Beatrix Potter", "hintJa": "ビアトリクス・ポター（作者の名前）" },
-    { "word": "Lake District", "hintJa": "湖水地方（イギリス）" },
-    { "word": "Alice's Adventures in Wonderland", "hintJa": "不思議の国のアリス（作品名）" },
-    { "word": "Daddy-Long-Legs", "hintJa": "あしながおじさん（作品名）" },
-    { "word": "I Am a Cat", "hintJa": "吾輩は猫である（作品名）" },
-    { "word": "Dragon Ball", "hintJa": "ドラゴンボール（作品名）" },
-    { "word": "Harry Potter", "hintJa": "ハリー・ポッター（作品名）" }
+    { "word": "I really enjoyed ...", "hintJa": "〜を本当に楽しんだ" }
   ],
   "wordGlosses": {
     "think": "思う",
@@ -142,7 +142,7 @@
       {
         "promptJa": "think + that（作者）",
         "meaningJa": "ポターさんは動物と自然が大好きだったと思う。",
-        "tokens": ["I", "think", "that", "Ms.", "Potter", "loved", "animals", "and", "nature", "."]
+        "tokens": ["I", "think", "that", "Ms. Potter", "loved", "animals", "and", "nature", "."]
       },
       {
         "promptJa": "hope + that",
@@ -152,7 +152,22 @@
       {
         "promptJa": "作者と挿絵",
         "meaningJa": "作者のビアトリクス・ポターは、すべての本に挿絵を描いた。",
-        "tokens": ["The", "author", ",", "Beatrix", "Potter", ",", "drew", "the", "pictures", "in", "all", "her", "books", "."]
+        "tokens": ["The", "author", ",", "Beatrix Potter", ",", "drew", "the", "pictures", "in", "all", "her", "books", "."]
+      },
+      {
+        "promptJa": "Dragon Ball",
+        "meaningJa": "ドラゴンボールが好き。登場人物がかっこいいと思う。",
+        "tokens": ["I", "like", "Dragon Ball", ".", "I", "think", "that", "the", "characters", "are", "cool", "."]
+      },
+      {
+        "promptJa": "Harry Potter",
+        "meaningJa": "ハリー・ポッターが好き。物語がわくわくすると思う。",
+        "tokens": ["I", "like", "Harry Potter", ".", "I", "think", "that", "the", "story", "is", "exciting", "."]
+      },
+      {
+        "promptJa": "really enjoyed",
+        "meaningJa": "ピーターラビットを本当に楽しんだ。動物や景色の美しい絵がたくさんある。",
+        "tokens": ["I", "really", "enjoyed", "Peter Rabbit", ".", "It", "has", "a", "lot", "of", "beautiful", "pictures", "of", "animals", "and", "scenery", "."]
       }
     ],
     "testStemJa": "次の【内容】になる英文になるよう、下の語を正しい順に並べなさい。",

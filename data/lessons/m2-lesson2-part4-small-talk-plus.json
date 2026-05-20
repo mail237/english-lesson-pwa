@@ -28,13 +28,12 @@
     { "word": "part", "hintJa": "部分／（物語の）場面" },
     { "word": "horror story", "hintJa": "怖い話／ホラー物語" },
     { "word": "mystery novel", "hintJa": "ミステリー小説" },
-    { "word": "main character", "hintJa": "主人公" }
+    { "word": "main character", "hintJa": "主人公" },
+    { "word": "Peter Rabbit", "hintJa": "ピーターラビット（作品名）" }
   ],
   "keywords": [
     { "word": "I agree.", "hintJa": "同感だ／そのとおりだと思う" },
-    { "word": "Which part ... do you like?", "hintJa": "どの場面が好き？" },
-    { "word": "I like ... The story is exciting!", "hintJa": "〜が好き。物語がわくわくする！" },
-    { "word": "Peter Rabbit", "hintJa": "ピーターラビット" }
+    { "word": "Which part ... do you like?", "hintJa": "どの場面が好き？" }
   ],
   "wordGlosses": {
     "encourage": "勇気づける",
@@ -92,7 +91,7 @@
       {
         "promptJa": "感想",
         "meaningJa": "ピーターラビットが好き。物語がわくわくする！",
-        "tokens": ["I", "like", "Peter", "Rabbit", ".", "The", "story", "is", "exciting", "!"]
+        "tokens": ["I", "like", "Peter Rabbit", ".", "The", "story", "is", "exciting", "!"]
       },
       {
         "promptJa": "同意と質問",
