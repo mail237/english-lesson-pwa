@@ -303,7 +303,7 @@
       },
       {
         "promptJa": "否定（do）",
-        "meaningJa": "毎日サッカーの練習はしません。",
+        "meaningJa": "私は毎日サッカーの練習をしません。",
         "tokens": [
           "I",
           "do",

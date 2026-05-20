@@ -83,7 +83,7 @@
     { "word": "Can he speak Japanese?", "hintJa": "彼は日本語を話せますか" },
     { "word": "He can speak many languages.", "hintJa": "彼はたくさんの言語を話せる" },
     { "word": "He is my uncle.", "hintJa": "彼は私のおじです" },
-    { "word": "I do not play soccer.", "hintJa": "私はサッカーをしません" },
+    { "word": "I do not practice soccer every day.", "hintJa": "私は毎日サッカーの練習をしません" },
     { "word": "a cat → cats", "hintJa": "数えられる名詞の複数形" }
   ],
   "wordGlosses": {
@@ -178,8 +178,13 @@
       },
       {
         "promptJa": "否定（do）",
-        "meaningJa": "私はサッカーをしません。",
+        "meaningJa": "私は、サッカーをしません。（p.41・一般動詞）",
         "tokens": ["I", "do", "not", "play", "soccer", "."]
+      },
+      {
+        "promptJa": "否定（do・毎日）",
+        "meaningJa": "私は毎日サッカーの練習をしません。（L1 Part2）",
+        "tokens": ["I", "do", "not", "practice", "soccer", "every", "day", "."]
       },
       {
         "promptJa": "SVO",
