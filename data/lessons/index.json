@@ -99,8 +99,14 @@
     {
       "track": "中2",
       "grade": "中2",
-      "label": "Lesson 3 — 職場体験（to + 動詞・Scene 1+2・p.28–29）",
+      "label": "Lesson 3 Part 1 — 職場体験（to + 動詞・名詞用法・Scene 1+2・p.28–29）",
       "path": "data/lessons/m2-lesson3-day-at-work-scene1-2.json"
+    },
+    {
+      "track": "中2",
+      "grade": "中2",
+      "label": "Lesson 3 Part 2 — パン店での職場体験（to + 動詞・副詞・形容詞用法・Scene 1+2・p.30–31）",
+      "path": "data/lessons/m2-lesson3-part2-bakery-scene1-2.json"
     },
     {
       "track": "中3",
