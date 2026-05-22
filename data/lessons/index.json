@@ -21,6 +21,12 @@
     {
       "track": "中1",
       "grade": "中1",
+      "label": "Lesson 1 Part 3 — 学校からの帰り道（What do you...?・Scene 1+2・p.30–31）",
+      "path": "data/lessons/m1-lesson1-part3-way-home-scene1-2.json"
+    },
+    {
+      "track": "中1",
+      "grade": "中1",
       "label": "Lesson 2 Part 1 — あこがれの人物（can・Scene 1+2・p.36–37）",
       "path": "data/lessons/m1-lesson2-role-model-scene1-2.json"
     },
