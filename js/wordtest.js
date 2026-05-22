@@ -291,13 +291,28 @@
     if (remoteRankingEnabled() && meName && !isGenericPlayerName(meName)) {
       var loading = el("p", "wt-lead", "ランキング読み込み中…");
       wrap.appendChild(loading);
-      remoteFetchLeaderboard().then(function (rows) {
+      remoteFetchLeaderboard().then(function (result) {
         loading.remove();
-        if (!rows.length) {
+        var rows = result && result.rows ? result.rows : [];
+        if (result && result.ok && !rows.length) {
           wrap.appendChild(
-            el("p", "wt-lead", "共有ランキングを取得できませんでした。")
+            el(
+              "p",
+              "wt-quiz__note wt-quiz__note--soft",
+              "このレッスンでは、まだ共有ランキングの記録がありません。テストを終えると載ります。"
+            )
           );
-          var local = buildLeaderboardRows().map(function (r) {
+          return;
+        }
+        if (!result || !result.ok) {
+          wrap.appendChild(
+            el(
+              "p",
+              "wt-lead",
+              "共有ランキングを取得できませんでした。Apps Script を「新しいデプロイ」したか確認してください。"
+            )
+          );
+          var localFail = buildLeaderboardRows().map(function (r) {
             return {
               name: r.name,
               total: r.total,
@@ -305,7 +320,7 @@
               grammar: r.grammar
             };
           });
-          if (local.length) renderRankList(wrap, local, meName);
+          if (localFail.length) renderRankList(wrap, localFail, meName);
           return;
         }
         renderRankList(wrap, rows, meName);
@@ -339,16 +354,8 @@
     var lessonId = lesson && lesson.id ? lesson.id : "default";
     return { name: name, lessonId: lessonId };
   }
-  function remoteUpsertMyHighScores() {
-    var base = remotePayloadBase();
-    if (!base) return;
-    var c = getRemoteRankingConfig();
-    if (!c.url) return;
-    var wordHi = readHighScore();
-    var grammarHi = readGrammarHighScore();
-    var totalHi = (wordHi || 0) + (grammarHi || 0);
-    var sep = c.url.indexOf("?") >= 0 ? "&" : "?";
-    var qs =
+  function remoteUpsertQueryString(base, c, wordHi, grammarHi, totalHi) {
+    return (
       "action=upsert" +
       "&lessonId=" +
       encodeURIComponent(base.lessonId) +
@@ -361,20 +368,43 @@
       "&total=" +
       encodeURIComponent(String(totalHi)) +
       "&secret=" +
-      encodeURIComponent(c.secret || "");
+      encodeURIComponent(c.secret || "")
+    );
+  }
+
+  function remoteUpsertMyHighScores() {
+    var base = remotePayloadBase();
+    if (!base) return;
+    var c = getRemoteRankingConfig();
+    if (!c.url) return;
+    var wordHi = readHighScore();
+    var grammarHi = readGrammarHighScore();
+    var totalHi = (wordHi || 0) + (grammarHi || 0);
+    var sep = c.url.indexOf("?") >= 0 ? "&" : "?";
+    var reqUrl = c.url + sep + remoteUpsertQueryString(base, c, wordHi, grammarHi, totalHi);
     try {
-      var img = new Image();
-      img.alt = "";
-      img.src = c.url + sep + qs;
+      fetch(reqUrl, { method: "GET", mode: "cors", cache: "no-store" }).catch(
+        function () {
+          /* ignore */
+        }
+      );
     } catch (e) {
       /* ignore */
     }
+    try {
+      var img = new Image();
+      img.alt = "";
+      img.src = reqUrl;
+    } catch (e2) {
+      /* ignore */
+    }
   }
+
   async function remoteFetchLeaderboard() {
     var base = remotePayloadBase();
-    if (!base) return [];
+    if (!base) return { ok: false, rows: [] };
     var c = getRemoteRankingConfig();
-    if (!c.url) return [];
+    if (!c.url) return { ok: false, rows: [] };
     var url = c.url;
     var sep = url.indexOf("?") >= 0 ? "&" : "?";
     var req =
@@ -386,17 +416,22 @@
       "&secret=" +
       encodeURIComponent(c.secret || "");
     try {
-      var res = await fetch(req, { cache: "no-store" });
+      var res = await fetch(req, { cache: "no-store", mode: "cors" });
       if (res.ok) {
         var json = await res.json();
         if (json && json.ok && Array.isArray(json.rows)) {
-          return mapRemoteLeaderboardRows(json.rows);
+          return {
+            ok: true,
+            rows: mapRemoteLeaderboardRows(json.rows)
+          };
         }
       }
     } catch (e) {
       /* fetch 失敗時は JSONP */
     }
-    return remoteFetchLeaderboardJsonp(req);
+    var jsonpRows = await remoteFetchLeaderboardJsonp(req);
+    if (jsonpRows.length) return { ok: true, rows: jsonpRows };
+    return { ok: false, rows: [] };
   }
 
   function buildLeaderboardRows() {

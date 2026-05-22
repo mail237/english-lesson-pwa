@@ -1,12 +1,29 @@
 # 共有ランキング セットアップ（永田塾）
 
+## スプレッドシート、作った？
+
+**まだなら** → 下の「1. Google スプレッドシート」から **新規作成** してください。
+
+**作ったか忘れた場合** → Google ドライブで「英語ランキング」などの名前を探す。  
+または、下の「動作確認 URL」をブラウザで開き、`"rows":[...]` に名前が出れば **どこかのシートには繋がっています**。
+
+| 確認 | 意味 |
+|------|------|
+| `{"ok":true,"rows":[]}` | シートは動いているが、まだ誰も記録なし |
+| `{"ok":true,"rows":[{"name":"…"}]}` | スプレッドシート OK |
+| `{"ok":false,"error":"bad_request"}` | **デプロイが古い** → 手順 2 で **新しいデプロイ** |
+| `upsert` だけ `bad_request` | **ほぼ確実にデプロイが古い**（スコアが保存されない） |
+
+---
+
 ## 1. Google スプレッドシート
 
 1. [Google スプレッドシート](https://sheets.google.com) で **新規作成**
-2. **拡張機能 → Apps Script**
+2. **拡張機能 → Apps Script**（※スプレッドシートから開く。無題プロジェクトだけだと動かないことが多い）
 3. `コード.gs` を開き、中身を **すべて削除**
 4. このフォルダの `ranking-appscript.gs` を **丸ごとコピー＆貼り付け**
 5. **保存**（プロジェクト名は「英語ランキング」などでOK）
+6. 初回実行後、スプレッドシートに **`ranking` というシート** が自動でできる（列: lessonId, name, word, grammar, total, updatedAt）
 
 ### 「無題のプロジェクト」だけで作った場合
 
@@ -29,13 +46,21 @@
 
 ## 3. 動作確認（ブラウザ）
 
-URL の末尾に付ける:
+Web アプリ URL のうしろに付ける（1行ずつ試す）:
 
 ```
 ?action=leaderboard&lessonId=test&secret=
 ```
 
-`{"ok":true,"rows":[...]}` なら成功。`bad_request` はパラメータ不足。
+```
+?action=upsert&lessonId=test&name=確認太郎&word=1&grammar=2&total=3&secret=
+```
+
+| 結果 | 判定 |
+|------|------|
+| leaderboard → `{"ok":true,...}` | 読み取り OK |
+| upsert → `{"ok":true}` | 書き込み OK（**これが出ないとランキングに載らない**） |
+| upsert → `bad_request` | `ranking-appscript.gs` を貼り直して **新しいデプロイ** |
 
 ## 4. アプリ側（自動）
 
