@@ -3059,6 +3059,18 @@
     return s.replace(/\s+/g, " ");
   }
 
+  var GRAMMAR_TEST_STEM_LEGACY =
+    "次の【内容】になる英文になるよう、下の語を正しい順に並べなさい。";
+  var GRAMMAR_TEST_STEM_DEFAULT =
+    "次の【内容】になる英文になるよう、\n下の語を正しい順に並べなさい。";
+
+  function grammarTestStemDisplay(stem) {
+    var t = String(stem != null ? stem : "").trim();
+    if (!t) return "";
+    if (t === GRAMMAR_TEST_STEM_LEGACY) return GRAMMAR_TEST_STEM_DEFAULT;
+    return t;
+  }
+
   /**
    * 並び替え UI 用：コンマ・ピリオド・? など「記号だけ」のチップを隣の語にくっつけ、
    * 正解英文（grammarTokensJoin）は元トークン列と同じになるように保つ。
@@ -3189,7 +3201,7 @@
         )
       );
       card.appendChild(head);
-      var stemText = gr.testStemJa != null ? String(gr.testStemJa).trim() : "";
+      var stemText = grammarTestStemDisplay(gr.testStemJa);
       if (stemText) {
         card.appendChild(el("p", "wt-grammar__test-stem", stemText));
       }

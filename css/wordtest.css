@@ -959,6 +959,9 @@ body {
   line-height: 1.55;
   text-align: center;
   color: var(--ink);
+  line-break: strict;
+  word-break: keep-all;
+  white-space: pre-line;
 }
 
 .wt-grammar__meaning--test .wt-grammar__meaning-body--hero {
