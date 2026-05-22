@@ -3434,19 +3434,17 @@
     );
     card.appendChild(builtEl);
     card.appendChild(btnClearBuilt);
-    card.appendChild(
-      el(
-        "p",
-        "wt-scramble__hint",
-        (testStyle ? gr.testOperateNoteJa : null) ||
-          gr.scrambleHintJa ||
-          (testStyle
-            ? "下の語をタップで**末尾**へ。**挿入**：解答欄で挿入したい位置の語を1回タップしてから下の語をタップ → **その語の前**に入ります。**並んだ語を続けて2回タップ**で入れ替え。**↓**でその1語だけ**候補**に戻せます。「" +
-              (gr.clearBuiltJa || "並べた語をすべて候補に戻す") +
-              "」ですべて戻せます。"
-            : "下の語は**何も選んでいないとき**は末尾へ。**挿入**：上で位置の語を1回タップ → 下の語で**その前**に挿入。**2回タップ**で入れ替え。**↓**でその1語だけ**候補**に戻せます。「並べた語をすべて候補に戻す」で全部戻せます。")
-      )
-    );
+    var scrambleHintText =
+      (gr.scrambleHintJa != null && String(gr.scrambleHintJa).trim()) ||
+      (testStyle && gr.testOperateNoteJa != null
+        ? String(gr.testOperateNoteJa).trim()
+        : "") ||
+      (testStyle
+        ? ""
+        : "下の語は何も選んでいないときは末尾へ。挿入：上で位置の語を1回タップ → 下の語でその前に挿入。2回タップで入れ替え。↓でその1語だけ候補に戻せます。「並べた語をすべて候補に戻す」で全部戻せます。");
+    if (scrambleHintText) {
+      card.appendChild(el("p", "wt-scramble__hint", scrambleHintText));
+    }
     card.appendChild(poolEl);
 
     var actions = el("div", "wt-actions");
