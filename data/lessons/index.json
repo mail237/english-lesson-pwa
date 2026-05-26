@@ -127,6 +127,12 @@
       "path": "data/lessons/m2-lesson3-part2-bakery-scene1-2.json"
     },
     {
+      "track": "中2",
+      "grade": "中2",
+      "label": "Lesson 3 Goal — 『捨てないパン屋』田村さん（Read + Write・p.33–35）",
+      "path": "data/lessons/m2-lesson3-goal-tamura-bakery-read-write.json"
+    },
+    {
       "track": "中3",
       "grade": "中3",
       "label": "Lesson 1 — 写真部のアイデア",
