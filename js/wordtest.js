@@ -27,6 +27,29 @@
   let gameQuizStreakRoundMax = 0;
   /** ページを開いているあいだの累計（次のラウンドで加算） */
   let gameSessionTotal = 0;
+  /** 採点（厳しめ・lesson の wordSprint / grammarReorder で上書き可） */
+  const SCORE_DEFAULTS = {
+    word: {
+      basePoints: 5,
+      comboStep: 2,
+      comboMaxSteps: 5,
+      listenPenalty: 10,
+      wrongPenalty: 5,
+    },
+    grammar: {
+      basePoints: 10,
+      comboStep: 2,
+      comboMaxSteps: 5,
+      listenPenalty: 10,
+      wrongPenalty: 8,
+      timeTargetSec: 15,
+      timeBonusPerSec: 1,
+      timeBonusCap: 15,
+      timeOverPenaltyPerSec: 2,
+      timeOverPenaltyCap: 20,
+    },
+  };
+
   /** セッション累計（単語） */
   let gameSessionWordTotal = 0;
   /** セッション累計（文法） */
@@ -490,29 +513,69 @@
     gameQuizStreakRoundMax = 0;
   }
 
+  function getWordScoreRules() {
+    var ws = (lesson && lesson.wordSprint) || {};
+    var d = SCORE_DEFAULTS.word;
+    return {
+      basePoints:
+        typeof ws.scoreBasePoints === "number" && ws.scoreBasePoints > 0
+          ? Math.min(200, Math.floor(ws.scoreBasePoints))
+          : d.basePoints,
+      comboStep:
+        typeof ws.scoreComboStep === "number" && ws.scoreComboStep >= 0
+          ? Math.min(50, Math.floor(ws.scoreComboStep))
+          : d.comboStep,
+      comboMaxSteps:
+        typeof ws.scoreComboMaxSteps === "number" && ws.scoreComboMaxSteps >= 0
+          ? Math.min(50, Math.floor(ws.scoreComboMaxSteps))
+          : d.comboMaxSteps,
+      listenPenalty:
+        typeof ws.scoreListenPenaltyPoints === "number" &&
+        ws.scoreListenPenaltyPoints >= 0
+          ? Math.min(999, Math.floor(ws.scoreListenPenaltyPoints))
+          : d.listenPenalty,
+      wrongPenalty:
+        typeof ws.scoreWrongPenaltyPoints === "number" &&
+        ws.scoreWrongPenaltyPoints >= 0
+          ? Math.min(999, Math.floor(ws.scoreWrongPenaltyPoints))
+          : d.wrongPenalty,
+    };
+  }
+
+  function comboBonus(streak, step, maxSteps) {
+    if (streak <= 1) return 0;
+    return Math.min(streak - 1, maxSteps) * step;
+  }
+
   function applyCorrectAnswerPoints() {
+    var r = getWordScoreRules();
     gameQuizStreak++;
     if (gameQuizStreak > gameQuizStreakRoundMax) {
       gameQuizStreakRoundMax = gameQuizStreak;
     }
-    var bonus = Math.min(gameQuizStreak - 1, 12) * 5;
-    gameRoundScore += 10 + bonus;
+    gameRoundScore +=
+      r.basePoints + comboBonus(gameQuizStreak, r.comboStep, r.comboMaxSteps);
+  }
+
+  function applyWordWrongPenalty() {
+    var r = getWordScoreRules();
+    gameQuizStreak = 0;
+    if (r.wrongPenalty > 0) {
+      gameRoundScore = Math.max(0, gameRoundScore - r.wrongPenalty);
+    }
   }
 
   function resetComboStreak() {
-    gameQuizStreak = 0;
+    applyWordWrongPenalty();
   }
 
   function getScoreCopy() {
     var ws = (lesson && lesson.wordSprint) || {};
+    var r = getWordScoreRules();
     return {
       hudTemplate:
         ws.scoreHudTemplateJa || "スコア {score} · コンボ {combo}",
-      listenPenaltyPoints:
-        typeof ws.scoreListenPenaltyPoints === "number" &&
-        ws.scoreListenPenaltyPoints >= 0
-          ? Math.min(999, Math.floor(ws.scoreListenPenaltyPoints))
-          : 5,
+      listenPenaltyPoints: r.listenPenalty,
       roundTitleJa: ws.scoreRoundTitleJa || "今回のスコア",
       bestJa: ws.scoreBestJa || "自己ベスト",
       newRecordJa: ws.scoreNewRecordJa || "新記録！",
@@ -529,13 +592,72 @@
     gameRoundScore = Math.max(0, gameRoundScore - p);
   }
 
-  function applyGrammarListenPenalty() {
+  function getGrammarScoreRules() {
     var gr = (lesson && lesson.grammarReorder) || {};
-    var p =
-      typeof gr.scoreListenPenaltyPoints === "number" &&
-      gr.scoreListenPenaltyPoints >= 0
-        ? Math.min(999, Math.floor(gr.scoreListenPenaltyPoints))
-        : 5;
+    var d = SCORE_DEFAULTS.grammar;
+    return {
+      basePoints:
+        typeof gr.scoreBasePoints === "number" && gr.scoreBasePoints > 0
+          ? Math.min(200, Math.floor(gr.scoreBasePoints))
+          : d.basePoints,
+      comboStep:
+        typeof gr.scoreComboStep === "number" && gr.scoreComboStep >= 0
+          ? Math.min(50, Math.floor(gr.scoreComboStep))
+          : d.comboStep,
+      comboMaxSteps:
+        typeof gr.scoreComboMaxSteps === "number" && gr.scoreComboMaxSteps >= 0
+          ? Math.min(50, Math.floor(gr.scoreComboMaxSteps))
+          : d.comboMaxSteps,
+      listenPenalty:
+        typeof gr.scoreListenPenaltyPoints === "number" &&
+        gr.scoreListenPenaltyPoints >= 0
+          ? Math.min(999, Math.floor(gr.scoreListenPenaltyPoints))
+          : d.listenPenalty,
+      wrongPenalty:
+        typeof gr.scoreWrongPenaltyPoints === "number" &&
+        gr.scoreWrongPenaltyPoints >= 0
+          ? Math.min(999, Math.floor(gr.scoreWrongPenaltyPoints))
+          : d.wrongPenalty,
+      timeTargetSec:
+        typeof gr.scoreTimeTargetSec === "number" && gr.scoreTimeTargetSec > 0
+          ? Math.min(300, Math.floor(gr.scoreTimeTargetSec))
+          : d.timeTargetSec,
+      timeBonusPerSec:
+        typeof gr.scoreTimeBonusPerSec === "number" &&
+        gr.scoreTimeBonusPerSec >= 0
+          ? Math.min(50, Math.floor(gr.scoreTimeBonusPerSec))
+          : d.timeBonusPerSec,
+      timeBonusCap:
+        typeof gr.scoreTimeBonusCap === "number" && gr.scoreTimeBonusCap >= 0
+          ? Math.min(5000, Math.floor(gr.scoreTimeBonusCap))
+          : d.timeBonusCap,
+      timeOverPenaltyPerSec:
+        typeof gr.scoreTimeOverPenaltyPerSec === "number" &&
+        gr.scoreTimeOverPenaltyPerSec >= 0
+          ? Math.min(50, Math.floor(gr.scoreTimeOverPenaltyPerSec))
+          : d.timeOverPenaltyPerSec,
+      timeOverPenaltyCap:
+        typeof gr.scoreTimeOverPenaltyCap === "number" &&
+        gr.scoreTimeOverPenaltyCap >= 0
+          ? Math.min(5000, Math.floor(gr.scoreTimeOverPenaltyCap))
+          : d.timeOverPenaltyCap,
+    };
+  }
+
+  function grammarTimeAdjustment(elapsedMs, rules) {
+    var sec = Math.max(0, (elapsedMs || 0) / 1000);
+    if (sec <= rules.timeTargetSec) {
+      return Math.min(
+        rules.timeBonusCap,
+        Math.floor((rules.timeTargetSec - sec) * rules.timeBonusPerSec)
+      );
+    }
+    var over = Math.floor((sec - rules.timeTargetSec) * rules.timeOverPenaltyPerSec);
+    return -Math.min(rules.timeOverPenaltyCap, over);
+  }
+
+  function applyGrammarListenPenalty() {
+    var p = getGrammarScoreRules().listenPenalty;
     if (p <= 0) return;
     grammarRoundScore = Math.max(0, grammarRoundScore - p);
   }
@@ -598,36 +720,28 @@
   }
 
   function applyGrammarCorrectPoints(elapsedMs) {
+    var r = getGrammarScoreRules();
     grammarStreak++;
     if (grammarStreak > grammarStreakRoundMax) {
       grammarStreakRoundMax = grammarStreak;
     }
-    var bonus = Math.min(grammarStreak - 1, 12) * 5;
-    var gr = (lesson && lesson.grammarReorder) || {};
-    var base =
-      typeof gr.scoreBasePoints === "number" && gr.scoreBasePoints > 0
-        ? Math.min(200, Math.floor(gr.scoreBasePoints))
-        : 20;
-    var targetSec =
-      typeof gr.scoreTimeTargetSec === "number" && gr.scoreTimeTargetSec > 0
-        ? Math.min(300, Math.floor(gr.scoreTimeTargetSec))
-        : 20;
-    var perSec =
-      typeof gr.scoreTimeBonusPerSec === "number" && gr.scoreTimeBonusPerSec >= 0
-        ? Math.min(50, Math.floor(gr.scoreTimeBonusPerSec))
-        : 2;
-    var cap =
-      typeof gr.scoreTimeBonusCap === "number" && gr.scoreTimeBonusCap >= 0
-        ? Math.min(5000, Math.floor(gr.scoreTimeBonusCap))
-        : 60;
-    var sec = Math.max(0, (elapsedMs || 0) / 1000);
-    var timeBonus = Math.max(0, Math.floor((targetSec - sec) * perSec));
-    if (timeBonus > cap) timeBonus = cap;
-    grammarRoundScore += base + bonus + timeBonus;
+    var gained =
+      r.basePoints +
+      comboBonus(grammarStreak, r.comboStep, r.comboMaxSteps) +
+      grammarTimeAdjustment(elapsedMs, r);
+    grammarRoundScore = Math.max(0, grammarRoundScore + gained);
+  }
+
+  function applyGrammarWrongPenalty() {
+    var r = getGrammarScoreRules();
+    grammarStreak = 0;
+    if (r.wrongPenalty > 0) {
+      grammarRoundScore = Math.max(0, grammarRoundScore - r.wrongPenalty);
+    }
   }
 
   function resetGrammarComboStreak() {
-    grammarStreak = 0;
+    applyGrammarWrongPenalty();
   }
 
   function getGrammarScoreCopy() {
