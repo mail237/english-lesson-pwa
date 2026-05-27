@@ -33,10 +33,6 @@
       "hintJa": "ファン／大ファン"
     },
     {
-      "word": "every",
-      "hintJa": "すべての／毎〜"
-    },
-    {
       "word": "every day",
       "hintJa": "毎日"
     },
@@ -186,7 +182,6 @@
   "wordGlosses": {
     "fan": "ファン",
     "practice": "練習する",
-    "every": "毎",
     "day": "日",
     "basketball": "バスケ",
     "baseball": "野球",
