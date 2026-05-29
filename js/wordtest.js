@@ -547,6 +547,26 @@
     return Math.min(streak - 1, maxSteps) * step;
   }
 
+  /** いま表示中のスコア HUD（emptyRoot でクリア） */
+  let activeWordScoreHudCard = null;
+  let activeGrammarScoreHudCard = null;
+
+  function setActiveWordScoreHud(card) {
+    activeWordScoreHudCard = card || null;
+  }
+
+  function setActiveGrammarScoreHud(card) {
+    activeGrammarScoreHudCard = card || null;
+  }
+
+  function refreshActiveWordScoreHud() {
+    refreshScoreHudIn(activeWordScoreHudCard, false);
+  }
+
+  function refreshActiveGrammarScoreHud() {
+    refreshScoreHudIn(activeGrammarScoreHudCard, true);
+  }
+
   function applyCorrectAnswerPoints() {
     var r = getWordScoreRules();
     gameQuizStreak++;
@@ -555,6 +575,7 @@
     }
     gameRoundScore +=
       r.basePoints + comboBonus(gameQuizStreak, r.comboStep, r.comboMaxSteps);
+    refreshActiveWordScoreHud();
   }
 
   function applyWordWrongPenalty() {
@@ -563,6 +584,7 @@
     if (r.wrongPenalty > 0) {
       gameRoundScore = Math.max(0, gameRoundScore - r.wrongPenalty);
     }
+    refreshActiveWordScoreHud();
   }
 
   function resetComboStreak() {
@@ -590,6 +612,7 @@
     var p = c.listenPenaltyPoints || 0;
     if (p <= 0) return;
     gameRoundScore = Math.max(0, gameRoundScore - p);
+    refreshActiveWordScoreHud();
   }
 
   function getGrammarScoreRules() {
@@ -660,6 +683,7 @@
     var p = getGrammarScoreRules().listenPenalty;
     if (p <= 0) return;
     grammarRoundScore = Math.max(0, grammarRoundScore - p);
+    refreshActiveGrammarScoreHud();
   }
 
   function refreshScoreHudIn(card, isGrammar) {
@@ -730,6 +754,7 @@
       comboBonus(grammarStreak, r.comboStep, r.comboMaxSteps) +
       grammarTimeAdjustment(elapsedMs, r);
     grammarRoundScore = Math.max(0, grammarRoundScore + gained);
+    refreshActiveGrammarScoreHud();
   }
 
   function applyGrammarWrongPenalty() {
@@ -738,6 +763,7 @@
     if (r.wrongPenalty > 0) {
       grammarRoundScore = Math.max(0, grammarRoundScore - r.wrongPenalty);
     }
+    refreshActiveGrammarScoreHud();
   }
 
   function resetGrammarComboStreak() {
@@ -1865,6 +1891,8 @@
   function emptyRoot() {
     if (loadingEl) loadingEl.remove();
     root.innerHTML = "";
+    activeWordScoreHudCard = null;
+    activeGrammarScoreHudCard = null;
   }
 
   function showError(msg) {
@@ -2441,6 +2469,7 @@
     card.appendChild(head);
     card.appendChild(prog);
     card.appendChild(el("p", "wt-quiz__score-hud", formatScoreHud()));
+    setActiveWordScoreHud(card);
     card.appendChild(
       el("p", "wt-audio-quiz__choices-hint", conf.mixedQuizChoicesNoteJa)
     );
@@ -2768,6 +2797,7 @@
     card.appendChild(head);
     card.appendChild(prog);
     card.appendChild(el("p", "wt-quiz__score-hud", formatScoreHud()));
+    setActiveWordScoreHud(card);
     card.appendChild(prBlock);
     card.appendChild(
       el("p", "wt-audio-quiz__choices-hint", conf.quizReverseChoicesNoteJa)
@@ -2999,6 +3029,7 @@
     card.appendChild(head);
     card.appendChild(prog);
     card.appendChild(el("p", "wt-quiz__score-hud", formatScoreHud()));
+    setActiveWordScoreHud(card);
     if (audioStyleQuiz && conf.listeningStreakNeed > 0) {
       if (!listeningCleared) {
         var streakLine = String(conf.listeningStreakProgressJa || "")
@@ -3328,6 +3359,7 @@
 
     // スコア表示（文法）
     card.appendChild(el("p", "wt-quiz__score-hud", formatGrammarScoreHud()));
+    setActiveGrammarScoreHud(card);
 
     if (testStyle) {
       var head = el("div", "wt-grammar__test-head");
@@ -3719,6 +3751,7 @@
 
     var card = el("div", "wt-card wt-grammar wt-grammar-meaning-pause");
     card.appendChild(el("p", "wt-quiz__score-hud", formatGrammarScoreHud()));
+    setActiveGrammarScoreHud(card);
     card.appendChild(
       el(
         "p",
