@@ -567,6 +567,18 @@
     refreshScoreHudIn(activeGrammarScoreHudCard, true);
   }
 
+  /** 連打で「不正解→別肢の正解」が両方入るのを防ぐ（先にロックしてから採点） */
+  function beginWordQuizAnswer(card, grid) {
+    if (card && card.dataset.wtAnswered === "1") return false;
+    if (card) card.dataset.wtAnswered = "1";
+    if (grid) {
+      grid.querySelectorAll(".wt-choice").forEach(function (x) {
+        x.disabled = true;
+      });
+    }
+    return true;
+  }
+
   function applyCorrectAnswerPoints() {
     var r = getWordScoreRules();
     gameQuizStreak++;
@@ -580,9 +592,12 @@
 
   function applyWordWrongPenalty() {
     var r = getWordScoreRules();
+    var streakBefore = gameQuizStreak;
+    var comboLoss = comboBonus(streakBefore, r.comboStep, r.comboMaxSteps);
     gameQuizStreak = 0;
-    if (r.wrongPenalty > 0) {
-      gameRoundScore = Math.max(0, gameRoundScore - r.wrongPenalty);
+    var totalPenalty = r.wrongPenalty + comboLoss;
+    if (totalPenalty > 0) {
+      gameRoundScore = Math.max(0, gameRoundScore - totalPenalty);
     }
     refreshActiveWordScoreHud();
   }
@@ -759,9 +774,12 @@
 
   function applyGrammarWrongPenalty() {
     var r = getGrammarScoreRules();
+    var streakBefore = grammarStreak;
+    var comboLoss = comboBonus(streakBefore, r.comboStep, r.comboMaxSteps);
     grammarStreak = 0;
-    if (r.wrongPenalty > 0) {
-      grammarRoundScore = Math.max(0, grammarRoundScore - r.wrongPenalty);
+    var totalPenalty = r.wrongPenalty + comboLoss;
+    if (totalPenalty > 0) {
+      grammarRoundScore = Math.max(0, grammarRoundScore - totalPenalty);
     }
     refreshActiveGrammarScoreHud();
   }
@@ -2684,14 +2702,12 @@
         b.setAttribute("aria-label", enText);
         b.addEventListener("click", function () {
           if (b.disabled) return;
+          if (!beginWordQuizAnswer(card, grid)) return;
           const ok = normKey(opt.word) === keyT;
           if (ok) applyCorrectAnswerPoints();
           else resetComboStreak();
           recordWordStat(String(quizTarget.word).trim(), ok);
           b.classList.add(ok ? "wt-choice--correct" : "wt-choice--wrong");
-          grid.querySelectorAll(".wt-choice").forEach(function (x) {
-            x.disabled = true;
-          });
           function goNext() {
             window.setTimeout(function () {
               advance(ok);
@@ -2783,14 +2799,12 @@
         b.setAttribute("aria-label", meaningText);
         b.addEventListener("click", function () {
           if (b.disabled) return;
+          if (!beginWordQuizAnswer(card, grid)) return;
           const ok = normKey(opt.word) === keyT;
           if (ok) applyCorrectAnswerPoints();
           else resetComboStreak();
           recordWordStat(String(target.word).trim(), ok);
           b.classList.add(ok ? "wt-choice--correct" : "wt-choice--wrong");
-          grid.querySelectorAll(".wt-choice").forEach(function (x) {
-            x.disabled = true;
-          });
           advance(ok);
         });
         grid.appendChild(b);
@@ -2900,15 +2914,12 @@
       b.setAttribute("aria-label", enText);
       b.addEventListener("click", function () {
         if (b.disabled) return;
+        if (!beginWordQuizAnswer(card, grid)) return;
         const ok = normKey(opt.word) === keyT;
         if (ok) {
           applyCorrectAnswerPoints();
           recordWordStat(String(quizTarget.word).trim(), true);
           b.classList.add("wt-choice--correct");
-          b.disabled = true;
-          grid.querySelectorAll(".wt-choice").forEach(function (x) {
-            x.disabled = true;
-          });
           function goNext() {
             window.setTimeout(function () {
               renderReverseQuiz(conf, phaseWords, qIndex + 1);
@@ -2924,9 +2935,6 @@
           resetComboStreak();
           recordWordStat(String(quizTarget.word).trim(), false);
           b.classList.add("wt-choice--wrong");
-          grid.querySelectorAll(".wt-choice").forEach(function (x) {
-            x.disabled = true;
-          });
           card.appendChild(
             el("p", "wt-quiz__note", "不正解です。次の問題へ進みます。")
           );
@@ -3172,15 +3180,12 @@
       b.setAttribute("aria-label", meaningText);
       b.addEventListener("click", () => {
         if (b.disabled) return;
+        if (!beginWordQuizAnswer(card, grid)) return;
         const ok = normKey(opt.word) === keyT;
         if (ok) {
           applyCorrectAnswerPoints();
           recordWordStat(String(target.word).trim(), true);
           b.classList.add("wt-choice--correct");
-          b.disabled = true;
-          grid.querySelectorAll(".wt-choice").forEach((x) => {
-            x.disabled = true;
-          });
           if (audioStyleQuiz) {
             listeningStreak++;
             var needListen = conf.listeningStreakNeed;
@@ -3220,9 +3225,6 @@
           recordWordStat(String(target.word).trim(), false);
           if (audioStyleQuiz) {
             b.classList.add("wt-choice--wrong");
-            grid.querySelectorAll(".wt-choice").forEach((x) => {
-              x.disabled = true;
-            });
             card.appendChild(
               el(
                 "p",
@@ -3239,9 +3241,6 @@
             return;
           }
           b.classList.add("wt-choice--wrong");
-          grid.querySelectorAll(".wt-choice").forEach((x) => {
-            x.disabled = true;
-          });
           const note = el(
             "p",
             "wt-quiz__note",
@@ -3741,7 +3740,9 @@
 
     var btnCheck = el("button", "wt-btn wt-btn--primary", checkJa);
     btnCheck.type = "button";
+    var grammarSubmitLock = false;
     btnCheck.addEventListener("click", function () {
+      if (grammarSubmitLock) return;
       feedbackEl.textContent = "";
       feedbackEl.className = "wt-grammar__feedback";
       if (!built.length) {
@@ -3750,6 +3751,7 @@
           "wt-grammar__feedback wt-grammar__feedback--wrong";
         return;
       }
+      grammarSubmitLock = true;
       if (
         grammarTokensJoin(
           built.map(function (x) {
@@ -3757,6 +3759,7 @@
           })
         ) === expected
       ) {
+        btnCheck.disabled = true;
         grammarLastItemTimeMs = Math.max(0, Date.now() - grammarItemStartMs);
         grammarRoundTimeMs += grammarLastItemTimeMs;
         applyGrammarCorrectPoints(grammarLastItemTimeMs);
@@ -3767,6 +3770,9 @@
       feedbackEl.textContent = wrongJa;
       feedbackEl.className =
         "wt-grammar__feedback wt-grammar__feedback--wrong";
+      window.setTimeout(function () {
+        grammarSubmitLock = false;
+      }, 450);
     });
     actions.appendChild(btnCheck);
 
