@@ -1122,6 +1122,14 @@
       .replace(/[.!?…,;:：。、]+$/g, "");
   }
 
+  function hintJaIsSentenceLike(hintJa) {
+    var h = String(hintJa || "").trim();
+    if (!h) return false;
+    if (/[。！？]/.test(h)) return true;
+    if (h.length >= 22) return true;
+    return false;
+  }
+
   function wordStatsStorageKey() {
     var lid = lesson && lesson.id ? lesson.id : "default";
     var pid = currentPlayerId || "";
@@ -1331,7 +1339,9 @@
         var parts = phraseHintParts(entries[i].word);
         if (parts.length === 0 || parts.length > PHRASE_HINT_MAX_PARTS) continue;
         if (parts.indexOf(low) === -1) continue;
-        entry.hintJa = String(entries[i].hintJa).trim();
+        var phraseHint = String(entries[i].hintJa).trim();
+        if (hintJaIsSentenceLike(phraseHint)) continue;
+        entry.hintJa = phraseHint;
         return;
       }
     });
@@ -2339,6 +2349,142 @@
     return wordsArePhraseRelated(a, b);
   }
 
+  /** 日本語→英語：選択肢・正解を「文」にそろえる判定 */
+  function wordIsPhraseLike(word) {
+    var w = String(word || "").trim();
+    if (!w) return false;
+    if (/\s/.test(w)) return true;
+    if (/[.!?]$/.test(w)) return true;
+    return false;
+  }
+
+  function ja2enNeedsPhraseAnswers(target) {
+    if (!target) return false;
+    return (
+      wordIsPhraseLike(target.word) || hintJaIsSentenceLike(target.hintJa)
+    );
+  }
+
+  function findPhraseForWordInPool(wordKey, pool) {
+    var best = null;
+    var bestLen = 0;
+    for (var i = 0; i < pool.length; i++) {
+      var w = pool[i];
+      if (!wordIsPhraseLike(w.word)) continue;
+      var pk = normKey(w.word);
+      if (!wordsAreTokenRelated(wordKey, pk)) continue;
+      if (pk.length > bestLen) {
+        best = w;
+        bestLen = pk.length;
+      }
+    }
+    return best;
+  }
+
+  function resolveJa2enTarget(target, pool) {
+    if (!target) return target;
+    if (!ja2enNeedsPhraseAnswers(target)) return target;
+    if (wordIsPhraseLike(target.word)) return target;
+    var phrase = findPhraseForWordInPool(normKey(target.word), pool);
+    return phrase || target;
+  }
+
+  /** 単語だけのときに、文全体の hintJa をそのまま出さない */
+  function extractWordLevelHintJa(hintJa) {
+    var h = String(hintJa || "").trim();
+    if (!h) return "";
+    var paren = h.match(/（([^）]+)）/);
+    if (paren && paren[1].length <= 28) return paren[1].trim();
+    var seg = h.split(/[。！？]/)[0].trim();
+    if (seg && seg.length <= 20) return seg;
+    var parts = h.split(/[／/]/).map(function (x) {
+      return x.trim();
+    });
+    for (var i = 0; i < parts.length; i++) {
+      if (parts[i].length <= 16 && !/[。！？]/.test(parts[i])) return parts[i];
+    }
+    return "";
+  }
+
+  function ja2enDisplayPrompt(target, conf) {
+    var hint = String(target.hintJa || "").trim();
+    if (hint) {
+      if (!wordIsPhraseLike(target.word) && hintJaIsSentenceLike(hint)) {
+        var short = extractWordLevelHintJa(hint);
+        if (short) return normMeaningLabel(short);
+      }
+      return normMeaningLabel(hint);
+    }
+    return String(conf.quizReversePromptNoHintJa || "")
+      .replace(/\{n\}/g, String(originalQuizPositionForTarget(conf, target)))
+      .replace(/\{word\}/g, String(target.word).trim());
+  }
+
+  function filterJa2enChoicePool(pool, quizTarget) {
+    if (!wordIsPhraseLike(quizTarget.word)) return pool;
+    var phraseOnly = pool.filter(function (w) {
+      return wordIsPhraseLike(w.word);
+    });
+    return phraseOnly.length >= 3 ? phraseOnly : pool;
+  }
+
+  function prepareJa2enQuestion(target, pool, conf) {
+    var quizTarget = resolveJa2enTarget(target, pool);
+    var choicePool = filterJa2enChoicePool(pool, quizTarget);
+    var phraseMode = wordIsPhraseLike(quizTarget.word);
+    return {
+      target: quizTarget,
+      keyT: normKey(quizTarget.word),
+      prompt: ja2enDisplayPrompt(quizTarget, conf),
+      choicePool: choicePool,
+      phraseMode: phraseMode,
+      choicesNote: phraseMode
+        ? conf.quizReversePhraseChoicesNoteJa ||
+            "↓ 意味に合う英語の文を 1 つ選んでください"
+        : null,
+    };
+  }
+
+  function pickJa2enWrongOptions(keyT, quizTarget, choicePool, phraseMode) {
+    const usedKeys = new Set([keyT]);
+    const usedLabels = new Set([String(quizTarget.word).trim()]);
+    const wrongPick = [];
+    function pushWrongEnIfOk(w) {
+      if (phraseMode && !wordIsPhraseLike(w.word)) return false;
+      const k = normKey(w.word);
+      if (usedKeys.has(k)) return false;
+      if (wordsAreTokenRelated(keyT, k)) return false;
+      const lab = String(w.word || "").trim();
+      if (!lab) return false;
+      if (usedLabels.has(lab)) return false;
+      usedKeys.add(k);
+      usedLabels.add(lab);
+      wrongPick.push(w);
+      return true;
+    }
+    for (var pass = 0; pass < 2; pass++) {
+      for (const w of shuffle(choicePool)) {
+        if (wrongPick.length >= 2) break;
+        pushWrongEnIfOk(w);
+      }
+      if (wrongPick.length >= 2) break;
+    }
+    if (wrongPick.length < 2) {
+      for (const w of shuffle(choicePool)) {
+        if (wrongPick.length >= 2) break;
+        if (phraseMode && !wordIsPhraseLike(w.word)) continue;
+        const k = normKey(w.word);
+        if (usedKeys.has(k)) continue;
+        const lab = String(w.word || "").trim();
+        if (!lab || usedLabels.has(lab)) continue;
+        usedKeys.add(k);
+        usedLabels.add(lab);
+        wrongPick.push(w);
+      }
+    }
+    return wrongPick;
+  }
+
   /** 音声テストの複数周で 同じ語が かさなるので 第2クイズは 1 語 1 回にする */
   function uniqueWordsPreserveOrder(words) {
     var seen = new Set();
@@ -2457,7 +2603,7 @@
     }
 
     const pool = buildWordPool(lesson);
-    const keyT = normKey(target.word);
+    let keyT = normKey(target.word);
     const card = el("div", "wt-card");
     const synthOn = Boolean(window.speechSynthesis);
     const head = el("p", "wt-quiz__title", conf.mixedQuizTitleJa);
@@ -2492,48 +2638,17 @@
     }
 
     if (dir === "ja2en") {
-      const hintHas = Boolean((target.hintJa || "").trim());
-      const usedKeys = new Set([keyT]);
-      const usedLabels = new Set([String(target.word).trim()]);
-      const wrongPick = [];
-      function pushWrongEnIfOk(w) {
-        const k = normKey(w.word);
-        if (usedKeys.has(k)) return false;
-        if (wordsAreTokenRelated(keyT, k)) return false;
-        const lab = String(w.word || "").trim();
-        if (!lab) return false;
-        if (usedLabels.has(lab)) return false;
-        usedKeys.add(k);
-        usedLabels.add(lab);
-        wrongPick.push(w);
-        return true;
-      }
-      for (var pass = 0; pass < 2; pass++) {
-        for (const w of shuffle(pool)) {
-          if (wrongPick.length >= 2) break;
-          pushWrongEnIfOk(w);
-        }
-        if (wrongPick.length >= 2) break;
-      }
-      if (wrongPick.length < 2) {
-        for (const w of shuffle(pool)) {
-          if (wrongPick.length >= 2) break;
-          const k = normKey(w.word);
-          if (usedKeys.has(k)) continue;
-          const lab = String(w.word || "").trim();
-          if (!lab || usedLabels.has(lab)) continue;
-          usedKeys.add(k);
-          usedLabels.add(lab);
-          wrongPick.push(w);
-        }
-      }
-      var jaPrompt = hintHas
-        ? normMeaningLabel(String(target.hintJa || ""))
-        : String(conf.quizReversePromptNoHintJa || "")
-            .replace(/\{n\}/g, String(originalQuizPositionForTarget(conf, target)))
-            .replace(/\{word\}/g, String(target.word).trim());
+      var jaQ = prepareJa2enQuestion(target, pool, conf);
+      var quizTarget = jaQ.target;
+      keyT = jaQ.keyT;
+      var wrongPick = pickJa2enWrongOptions(
+        keyT,
+        quizTarget,
+        jaQ.choicePool,
+        jaQ.phraseMode
+      );
       const prBlock = el("div", "wt-text-quiz wt-text-quiz--reverse");
-      prBlock.appendChild(el("p", "wt-quiz__big-ja", jaPrompt));
+      prBlock.appendChild(el("p", "wt-quiz__big-ja", jaQ.prompt));
       if (synthOn) {
         var replayRev = el(
           "button",
@@ -2544,13 +2659,17 @@
         replayRev.addEventListener("click", function () {
           applyWordListenPenalty();
           refreshScoreHudIn(card, false);
-          speakWord(target.word);
+          speakWord(quizTarget.word);
         });
         prBlock.appendChild(replayRev);
       }
       card.insertBefore(prBlock, grid);
+      if (jaQ.choicesNote) {
+        var noteEl = card.querySelector(".wt-audio-quiz__choices-hint");
+        if (noteEl) noteEl.textContent = jaQ.choicesNote;
+      }
 
-      const optionWords = shuffle([target, ...wrongPick]);
+      const optionWords = shuffle([quizTarget, ...wrongPick]);
       const seenEnLabels = new Set();
       optionWords.forEach(function (opt) {
         var enText = String(opt.word || "").trim();
@@ -2568,7 +2687,7 @@
           const ok = normKey(opt.word) === keyT;
           if (ok) applyCorrectAnswerPoints();
           else resetComboStreak();
-          recordWordStat(String(target.word).trim(), ok);
+          recordWordStat(String(quizTarget.word).trim(), ok);
           b.classList.add(ok ? "wt-choice--correct" : "wt-choice--wrong");
           grid.querySelectorAll(".wt-choice").forEach(function (x) {
             x.disabled = true;
@@ -2715,49 +2834,17 @@
     titleEl.textContent = conf.titleJa;
 
     const target = phaseWords[qIndex];
-    const hintHas = Boolean((target.hintJa || "").trim());
     const pool = buildWordPool(lesson);
-    const keyT = normKey(target.word);
-    const usedKeys = new Set([keyT]);
-    const usedLabels = new Set();
-    usedLabels.add(String(target.word).trim());
-    const wrongPick = [];
-
-    function pushWrongEnIfOk(w) {
-      const k = normKey(w.word);
-      if (usedKeys.has(k)) return false;
-      if (wordsAreTokenRelated(keyT, k)) return false;
-      const lab = String(w.word || "").trim();
-      if (!lab) return false;
-      if (usedLabels.has(lab)) return false;
-      usedKeys.add(k);
-      usedLabels.add(lab);
-      wrongPick.push(w);
-      return true;
-    }
-
-    for (var pass = 0; pass < 2; pass++) {
-      for (const w of shuffle(pool)) {
-        if (wrongPick.length >= 2) break;
-        pushWrongEnIfOk(w);
-      }
-      if (wrongPick.length >= 2) break;
-    }
-
-    if (wrongPick.length < 2) {
-      for (const w of shuffle(pool)) {
-        if (wrongPick.length >= 2) break;
-        const k = normKey(w.word);
-        if (usedKeys.has(k)) continue;
-        const lab = String(w.word || "").trim();
-        if (!lab || usedLabels.has(lab)) continue;
-        usedKeys.add(k);
-        usedLabels.add(lab);
-        wrongPick.push(w);
-      }
-    }
-
-    const optionWords = shuffle([target, ...wrongPick]);
+    var jaQ = prepareJa2enQuestion(target, pool, conf);
+    var quizTarget = jaQ.target;
+    const keyT = jaQ.keyT;
+    const wrongPick = pickJa2enWrongOptions(
+      keyT,
+      quizTarget,
+      jaQ.choicePool,
+      jaQ.phraseMode
+    );
+    const optionWords = shuffle([quizTarget, ...wrongPick]);
     const card = el("div", "wt-card");
     const synthOn = Boolean(window.speechSynthesis);
     const head = el("p", "wt-quiz__title", conf.quizTitleReverseJa);
@@ -2768,17 +2855,8 @@
     );
     const grid = el("div", "wt-choices");
 
-    var jaPrompt = "";
-    if (hintHas) {
-      jaPrompt = normMeaningLabel(String(target.hintJa || ""));
-    } else {
-      jaPrompt = String(conf.quizReversePromptNoHintJa || "")
-        .replace(/\{n\}/g, String(originalQuizPositionForTarget(conf, target)))
-        .replace(/\{word\}/g, String(target.word).trim());
-    }
-
     const prBlock = el("div", "wt-text-quiz wt-text-quiz--reverse");
-    prBlock.appendChild(el("p", "wt-quiz__big-ja", jaPrompt));
+    prBlock.appendChild(el("p", "wt-quiz__big-ja", jaQ.prompt));
     if (synthOn) {
       var replayRev = el(
         "button",
@@ -2789,7 +2867,7 @@
       replayRev.addEventListener("click", function () {
         applyWordListenPenalty();
         refreshScoreHudIn(card, false);
-        speakWord(target.word);
+        speakWord(quizTarget.word);
       });
       prBlock.appendChild(replayRev);
     }
@@ -2800,7 +2878,11 @@
     setActiveWordScoreHud(card);
     card.appendChild(prBlock);
     card.appendChild(
-      el("p", "wt-audio-quiz__choices-hint", conf.quizReverseChoicesNoteJa)
+      el(
+        "p",
+        "wt-audio-quiz__choices-hint",
+        jaQ.choicesNote || conf.quizReverseChoicesNoteJa
+      )
     );
     card.appendChild(grid);
 
@@ -2821,7 +2903,7 @@
         const ok = normKey(opt.word) === keyT;
         if (ok) {
           applyCorrectAnswerPoints();
-          recordWordStat(String(target.word).trim(), true);
+          recordWordStat(String(quizTarget.word).trim(), true);
           b.classList.add("wt-choice--correct");
           b.disabled = true;
           grid.querySelectorAll(".wt-choice").forEach(function (x) {
@@ -2840,7 +2922,7 @@
           }
         } else {
           resetComboStreak();
-          recordWordStat(String(target.word).trim(), false);
+          recordWordStat(String(quizTarget.word).trim(), false);
           b.classList.add("wt-choice--wrong");
           grid.querySelectorAll(".wt-choice").forEach(function (x) {
             x.disabled = true;
