@@ -914,6 +914,59 @@
     }
   }
 
+  function resetSessionForHomeReturn() {
+    consecutivePerfectClears = 0;
+    audioQuizUnlocked = false;
+    listeningStreak = 0;
+    listeningCleared = false;
+    gameRoundScore = 0;
+    gameQuizStreak = 0;
+    gameQuizStreakRoundMax = 0;
+    grammarRoundScore = 0;
+    grammarStreak = 0;
+    grammarStreakRoundMax = 0;
+    grammarRoundTimeMs = 0;
+    grammarItemStartMs = 0;
+    grammarLastItemTimeMs = 0;
+    gameSessionTotal = 0;
+    gameSessionWordTotal = 0;
+    gameSessionGrammarTotal = 0;
+    playerLocked = false;
+    sessionUsedWordKeys.clear();
+    clearTimer();
+  }
+
+  async function navigateToHomeScreen(opts) {
+    opts = opts || {};
+    if (opts.confirmWhenLocked !== false && playerLocked) {
+      var ok = window.confirm(
+        opts.confirmMessage ||
+          "プレイ中です。はじめの画面に戻ると、このラウンドの進捗やセッション表示がリセットされます。\n戻りますか？"
+      );
+      if (!ok) return;
+    }
+    resetSessionForHomeReturn();
+    var ix = await loadLessonsIndex();
+    renderHome(ix);
+  }
+
+  function appendBackToHomeButton(parent, label) {
+    var btn = el(
+      "button",
+      "wt-btn wt-btn--ghost wt-btn--home-back",
+      label || "はじめの画面に戻る"
+    );
+    btn.type = "button";
+    btn.addEventListener("click", function () {
+      navigateToHomeScreen().catch(function (e) {
+        console.error(e);
+        showError("はじめの画面に戻れませんでした。");
+      });
+    });
+    parent.appendChild(btn);
+    return btn;
+  }
+
   /** ホーム：まず 中1/中2/中3/英会話 を選ぶ */
   function renderHome(indexJson) {
     if (!root) return;
@@ -1518,6 +1571,8 @@
         ws.nextRoundIntroJa || "",
       doneNextRoundJa: ws.doneNextRoundJa || "次の単語テスト",
       doneRestartFullJa: ws.doneRestartFullJa || "最初からやり直す",
+      doneBackToHomeJa: ws.doneBackToHomeJa || "はじめの画面に戻る",
+      mixedQuizBackToHomeJa: ws.mixedQuizBackToHomeJa || "はじめの画面に戻る",
       doneSubJa: doneSubJaConf || "",
       memoIntroJa:
         ws.memoIntroJa || "",
@@ -2588,6 +2643,7 @@
       renderMixedQuiz(conf, qs, 0, { correct: 0 });
     });
     actions.appendChild(retry);
+    appendBackToHomeButton(actions, conf.mixedQuizBackToHomeJa);
     card.appendChild(actions);
     root.appendChild(card);
   }
@@ -4033,6 +4089,12 @@
     if (hasText(gr.allDoneBodyJa)) {
       card.appendChild(el("p", "wt-lead", String(gr.allDoneBodyJa)));
     }
+    var grammarDoneActions = el("div", "wt-actions");
+    appendBackToHomeButton(
+      grammarDoneActions,
+      gr.allDoneBackToHomeJa || "はじめの画面に戻る"
+    );
+    card.appendChild(grammarDoneActions);
     root.appendChild(card);
   }
 
@@ -4183,6 +4245,7 @@
     const actions = el("div", "wt-actions");
     actions.appendChild(btnNext);
     actions.appendChild(btnFull);
+    appendBackToHomeButton(actions, conf.doneBackToHomeJa);
     card.appendChild(actions);
     root.appendChild(card);
   }
@@ -4330,39 +4393,14 @@
     if (saved) currentLessonPath = saved;
     if (homeBtn && !homeBtn.__wtHooked) {
       homeBtn.__wtHooked = true;
-      homeBtn.addEventListener("click", async function () {
-        try {
-          var ix = await loadLessonsIndex();
-          if (playerLocked) {
-            var ok = window.confirm(
-              "プレイ中です。学年選択に戻ると、このラウンドの進捗やセッション表示がリセットされます。\n戻りますか？"
-            );
-            if (!ok) return;
-            consecutivePerfectClears = 0;
-            audioQuizUnlocked = false;
-            listeningStreak = 0;
-            listeningCleared = false;
-            gameRoundScore = 0;
-            gameQuizStreak = 0;
-            gameQuizStreakRoundMax = 0;
-            grammarRoundScore = 0;
-            grammarStreak = 0;
-            grammarStreakRoundMax = 0;
-            grammarRoundTimeMs = 0;
-            grammarItemStartMs = 0;
-            grammarLastItemTimeMs = 0;
-            gameSessionTotal = 0;
-            gameSessionWordTotal = 0;
-            gameSessionGrammarTotal = 0;
-            playerLocked = false;
-            sessionUsedWordKeys.clear();
-            clearTimer();
-          }
-          renderHome(ix);
-        } catch (e) {
+      homeBtn.addEventListener("click", function () {
+        navigateToHomeScreen({
+          confirmMessage:
+            "プレイ中です。学年選択に戻ると、このラウンドの進捗やセッション表示がリセットされます。\n戻りますか？",
+        }).catch(function (e) {
           console.error(e);
           showError("学年選択に戻れませんでした。");
-        }
+        });
       });
     }
     renderTrackSelect(idx);
