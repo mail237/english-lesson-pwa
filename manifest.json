@@ -1,7 +1,7 @@
 {
   "name": "中学生の英語 — 単語テスト",
   "short_name": "中学生の英語",
-  "description": "中1〜中3・英会話から教材を選び、約30秒の学習と単語テスト。ホーム画面に追加して使えます。",
+  "description": "中1〜中3・英会話から教材を選び、約30秒の学習と単語テスト。iPhone・iPad の Safari からホーム画面に追加して使えます。",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#faf5ef",

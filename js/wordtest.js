@@ -979,6 +979,7 @@
     card.appendChild(
       el("p", "wt-lead", "学年を選ぶ → 教材を選ぶ → テスト開始")
     );
+    appendIpadInstallHint(card);
 
     var raw = indexJson && Array.isArray(indexJson.lessons) ? indexJson.lessons : [];
     var hasAny = raw.some(function (x) {
@@ -4259,6 +4260,70 @@
     return false;
   }
 
+  function isStandaloneDisplay() {
+    if (
+      window.matchMedia &&
+      window.matchMedia("(display-mode: standalone)").matches
+    ) {
+      return true;
+    }
+    return window.navigator.standalone === true;
+  }
+
+  function shouldShowIpadInstallHint() {
+    if (!isLikelyIOSBrowser()) return false;
+    if (isStandaloneDisplay()) return false;
+    try {
+      if (localStorage.getItem("wordtest-ipad-hint-dismissed") === "1") {
+        return false;
+      }
+    } catch (e) {
+      /* ignore */
+    }
+    return true;
+  }
+
+  function appendIpadInstallHint(parent) {
+    if (!parent || !shouldShowIpadInstallHint()) return;
+    var box = el("div", "wt-ipad-hint");
+    box.appendChild(el("p", "wt-ipad-hint__title", "iPad で使う"));
+    var steps = el("ol", "wt-ipad-hint__steps");
+    [
+      "Safari でこのページを開く",
+      "画面下の「共有（□↑）」を押す",
+      "「ホーム画面に追加」→ 追加",
+      "ホーム画面のアイコンから開く",
+    ].forEach(function (text) {
+      var li = document.createElement("li");
+      li.textContent = text;
+      steps.appendChild(li);
+    });
+    box.appendChild(steps);
+    box.appendChild(
+      el(
+        "p",
+        "wt-ipad-hint__note",
+        "追加するとアプリのように全画面で使えます。同じ Wi‑Fi の Mac から開く場合は、Mac のターミナルに表示された http://〜 の URL を Safari に貼り付けてください。"
+      )
+    );
+    var dismiss = el(
+      "button",
+      "wt-btn wt-btn--ghost wt-ipad-hint__dismiss",
+      "わかった"
+    );
+    dismiss.type = "button";
+    dismiss.addEventListener("click", function () {
+      try {
+        localStorage.setItem("wordtest-ipad-hint-dismissed", "1");
+      } catch (e) {
+        /* ignore */
+      }
+      box.remove();
+    });
+    box.appendChild(dismiss);
+    parent.appendChild(box);
+  }
+
   /** iPad などでは Service Worker まわりで よみこみがとまることが多いので オフにする */
   function shouldSkipServiceWorker() {
     if (new URLSearchParams(location.search).has("nosw")) return true;
@@ -4355,6 +4420,9 @@
   }
 
   async function start() {
+    if (isLikelyIOSBrowser()) {
+      document.body.classList.add("wt-ios");
+    }
     if (location.protocol === "file:") {
       showError(
         "index.html をダブルクリックで開いています（file://）。教材はサーバー経由で開いてください。ターミナルで english-lesson-pwa に移動し、python3 serve_lan.py --open を実行してから、表示される http://127.0.0.1:8765/ を開いてください（手順は OPEN.txt）。"

@@ -1464,3 +1464,80 @@ body {
   color: var(--accent-dark);
   line-height: 1.2;
 }
+
+/* iPad / タッチ端末 */
+.wt-ipad-hint {
+  margin: 0 0 1rem;
+  padding: 1rem 1.05rem;
+  border-radius: 14px;
+  border: 1px solid rgba(194, 65, 44, 0.22);
+  background: rgba(255, 240, 235, 0.85);
+}
+
+.wt-ipad-hint__title {
+  margin: 0 0 0.55rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent-dark);
+}
+
+.wt-ipad-hint__steps {
+  margin: 0 0 0.75rem;
+  padding-left: 1.25rem;
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.wt-ipad-hint__steps li + li {
+  margin-top: 0.35rem;
+}
+
+.wt-ipad-hint__note {
+  margin: 0 0 0.65rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.wt-ipad-hint__dismiss {
+  margin-top: 0;
+  max-width: 12rem;
+}
+
+@media (min-width: 768px) {
+  .wt-main {
+    max-width: 680px;
+    padding-top: 1.25rem;
+  }
+
+  .wt-btn {
+    max-width: 24rem;
+    min-height: 3.25rem;
+  }
+
+  .wt-btn--track {
+    min-height: 3.5rem;
+    font-size: 1.3rem;
+  }
+
+  .wt-choice {
+    min-height: 3.25rem;
+    font-size: 1.12rem;
+    padding: 1rem 1.15rem;
+  }
+
+  .wt-header__home {
+    min-height: 44px;
+    padding: 0.55rem 0.95rem;
+    font-size: 1rem;
+  }
+
+  .wt-track-grid {
+    gap: 1rem;
+  }
+}
+
+@media (pointer: coarse) {
+  .wt-footer {
+    display: none;
+  }
+}
